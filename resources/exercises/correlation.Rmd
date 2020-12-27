@@ -5,16 +5,20 @@ output:
   html_document: 
     css: markdown3.css
 ---
+<br>
 
+###### Getting RStudio Up and Running
+* [**Installing R/RStudio**](installing.html)
+* [**Getting Started with RStudio**](getting-started.html)
 
-###### Navigation
-
-* [**Intro to R**](Intro-and-Univariate-Statistics.html)
+###### Bivariate and Multivariate Tests in RStudio
 * [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html)
 * [**Analysis of Variance (ANOVA)**](anova.html) [[*ANOVA example*]](anova-example.html)
 * [**Chi Square**](chi-square.html) [[*Chi Square example*]](chi-square-example.html)
 * [**Correlation**](correlation.html) [[*Correlation example*]](correlation-example.html)
 * [**Regression**](regression.html) [[*Regression example*]](regression-example.html)
+<br><br>
+
 
 
 ### What is the correlation?
