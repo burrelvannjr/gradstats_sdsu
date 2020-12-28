@@ -345,6 +345,54 @@ range(data1$mpg, na.rm=T)
 ```
 
 # 
+### Recoding Values within a Variable
+
+If we wanted to recode values of a variable, we could do so using the <span style="color:blue">`recode`</span> function within the `car` package. Using the recode function, we need the name of the new variable we want to place in the data set, the name of the old variable we want to recode, and the recoded values.
+
+Let's say we wanted to recode the `cyl` variable. 
+
+```{r}
+unique(data1$cyl)
+
+```
+
+As can be seen, it currently has 3 unique values: 4, 6, and 8, which represent cars that are 4-cylinder, 6-cylinder, and 8-cylinder vehicles. Let's recode it into a binary variable (0,1) representing *whether or not* the car is a gas guzzler. 
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+library(car)
+```
+
+```{r}
+data1$gas_guzzler <- recode(data1$cyl, "4= 0; 6 = 1; 8 = 1")
+
+```
+
+As can be seen above, I've recoded the `cyl` variable into a new variable called `gas_guzzler`. As we can see, any observation (car) that is a 4-cylinder (has a value of 4 on the `cyl` variable) or a 6-cylinder (has a value of 6 on the `cyl` variable), was recoded as 0 on the new `gas_guzzler` variable. This means it is *not* a gas guzzler. Additionally, any observation (car) that is an 8-cylinder (has a value of 8 on the `cyl` variable) was recoded as 1 on the new `gas_guzzler` variable, meaning that it *is* a gas guzzler. 
+
+Importantly, any additional values that exist in the `cyl` variable, that you did not specify with a recode value, will be given an `NA` (missing) value. 
+
+```{r}
+unique(data1$gas_guzzler)
+
+```
+
+As seen above, we've successfully recoded this variable, from 3 unique values in the `cyl` variable, to 2 unique values in the `gas_guzzler` variable. 
+
+#
+
+#
+
+Additionally, you can use several different calls within the recode function. Including the:
+concatenate (`c()`) function to create a list of values to recode, the `lo:` function (where you tell R to recode from the lowest value to whatever value follows the colon), the `:hi` function (where you tell R to recode from whatever value precedes the colon to the highest value), and the `else` function to recode everything else you missed as a specific value (rather than an `NA` missing value). 
+
+#
+
+```{r}
+data1$type <- recode(data1$cyl, "c(4,6) = 0; 8 = 1")
+data1$type2 <- recode(data1$cyl, "lo:6 = 0; 8:hi = 1")
+data1$type3 <- recode(data1$cyl, "4 = 0; 6 = 0; 8 = 1; else = 1")
+
+```
 
 
 ### Assessing Normality by Using Visualizations
