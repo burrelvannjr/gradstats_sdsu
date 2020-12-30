@@ -388,8 +388,14 @@ summary {
 <li><a href="getting-started.html"><strong>Getting Started with RStudio</strong></a></li>
 </ul>
 </div>
-<div id="bivariate-and-multivariate-tests-in-rstudio" class="section level6">
-<h6>Bivariate and Multivariate Tests in RStudio</h6>
+<div id="univariate-statistics-and-assessing-normality" class="section level6">
+<h6>Univariate Statistics and Assessing Normality</h6>
+<ul>
+<li><a href="univariate-normality.html"><strong>Univariate Statistics &amp; Normality</strong></a></li>
+</ul>
+</div>
+<div id="bivariate-and-multivariate-statistics" class="section level6">
+<h6>Bivariate and Multivariate Statistics</h6>
 <ul>
 <li><a href="t-test.html"><strong>t-Test</strong></a> <a href="t-test-example.html">[<em>t-Test example</em>]</a></li>
 <li><a href="anova.html"><strong>Analysis of Variance (ANOVA)</strong></a> <a href="anova-example.html">[<em>ANOVA example</em>]</a></li>
@@ -398,6 +404,8 @@ summary {
 <li><a href="regression.html"><strong>Regression</strong></a> <a href="regression-example.html">[<em>Regression example</em>]</a> <br><br></li>
 </ul>
 </div>
+<div id="section" class="section level1">
+<h1></h1>
 <div id="is-there-a-mean-difference-in-monthly-income-across-different-racial-groups" class="section level3">
 <h3>Is there a mean difference in monthly income across different racial groups?</h3>
 <div id="the-analysis-of-variance-anova" class="section level4">
@@ -406,7 +414,8 @@ summary {
 <p>For this example, the ANOVA works because we have have four groups (black, white, latinx, and other), and we’re examining each group’s mean monthly income to see if there is a true difference in income amongst racial groups in the population.</p>
 </div>
 </div>
-<div id="section" class="section level1">
+</div>
+<div id="section-1" class="section level1">
 <h1></h1>
 <pre class="r"><code>library(MASS)
 library(psych)
@@ -416,7 +425,7 @@ library(mosaic)
 library(gplots)
 library(stats)</code></pre>
 </div>
-<div id="section-1" class="section level1">
+<div id="section-2" class="section level1">
 <h1></h1>
 <div id="reading-in-the-data" class="section level4">
 <h4>Reading in the Data</h4>
@@ -556,14 +565,14 @@ inc &lt;- c(3670, 3132, 3798, 3929, 3203, 6628, 4702, 4264, 4063, 4847, 2239, 31
 </div>
 </div>
 </div>
-<div id="section-2" class="section level1">
+<div id="section-3" class="section level1">
 <h1></h1>
 </div>
-<div id="section-3" class="section level1">
+<div id="section-4" class="section level1">
 <h1></h1>
 <p>To tell if a variable is normally-distrubted using the box-and-whisker plot, generally, we want to see that there is <em>some</em> distance between the box and the end of the whiskers, that the box isn’t pushed too close to either whisker, that the median line (dot) is near the center of the box, and that there aren’t many outliers (dots) on the outside of the whiskers.</p>
 </div>
-<div id="section-4" class="section level1">
+<div id="section-5" class="section level1">
 <h1></h1>
 <p>To plot a boxplot of <em>Monthly Income</em>, broken out by <em>Race</em>, we can do the following…</p>
 <pre class="r"><code>bwplot(~ inc | factor(race), data = data, pch=&quot;|&quot;, main = &quot;Bar-and-Whisker Plot of &#39;Monthly Income&#39; by &#39;Race&#39;&quot;)</code></pre>
@@ -572,7 +581,7 @@ inc &lt;- c(3670, 3132, 3798, 3929, 3203, 6628, 4702, 4264, 4063, 4847, 2239, 31
 <li><span style="color:red">We can see from the boxplots that for the black and other groups are somewhat normally distributed. The data for latinx and white individuals, however, possesses some outliers, and the median falls near or on the edge of the interquartile range. In addition, the minimum and maximum scores are missing for latinx individuals while the maximum is missing for white individuals (rather, those scores are read as extremes or outliers). These plots may give us some pause in proceeding. In many cases, finding distributions like this would warrant further data collection (e.g. there may be too few cases in this sample, which is why many are perceived as outliers). However, for this example, the data seem <em>normal enough</em>. It is safe to assume that these data are close enough to normal, since they aren’t <em>drastically</em> different from normal, and therefore safe to proceed with the statistical test.</span> <br></li>
 </ul>
 </div>
-<div id="section-5" class="section level1">
+<div id="section-6" class="section level1">
 <h1></h1>
 <div id="c.-normal-q-q-quantile-quantile-plots" class="section level5">
 <h5>4c. Normal Q-Q (Quantile-Quantile) Plots</h5>

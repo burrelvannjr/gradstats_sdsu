@@ -388,8 +388,14 @@ summary {
 <li><a href="getting-started.html"><strong>Getting Started with RStudio</strong></a></li>
 </ul>
 </div>
-<div id="bivariate-and-multivariate-tests-in-rstudio" class="section level6">
-<h6>Bivariate and Multivariate Tests in RStudio</h6>
+<div id="univariate-statistics-and-assessing-normality" class="section level6">
+<h6>Univariate Statistics and Assessing Normality</h6>
+<ul>
+<li><a href="univariate-normality.html"><strong>Univariate Statistics &amp; Normality</strong></a></li>
+</ul>
+</div>
+<div id="bivariate-and-multivariate-statistics" class="section level6">
+<h6>Bivariate and Multivariate Statistics</h6>
 <ul>
 <li><a href="t-test.html"><strong>t-Test</strong></a> <a href="t-test-example.html">[<em>t-Test example</em>]</a></li>
 <li><a href="anova.html"><strong>Analysis of Variance (ANOVA)</strong></a> <a href="anova-example.html">[<em>ANOVA example</em>]</a></li>
@@ -398,6 +404,8 @@ summary {
 <li><a href="regression.html"><strong>Regression</strong></a> <a href="regression-example.html">[<em>Regression example</em>]</a> <br><br></li>
 </ul>
 </div>
+<div id="section" class="section level1">
+<h1></h1>
 <div id="is-there-a-relationship-between-a-persons-jealousy-and-their-self-esteem" class="section level3">
 <h3>Is there a relationship between a person’s jealousy and their self-esteem?</h3>
 </div>
@@ -406,14 +414,15 @@ summary {
 <p>The correlation (<span class="math inline">\(r\)</span>) or Pearson’s product-moment correlation coefficient examines the relationship between two interval-ratio variables to see if the relationship reflects a true relationship that we could expect to find in the population. The test also tells us the <strong>strength</strong> (weak, moderate, strong) and <strong>direction</strong> (positive, negative) of that relationship. Rarely, we will see a non-relationship or a perfect relationship.</p>
 <p>For this example, the correlation works perfectly because we’re looking at how a person’s self-esteem (a scale ranging from 1 – low self-esteem to 50 – high self-esteem), an interval-ratio level variable, is related to that person’s level of jealousy (a scale ranging from 50 – low jealousy to 150 – high jealousy), another interval-ratio variable, to see if there is a true relationship that would exist in the population.</p>
 </div>
-<div id="section" class="section level1">
+</div>
+<div id="section-1" class="section level1">
 <h1></h1>
 <pre class="r"><code>library(MASS)
 library(psych)
 library(lattice)
 library(mosaic)</code></pre>
 </div>
-<div id="section-1" class="section level1">
+<div id="section-2" class="section level1">
 <h1></h1>
 <div id="the-data" class="section level4">
 <h4>The Data</h4>
@@ -423,7 +432,7 @@ library(mosaic)</code></pre>
 <p><strong>Jealousy</strong>: <span style="color:blue"><code>79, 104, 113, 94, 143, 88, 81, 48, 105, 115, 81, 87, 58, 113, 119, 111, 109, 108, 119, 133</code></span>.</p>
 </div>
 </div>
-<div id="section-2" class="section level1">
+<div id="section-3" class="section level1">
 <h1></h1>
 <div id="reading-in-the-data" class="section level4">
 <h4>Reading in the Data</h4>
@@ -577,7 +586,7 @@ abline(lm(data$jealousy~data$esteem), col=&quot;Blue&quot;) # regression line (y
 </div>
 </div>
 </div>
-<div id="section-3" class="section level1">
+<div id="section-4" class="section level1">
 <h1></h1>
 <div id="the-correlation-test-calculation" class="section level3">
 <h3>The Correlation Test Calculation</h3>

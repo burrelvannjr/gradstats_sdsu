@@ -11,7 +11,10 @@ output:
 * [**Installing R/RStudio**](installing.html)
 * [**Getting Started with RStudio**](getting-started.html)
 
-###### Bivariate and Multivariate Tests in RStudio
+###### Univariate Statistics and Assessing Normality
+* [**Univariate Statistics & Normality**](univariate-normality.html)
+
+###### Bivariate and Multivariate Statistics
 * [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html)
 * [**Analysis of Variance (ANOVA)**](anova.html) [[*ANOVA example*]](anova-example.html)
 * [**Chi Square**](chi-square.html) [[*Chi Square example*]](chi-square-example.html)
@@ -19,6 +22,7 @@ output:
 * [**Regression**](regression.html) [[*Regression example*]](regression-example.html)
 <br><br>
 
+#
 
 
 ### What is the Analysis of Variance (ANOVA)?

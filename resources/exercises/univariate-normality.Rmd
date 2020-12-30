@@ -1,0 +1,353 @@
+---
+title: "Getting Started with RStudio"
+author: "Burrel Vann Jr"
+output: 
+  html_document: 
+    css: markdown3.css
+---
+<br>
+
+###### Getting RStudio Up and Running
+* [**Installing R/RStudio**](installing.html)
+* [**Getting Started with RStudio**](getting-started.html)
+
+###### Univariate Statistics and Assessing Normality
+* [**Univariate Statistics & Normality**](univariate-normality.html)
+
+###### Bivariate and Multivariate Statistics
+* [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html)
+* [**Analysis of Variance (ANOVA)**](anova.html) [[*ANOVA example*]](anova-example.html)
+* [**Chi Square**](chi-square.html) [[*Chi Square example*]](chi-square-example.html)
+* [**Correlation**](correlation.html) [[*Correlation example*]](correlation-example.html)
+* [**Regression**](regression.html) [[*Regression example*]](regression-example.html)
+<br><br>
+
+#
+
+
+
+### Univariate Statistics
+
+There are various ways to call a number of univariate statistics in R. As social scientists, the main univariate statistics we are concerned with are the mean, median, standard deviation, minimum, maximum, and range. The stock R program comes with the <span style="color:blue">`summary`</span> function, which, unfortunately, does not provide the *some* measures. Therefore, we use the <span style="color:blue">`describe`</span> function from the <span style="color:blue">`psych`</span> package. We can call univariate statistics for both the full data set and a specific variable.
+
+First, let's load the packages as libraries
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+library(MASS)
+library(psych)
+library(lattice)
+library(mosaic)
+library(car)
+```
+
+And create the `data1` object out of the `mtcars` data. 
+
+```{r}
+data1 <- mtcars
+```
+
+
+
+#
+
+For the full data set, we can call univariate statistics as such... 
+
+```{r}
+describe(data1)
+```
+
+#
+
+Whereas, for a specific variable, we can call univariate statistics as such...
+
+```{r}
+describe(data1$mpg)
+```
+
+#
+
+In addition, we can call univariate statistics for a variable but broken out by groups/categories of another variable. Note, this is the first step towards bivarate statistics (looking at the relationship between two variables). We do this by using the <span style="color:blue">`describeBy`</span> function, where we list the main variable first, and the grouping/category variable second... as such... 
+
+```{r}
+describeBy(data1$mpg, data1$cyl)
+```
+
+#
+Above, we can see that the mean miles per gallon differs by the number of cylinders in a car (e.g. cars with lower cylinders have, on average, higher miles per gallon).
+
+#
+
+#
+
+#### A Note on Skewness and Kurtosis
+
+**Skewness** is the measure of how close or far a distribution is from symmetry (the normal curve). It measures the clustering of scores along the X-axis, with regard to the position of the mode, median, and mean. **Kurtosis** is a measure of the *peakedness* of the distribution - how high or low the distribution is on the Y-axis, and how different it is from mesokurtic (e.g. middle kurtosis, or the normal curve).
+
+#
+
+Skewness ranges from $-\infty$ to $\infty$. The sign indicates the type of skew, with $-$ indicating negative skewness, $+$ indicating positive skewness, and 0 indicating *no* skew... (AKA symmetry, AKA the normal curve). The cutoffs for skewness are as follows:
+
+High: $\geq |1|$
+
+Moderate: $|1| \geq x \geq |.5|$
+
+Low: $|.5| \geq x \geq |0|$
+
+#
+#
+
+Statisticians have developed a kurtosis measure that represents *excess* kurtosis beyond the normal curve (*although typical kurtosis ranges from 1 to $+ \infty$*). This measure ranges from $-2$ to $+ \infty$. Using this metric, we know that, generally, negative values represent platykurtic distributions and positive values indicate leptokurtic distributions. Distributions close to a kurtosis value of 0 are considered mesokurtic. We use cutoffs to indicate types of kurtosis, as follows...
+
+Platykurtic: $0 \geq x \geq -2$
+
+Mesokurtic: $1 \geq x \geq 0$
+
+Leptokurtic: $+ \infty \geq x \geq 1$
+
+
+#
+
+# 
+
+#### Calling Specific Univariate Statistics
+
+Beyond using the <span style="color:blue">`describe`</span> function, you can call singular desired univariate statistics. Here, we'll ask for a specific univariate statistic, one at a time, for the <span style="color:blue">`mpg`</span> variable.
+
+#
+
+Below, we've added the option for <span style="color:blue">`, na.rm=T`</span> (alternatively, <span style="color:blue">`, na.rm=TRUE`</span>), meaning that if data or observations are missing/NA for the variables we're working with, we still want R to calculate the statistic for the non-missing cases by removing those missing cases (NAs), select TRUE. 
+
+
+```{r}
+mean(data1$mpg, na.rm=T)
+median(data1$mpg, na.rm=T)
+sd(data1$mpg, na.rm=T)
+min(data1$mpg, na.rm=T)
+max(data1$mpg, na.rm=T)
+range(data1$mpg, na.rm=T)
+```
+
+
+
+### Assessing Normality by Using Visualizations
+
+#### Histograms
+
+In addition, you can create a visual representation (plot) of univariate data using a histogram. For quickly plotting the histogram of one variable, we can use R's stock <span style="color:blue">`hist`</span> function, as such...
+
+```{r}
+hist(data1$mpg) 
+```
+
+#
+
+However, as we begin to move into analyzing bivariate relationships, we may find it necessary to visualize histograms by overlaying normal curves (to demonstrate normality) or to break out the histogram by levels or categories of different variables (to demonstrate within group normality). As such, we should rely on the <span style="color:blue">`histogram`</span> function from the <span style="color:blue">`lattice`</span> package to plot a histogram.
+
+```{r}
+histogram(~ mpg, data = data1, main = "Histogram of 'Miles per Gallon'", type = "count") 
+```
+
+This should look *similar* to the plot produced by the <span style="color:blue">`hist`</span> function, but it differs in that we can do much more... such as plotting the histogram with a normal curve overlaid, including the placement of the mean. 
+
+#
+```{r}
+histogram(~ mpg, data = data1, main = "Histogram of 'Miles per Gallon'", 
+          type = "density", 
+          panel=function(x, ...) {
+            panel.histogram(x, ...)
+            panel.abline(v=mean(x, na.rm = TRUE),col="red")
+            panel.mathdensity(dmath=dnorm, col="black", 
+                              args=list(mean=mean(x, na.rm = TRUE),
+                                        sd=sd(x, na.rm = TRUE)), ...)            
+          }) 
+```
+
+
+
+Or plotting the histogram for mpg broken out by cylinders... However, because the cylinder variable isn't *technically* measured as a grouping (nominal or ordinal) variable, we have to tell R to *treat* it as a grouping variable by using the <span style="color:blue">`factor`</span> function. (This is a good habit to start, however.)  
+
+```{r}
+histogram(~ mpg | factor(cyl), data = data1, type = "count", main = "Histogram of 'Miles per Gallon' by 'Cylinder'")
+```
+
+#
+
+
+
+
+#### Boxplots (Box-and-Whisker Plots)
+
+Boxplots also provide a visual representation of the normality of a distribution. The boxplot has a box, a line through the box, two whiskers on either end of the box, and sometimes dots/points outside the whiskers. Below, we get a sense of what each part of the boxplot represents...
+
++ Bottom (or left end) of the **whisker** represents the minimum score for that variable's distribution
++ Bottom (or left end) of the **box** represents the first quartile (the 25th percentile case)
++ Middle line (or dot) inside the **box** represents the median, also known as the second quartile (the 50th percentile case)
++ Top (or right end) of the **box** represents the third quartile (the 75th percentile case)
++ Top (or right end) of the **whisker** represents the maximum score for that variable's distribution
++ Outside dots represent outliers - extreme high or extreme low values for that variable. 
+
+#
+#
+
+To tell if a variable is normally-distributed using the box-and-whisker plot, generally, we want to see that there is *some* distance between the box and the end of the whiskers, that the box isn't pushed too close to either whisker, that the median line (dot) is near the center of the box, and that there aren't many outliers (dots) on the outside of the whiskers.
+
+#
+
+
+To plot a boxplot, we use the following... (notice that when you're plotting one variable, the plot is displayed horizontally).
+
+
+
+<!-- bwplot(~mpg, data = data1, pch="|") -->
+
+
+```{r}
+boxplot(data1$mpg)
+```
+
+#
+
+Further, to break this distribution out by **Cylinder** (making Cylinder a factor variable), we can do the following...
+
+
+
+<!-- bwplot(~mpg | factor(cyl), data = data1, pch="|") -->
+
+
+```{r}
+boxplot(data1$mpg~data1$cyl)
+```
+
+
+#
+...and you could also include options to beautify your plot, like adding a main title, using the <span style="color:blue">`main"`</span> call (e.g. <span style="color:blue">`main = "MAIN PLOT TITLE"`</span>), or change the text of the x-axis by including the <span style="color:blue">`xlab`</span> call (e.g. <span style="color:blue">`xlab = "X AXIS TITLE"`</span>).
+
+```
+bwplot(~mpg | factor(cyl), data = data1, pch="|", main = "Bar-and-Whisker Plot of 'mpg' by 'Cylinder'", xlab = "Miles Per Gallon")
+
+```
+
+#
+#
+#
+
+#### Normal Q-Q (Quantile-Quantile) Plots
+
+Much as in the above, we want to assess whether or not our variable follows the normal distribution. As such, the quantile-quantile plot is a visual tool to help us figure out if the empirical distribution of our variable fits (or rather, comes from) a theoretical normal distribution.
+
+We fit a plot of our data/variable (usually on the Y-axis) against ``theoretical data'' that should occur if the data came from a normal distribution (e.g. Expected Normal on the X-axis). If our data actually fit a normal curve, then the dots on the plot should follow a straight line, or be reasonably close to the line plotted. 
+
+Below, we can assess normality to determine whether our variable follows a normal distribution, as such... 
+
+```{r}
+xqqmath(~mpg, data=data1, fitline = TRUE)
+```
+
+#
+
+
+
+
+Additionally, we can break this plot out by another grouping variable. 
+
+```{r}
+xqqmath(~mpg | factor(cyl), data=data1, fitline = TRUE)
+```
+
+#
+
+you can also include various label options... 
+
+```
+xqqmath(~mpg | factor(cyl), data=data1, fitline = TRUE, main = "Normal Q-Q Plot of 'Wr.Hnd' by 'Cylinder'", xlab = "Expected Normal")
+```
+
+#
+
+
+### Working with Random, Normally-Distributed Data
+
+R also has a number of functions that work to create random data. To create random, normally-distributed data, use the <span style="color:blue">`rnorm`</span> function, which takes a maximum of three arguments. It should look something like this <span style="color:blue">`rnorm(100,0,1)`</span>, where the first number (here, <span style="color:blue">`100`</span>) represents the number of cases or data points you want in your random normally-distributed data. The second argument/number (here <span style="color:blue">`0`</span>) is the mean that you want your data to have. The third number/argument (here <span style="color:blue">`1`</span>) is the standard deviation that you want your data to have. 
+
+Note that the <span style="color:blue">`rnorm`</span> function takes a maximum of three arguments -- and it takes a minimum of one argument (the number of cases/data points). The default settings for the <span style="color:blue">`rnorm`</span> function is mean of 0 and a standard deviation of 1. This means that <span style="color:blue">`rnorm(100)`</span> and <span style="color:blue">`rnorm(100,0,1)`</span> will output similar means and standard deviations. Similar, not the exact same, because these data are *randomly* generated, so the values of the data points will vary a bunch but still have a mean of 0 and standard deviation of 1. 
+
+```{r, results="hide"}
+rnorm(100,0,1)
+rnorm(100)
+```
+
+# 
+
+Obviously, you can alter the number of cases involved.
+
+# 
+
+
+```{r}
+rnorm(10)
+```
+
+# 
+
+or...
+
+# 
+
+```{r}
+rnorm(100)
+```
+
+# 
+
+or even...
+
+# 
+
+```{r, results="hide"}
+rnorm(1000)
+```
+(output supressed)
+
+# 
+
+You can also use the assignment operator <span style="color:blue">`<-`</span> to assign the values of the <span style="color:blue">`rnorm`</span> function to an object:
+
+```{r}
+ten<-rnorm(10)
+hundred<-rnorm(100)
+thousand<-rnorm(1000)
+```
+
+# 
+
+Then you can run univariate statistics on those data, and even create a histogram for the data:
+
+# 
+
+```{r}
+mean(thousand)
+median(thousand)
+sd(thousand)
+min(thousand)
+max(thousand)
+range<-max(thousand)-min(thousand)
+range
+hist(thousand)
+```
+
+# 
+# 
+
+Finally, you can see how histograms differ when all you do is alter the number of cases:
+
+```{r}
+hist(ten)
+hist(hundred)
+hist(thousand)
+```
+
+So now you know that the more cases/data points you have, the more your data will mimic the normal distribution (bell curve).
+
+
+
+<br><br><br>

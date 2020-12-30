@@ -388,8 +388,14 @@ summary {
 <li><a href="getting-started.html"><strong>Getting Started with RStudio</strong></a></li>
 </ul>
 </div>
-<div id="bivariate-and-multivariate-tests-in-rstudio" class="section level6">
-<h6>Bivariate and Multivariate Tests in RStudio</h6>
+<div id="univariate-statistics-and-assessing-normality" class="section level6">
+<h6>Univariate Statistics and Assessing Normality</h6>
+<ul>
+<li><a href="univariate-normality.html"><strong>Univariate Statistics &amp; Normality</strong></a></li>
+</ul>
+</div>
+<div id="bivariate-and-multivariate-statistics" class="section level6">
+<h6>Bivariate and Multivariate Statistics</h6>
 <ul>
 <li><a href="t-test.html"><strong>t-Test</strong></a> <a href="t-test-example.html">[<em>t-Test example</em>]</a></li>
 <li><a href="anova.html"><strong>Analysis of Variance (ANOVA)</strong></a> <a href="anova-example.html">[<em>ANOVA example</em>]</a></li>
@@ -398,6 +404,8 @@ summary {
 <li><a href="regression.html"><strong>Regression</strong></a> <a href="regression-example.html">[<em>Regression example</em>]</a> <br><br></li>
 </ul>
 </div>
+<div id="section" class="section level1">
+<h1></h1>
 <div id="is-there-a-mean-difference-in-the-number-of-beers-undergraduate-students-versus-graduate-students-have-in-their-home-refrigerator" class="section level3">
 <h3>Is there a mean difference in the number of beers undergraduate students versus graduate students have in their home refrigerator?</h3>
 <div id="the-t-test" class="section level4">
@@ -406,14 +414,15 @@ summary {
 <p>For this example, the t-test works perfectly because we have only two groups (undergraduate students and graduate students), and we’re examining each group’s mean number of beers in their home fridge to see if there is a true difference between “beers in fridge” amongst the population of undergraduate and graduate students.</p>
 </div>
 </div>
-<div id="section" class="section level1">
+</div>
+<div id="section-1" class="section level1">
 <h1></h1>
 <pre class="r"><code>library(MASS)
 library(psych)
 library(lattice)
 library(mosaic)</code></pre>
 </div>
-<div id="section-1" class="section level1">
+<div id="section-2" class="section level1">
 <h1></h1>
 <div id="the-data" class="section level4">
 <h4>The Data</h4>
@@ -422,7 +431,7 @@ library(mosaic)</code></pre>
 <p><strong>Grads</strong>: <span style="color:blue"><code>1, 6, 17, 9, 2, 0, 8, 4, 7, 3</code></span>.</p>
 </div>
 </div>
-<div id="section-2" class="section level1">
+<div id="section-3" class="section level1">
 <h1></h1>
 <div id="reading-in-the-data" class="section level4">
 <h4>Reading in the Data</h4>
@@ -542,14 +551,14 @@ beers &lt;- c(3, 0, 2, 1, 5, 9, 2, 0, 5, 2, 1, 6, 17, 9, 2, 0, 8, 4, 7, 3)</code
 </div>
 </div>
 </div>
-<div id="section-3" class="section level1">
+<div id="section-4" class="section level1">
 <h1></h1>
 </div>
-<div id="section-4" class="section level1">
+<div id="section-5" class="section level1">
 <h1></h1>
 <p>To tell if a variable is normally-distrubted using the box-and-whisker plot, generally, we want to see that there is <em>some</em> distance between the box and the end of the whiskers, that the box isn’t pushed too close to either whisker, that the median line (dot) is near the center of the box, and that there aren’t many outliers (dots) on the outside of the whiskers.</p>
 </div>
-<div id="section-5" class="section level1">
+<div id="section-6" class="section level1">
 <h1></h1>
 <p>To plot a boxplot of <em>Beers</em>, broken out by <em>Student Type</em>, we can do the following…</p>
 <pre class="r"><code>bwplot(~ beers | factor(level), data = data, pch=&quot;|&quot;, main = &quot;Bar-and-Whisker Plot of &#39;Beers&#39; by &#39;Student Type&#39;&quot;)</code></pre>
@@ -558,7 +567,7 @@ beers &lt;- c(3, 0, 2, 1, 5, 9, 2, 0, 5, 2, 1, 6, 17, 9, 2, 0, 8, 4, 7, 3)</code
 <li><span style="color:red">We can see from the boxplot that for both group distributions of the outcome variable (beers), the data are somewhat normally distributed. For both grads and undergrads, the interquartile range is closer to the lower end of the distribution rather than the middle. Importantly, while the median is in the center of the IQR for graduates, it is off-center and closer to the 25<span class="math inline">\(^{th}\)</span> percentile for undergraduates. Despite these trends, it is safe to assume that these data are close enough to normal, since they aren’t <em>drastically</em> different from normal, and therefore safe to proceed with the statistical test.</span> <br></li>
 </ul>
 </div>
-<div id="section-6" class="section level1">
+<div id="section-7" class="section level1">
 <h1></h1>
 <div id="c.-normal-q-q-quantile-quantile-plots" class="section level5">
 <h5>4c. Normal Q-Q (Quantile-Quantile) Plots</h5>

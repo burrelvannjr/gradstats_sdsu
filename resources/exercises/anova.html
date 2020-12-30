@@ -388,8 +388,14 @@ summary {
 <li><a href="getting-started.html"><strong>Getting Started with RStudio</strong></a></li>
 </ul>
 </div>
-<div id="bivariate-and-multivariate-tests-in-rstudio" class="section level6">
-<h6>Bivariate and Multivariate Tests in RStudio</h6>
+<div id="univariate-statistics-and-assessing-normality" class="section level6">
+<h6>Univariate Statistics and Assessing Normality</h6>
+<ul>
+<li><a href="univariate-normality.html"><strong>Univariate Statistics &amp; Normality</strong></a></li>
+</ul>
+</div>
+<div id="bivariate-and-multivariate-statistics" class="section level6">
+<h6>Bivariate and Multivariate Statistics</h6>
 <ul>
 <li><a href="t-test.html"><strong>t-Test</strong></a> <a href="t-test-example.html">[<em>t-Test example</em>]</a></li>
 <li><a href="anova.html"><strong>Analysis of Variance (ANOVA)</strong></a> <a href="anova-example.html">[<em>ANOVA example</em>]</a></li>
@@ -398,11 +404,14 @@ summary {
 <li><a href="regression.html"><strong>Regression</strong></a> <a href="regression-example.html">[<em>Regression example</em>]</a> <br><br></li>
 </ul>
 </div>
+<div id="section" class="section level1">
+<h1></h1>
 <div id="what-is-the-analysis-of-variance-anova" class="section level3">
 <h3>What is the Analysis of Variance (ANOVA)?</h3>
 <p>The ANOVA test examines the differences in means between <strong>three or more</strong> groups, in effort to see if the differences reflect true differences that we could expect to find in the population. The resulting test calculates an F value.</p>
 </div>
-<div id="section" class="section level1">
+</div>
+<div id="section-1" class="section level1">
 <h1></h1>
 <pre class="r"><code>library(MASS)
 library(psych)
@@ -412,7 +421,7 @@ library(mosaic)
 library(gplots)
 library(stats)</code></pre>
 </div>
-<div id="section-1" class="section level1">
+<div id="section-2" class="section level1">
 <h1></h1>
 <div id="assumptions-and-diagnostics-for-the-anova" class="section level4">
 <h4>Assumptions and Diagnostics for the ANOVA</h4>
@@ -478,7 +487,7 @@ library(stats)</code></pre>
 </div>
 </div>
 </div>
-<div id="section-2" class="section level1">
+<div id="section-3" class="section level1">
 <h1></h1>
 <p>…next, overlay a normal curve…</p>
 <pre class="r"><code>histogram(~ mpg | factor(cyl), data = data1, main = &quot;Histogram of &#39;Miles per Gallon&#39; by &#39;Number of Cylinders&#39;&quot;, 
@@ -504,14 +513,14 @@ library(stats)</code></pre>
 </ul>
 </div>
 </div>
-<div id="section-3" class="section level1">
+<div id="section-4" class="section level1">
 <h1></h1>
 </div>
-<div id="section-4" class="section level1">
+<div id="section-5" class="section level1">
 <h1></h1>
 <p>To tell if a variable is normally-distrubted using the box-and-whisker plot, generally, we want to see that there is <em>some</em> distance between the box and the end of the whiskers, that the box isn’t pushed too close to either whisker, that the median line (dot) is near the center of the box, and that there aren’t many outliers (dots) on the outside of the whiskers.</p>
 </div>
-<div id="section-5" class="section level1">
+<div id="section-6" class="section level1">
 <h1></h1>
 <p>To plot a boxplot, broken out by <em>Number of Cylinders in a Car</em>, we can do the following…</p>
 <pre class="r"><code>bwplot(~mpg | factor(cyl), data = data1, pch=&quot;|&quot;, main = &quot;Bar-and-Whisker Plot of &#39;Miles per Gallon&#39; by &#39;Number of Cylinders&#39;&quot;)</code></pre>
