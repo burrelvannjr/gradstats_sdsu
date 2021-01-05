@@ -35,7 +35,9 @@ First, let's load the packages as libraries
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(vannstats)
+library(lattice)
+library(mosaic)
+library(car)
 ```
 
 And create the `data1` object out of the `mtcars` data. 
@@ -131,32 +133,41 @@ range(data1$mpg, na.rm=T)
 
 #### Histograms
 
-In addition, you can create a visual representation (plot) of univariate data using a histogram. For quickly plotting the histogram of one variable, and to overlay a normal curve on our histogram, we can use the <span style="color:blue">`hst`</span> function from the `vannstats` package.
-
-The <span style="color:blue">`hst`</span> function for plotting one variable (e.g. not broken out by categories of another variable) takes two arguments:
-
-1. the `data set name`
-2. `variable name` for the variable of interest
-
-as such...
+In addition, you can create a visual representation (plot) of univariate data using a histogram. For quickly plotting the histogram of one variable, we can use R's stock <span style="color:blue">`hist`</span> function, as such...
 
 ```{r}
-hst(data1, mpg) 
+hist(data1$mpg) 
 ```
 
 #
 
-However, as we begin to move into analyzing bivariate relationships, we may find it necessary to visualize histograms by breaking them out by levels or categories of different variables. 
-
-To plot the histogram for mpg broken out by cylinders... use the same <span style="color:blue">`hst`</span> function, from the `vannstats` package, and simply add a third (and even up to a fourth argument): 
-
-1. the `data set name`
-2. `variable name` for the variable of interest
-3. `(first) grouping variable name`
-4. `(second) grouping variable name`
+However, as we begin to move into analyzing bivariate relationships, we may find it necessary to visualize histograms by overlaying normal curves (to demonstrate normality) or to break out the histogram by levels or categories of different variables (to demonstrate within group normality). As such, we should rely on the <span style="color:blue">`histogram`</span> function from the <span style="color:blue">`lattice`</span> package to plot a histogram.
 
 ```{r}
-hst(data1, mpg, cyl)
+histogram(~ mpg, data = data1, main = "Histogram of 'Miles per Gallon'", type = "count") 
+```
+
+This should look *similar* to the plot produced by the <span style="color:blue">`hist`</span> function, but it differs in that we can do much more... such as plotting the histogram with a normal curve overlaid, including the placement of the mean. 
+
+#
+```{r}
+histogram(~ mpg, data = data1, main = "Histogram of 'Miles per Gallon'", 
+          type = "density", 
+          panel=function(x, ...) {
+            panel.histogram(x, ...)
+            panel.abline(v=mean(x, na.rm = TRUE),col="red")
+            panel.mathdensity(dmath=dnorm, col="black", 
+                              args=list(mean=mean(x, na.rm = TRUE),
+                                        sd=sd(x, na.rm = TRUE)), ...)            
+          }) 
+```
+
+
+
+Or plotting the histogram for mpg broken out by cylinders... However, because the cylinder variable isn't *technically* measured as a grouping (nominal or ordinal) variable, we have to tell R to *treat* it as a grouping variable by using the <span style="color:blue">`factor`</span> function. (This is a good habit to start, however.)  
+
+```{r}
+histogram(~ mpg | factor(cyl), data = data1, type = "count", main = "Histogram of 'Miles per Gallon' by 'Cylinder'")
 ```
 
 #
@@ -168,11 +179,11 @@ hst(data1, mpg, cyl)
 
 Boxplots also provide a visual representation of the normality of a distribution. The boxplot has a box, a line through the box, two whiskers on either end of the box, and sometimes dots/points outside the whiskers. Below, we get a sense of what each part of the boxplot represents...
 
-+ Bottom (or left end) of the **whisker** represents the minimum score for that variable's distribution, or, more appropriately, a distance below the mean that is 1.5x the size of the interquartile range (IQR)
++ Bottom (or left end) of the **whisker** represents the minimum score for that variable's distribution
 + Bottom (or left end) of the **box** represents the first quartile (the 25th percentile case)
 + Middle line (or dot) inside the **box** represents the median, also known as the second quartile (the 50th percentile case)
 + Top (or right end) of the **box** represents the third quartile (the 75th percentile case)
-+ Top (or right end) of the **whisker** represents the maximum score for that variable's distribution, or, more appropriately, a distance above the mean that is 1.5x the size of the interquartile range (IQR).  
++ Top (or right end) of the **whisker** represents the maximum score for that variable's distribution
 + Outside dots represent outliers - extreme high or extreme low values for that variable. 
 
 #
@@ -183,34 +194,38 @@ To tell if a variable is normally-distributed using the box-and-whisker plot, ge
 #
 
 
-To plot a boxplot, we use the <span style="color:blue">`box`</span> function, from the `vannstats` package. The function takes two arguments, if you *do not* want to break it out by values of another variable:
+To plot a boxplot, we use the following... (notice that when you're plotting one variable, the plot is displayed horizontally).
 
-1. the `data set name`
-2. `variable name` for the variable of interest
+
+
+<!-- bwplot(~mpg, data = data1, pch="|") -->
 
 
 ```{r}
-box(data1, mpg)
+boxplot(data1$mpg)
 ```
 
 #
 
-Further, this function takes a maximum of four arguments: 
+Further, to break this distribution out by **Cylinder** (making Cylinder a factor variable), we can do the following...
 
-1. the `data set name`
-2. `variable name` for the variable of interest
-3. `(first) grouping variable name`
-4. `(second) grouping variable name`
 
-#
 
-To break the above boxplot out by levels of **Cylinder**, we can do the following...
+<!-- bwplot(~mpg | factor(cyl), data = data1, pch="|") -->
+
 
 ```{r}
-box(data1, mpg, cyl)
+boxplot(data1$mpg~data1$cyl)
 ```
 
 
+#
+...and you could also include options to beautify your plot, like adding a main title, using the <span style="color:blue">`main"`</span> call (e.g. <span style="color:blue">`main = "MAIN PLOT TITLE"`</span>), or change the text of the x-axis by including the <span style="color:blue">`xlab`</span> call (e.g. <span style="color:blue">`xlab = "X AXIS TITLE"`</span>).
+
+```
+bwplot(~mpg | factor(cyl), data = data1, pch="|", main = "Bar-and-Whisker Plot of 'mpg' by 'Cylinder'", xlab = "Miles Per Gallon")
+
+```
 
 #
 #
@@ -222,30 +237,29 @@ Much as in the above, we want to assess whether or not our variable follows the 
 
 We fit a plot of our data/variable (usually on the Y-axis) against ``theoretical data'' that should occur if the data came from a normal distribution (e.g. Expected Normal on the X-axis). If our data actually fit a normal curve, then the dots on the plot should follow a straight line, or be reasonably close to the line plotted. 
 
-Below, we can assess normality to determine whether our variable follows a normal distribution, using the <span style="color:blue">`qq`</span> function, from the `vannstats` package. The function takes two arguments, if you *do not* want to break it out by values of another variable: 
-
-1. the `data set name`
-2. `variable name` for the variable of interest
-
+Below, we can assess normality to determine whether our variable follows a normal distribution, as such... 
 
 ```{r}
-qq(data1, mpg)
+xqqmath(~mpg, data=data1, fitline = TRUE)
 ```
 
 #
 
-This function also takes a maximum of four arguments: 
-
-1. the `data set name`
-2. `variable name` for the variable of interest
-3. `(first) grouping variable name`
-4. `(second) grouping variable name`
 
 
-As such, we can break this plot out by another grouping variable:
+
+Additionally, we can break this plot out by another grouping variable. 
 
 ```{r}
-qq(data1, mpg, cyl)
+xqqmath(~mpg | factor(cyl), data=data1, fitline = TRUE)
+```
+
+#
+
+you can also include various label options... 
+
+```
+xqqmath(~mpg | factor(cyl), data=data1, fitline = TRUE, main = "Normal Q-Q Plot of 'Wr.Hnd' by 'Cylinder'", xlab = "Expected Normal")
 ```
 
 #
@@ -318,13 +332,6 @@ min(thousand)
 max(thousand)
 range<-max(thousand)-min(thousand)
 range
-```
-#
-
-Here, you can also plot the histogram using R's stock histogram function `hist`
-
-
-```{r}
 hist(thousand)
 ```
 

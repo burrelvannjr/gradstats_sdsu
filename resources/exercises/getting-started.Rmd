@@ -69,7 +69,7 @@ This will be different for you. To set your working directory, use <span style="
 
 #### Installing Packages and Loading as Libraries
 
-Because R is and open-source statistical program, many of its functions are built by programmers in the form of **packages** or **libraries**. We will be using four packages in this exercise: the <span style="color:blue">`MASS`</span>, <span style="color:blue">`psych`</span>, <span style="color:blue">`lattice`</span>, <span style="color:blue">`mosaic`</span>, and <span style="color:blue">`car`</span> packages. 
+Because R is and open-source statistical program, many of its functions are built by programmers in the form of **packages** or **libraries**. Most of these are published and hosted on the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/) website. We will be using 3 main packages in this exercise: the <span style="color:blue">`MASS`</span>, the <span style="color:blue">`psych`</span>, and the <span style="color:blue">`car`</span>. 
 
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.wustl.edu/"))
@@ -81,12 +81,8 @@ Install the packages from the repository (copy and paste the lines below)
 ```
 install.packages("MASS")
 install.packages("psych")
-install.packages("lattice")
-install.packages("mosaic")
 install.packages("car")
 ```
-
-# 
 
 #
 
@@ -95,12 +91,35 @@ Load the packages as libraries
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
 library(car)
 ```
 
 #
+
+# 
+
+Additionally, many developers create packages of their own. These packages are "In Development," and as such, aren't yet published on CRAN. These packages are extremely useful, but are often published by individual users on the software development website [GitHub](https://github.com/). We will be using one such package for this: the <span style="color:blue">`vannstats`</span> package that I developed (compiled from other packages).
+
+#
+
+However, to access these "In Development" packages on GitHub, we need to first `install` and `load` a useful CRAN package that is used by developers. This is the Developer Tools or <span style="color:blue">`devtools`</span> package. 
+
+```
+install.packages("devtools")
+```
+```{r, results="hide", warning=FALSE, message=FALSE}
+library(devtools)
+```
+
+#
+Now that the <span style="color:blue">`devtools`</span> package is loaded, you can `install` and `load` my GitHub package: <span style="color:blue">`vannstats`</span> package:
+
+```
+devtools::install_github("burrelvannjr/vannstats")
+```
+```{r, results="hide", warning=FALSE, message=FALSE}
+library(vannstats)
+```
 
 #
 
