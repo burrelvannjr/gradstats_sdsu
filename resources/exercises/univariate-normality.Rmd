@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with RStudio"
+title: "Univariate Statistics & Normality"
 author: "Burrel Vann Jr"
 output: 
   html_document: 
@@ -320,23 +320,15 @@ range<-max(thousand)-min(thousand)
 range
 ```
 #
-
-Here, you can also plot the histogram using R's stock histogram function `hist`
-
-
-```{r}
-hist(thousand)
-```
-
 # 
 # 
 
-Finally, you can see how histograms differ when all you do is alter the number of cases:
+Finally, you can plot the histograms to see how they differ when altering the number of cases:
 
 ```{r}
-hist(ten)
-hist(hundred)
-hist(thousand)
+hst(ten)
+hst(hundred)
+hst(thousand)
 ```
 
 So now you know that the more cases/data points you have, the more your data will mimic the normal distribution (bell curve).
