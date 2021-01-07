@@ -47,8 +47,7 @@ options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 ```
 
 #
@@ -74,7 +73,15 @@ data1 <- mtcars
 
 * Distributions must be relatively normal. A good way to see if we meet the normality assumption is to look at the **Expected Frequencies** in each cell of the crosstab. **If 20 percent or more of our Expected Frequencies across all the cells are less than 5 cases ($E \lt 5$), then you violate the assumption of normality**.
 
-*The Chi Square test is finicky, in that you cannot see the expected frequencies (and observed frequencies) until you run the Chi Square function (see below)*
+*The Chi Square test is finicky, in that you cannot see the expected frequencies (and observed frequencies) until you run the Chi Square function* As such, I've included, in the <span style="color:blue">`vannstats`</span> package, a <span style="color:blue">`tab`</span> function which returns the observed and expected frequencies. 
+
+To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you use the following 
+
+```{r}
+tab(data1, vs, am)
+```
+
+We see here that we have met the assumption of normality: fewer than 20% of cells in the 4x4 table have less than 5 expected counts (actually, no cell has fewer than 5).
 
 
 ```{r, results="hide", echo=FALSE}
@@ -133,25 +140,5 @@ To interpret the findings, we report the following information:
 
 “Using the Chi Square test of independence ($X^2$), I fail to reject the null hypothesis that there is no association between the shape and the transmission type of cars, in the population, $X^2(1) = .90688, p \gt .05$” 
 
-
-##### Back to the Normality Assumption
-
-To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you have to make the chi square function (<span style="color:blue">`chi.sq`</span>) into an object... as such... 
-
-```{r}
-x2 <- chisq.test(data1$vs, data1$am, correct=FALSE)
-```
-
-and because the actual test is now an object, you can call it's component variables by using the object name, the dollar sign operator (<span style="color:blue">`$`</span>), and the variable named **expected** (you can also call the variable named **observed**) to get a crosstab of each. 
-
-```{r}
-x2$observed
-```
-
-```{r}
-x2$expected
-```
-
-We see here that we have met the assumption of normality: fewer than 20% of cells in the 4x4 table have less than 5 expected counts (actually, no cell has fewer than 5).
 
 <br><br><br>

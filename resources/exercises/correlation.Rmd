@@ -57,8 +57,7 @@ In addition, the previously-discussed assumptions for other tests (independence 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 ```
 
 
@@ -99,48 +98,37 @@ abline(lm(data1$mpg~data1$wt), col="Blue") # regression line (y~x))
 ##### 2a. Histogram
 
 ```{r}
-histogram(~ mpg, data = data1, main = "Histogram of 'Miles per Gallon'", 
-          type = "density", 
-          panel=function(x, ...) {
-            panel.histogram(x, ...)
-            panel.abline(v=mean(x, na.rm = TRUE),col="red")
-            panel.mathdensity(dmath=dnorm, col="black", 
-                              args=list(mean=mean(x, na.rm = TRUE),
-                                        sd=sd(x, na.rm = TRUE)), ...)            
-          }) 
+hst(data1, mpg)
+#main = "Histogram of 'Miles per Gallon'"
 ```
 
 ```{r}
-histogram(~ wt, data = data1, main = "Histogram of 'Weight'", 
-          type = "density", 
-          panel=function(x, ...) {
-            panel.histogram(x, ...)
-            panel.abline(v=mean(x, na.rm = TRUE),col="red")
-            panel.mathdensity(dmath=dnorm, col="black", 
-                              args=list(mean=mean(x, na.rm = TRUE),
-                                        sd=sd(x, na.rm = TRUE)), ...)            
-          }) 
+hst(data1, wt)
+#main = "Histogram of 'Weight'", 
+
 ```
 
 ##### 2b. Box-and-Whisker Plots
 
 ```{r}
-bwplot(~ mpg, data = data1, pch="|", main = "Bar-and-Whisker Plot of 'Miles per Gallon'")
+box(data1, mpg)
+#main = "Bar-and-Whisker Plot of 'Miles per Gallon'")
 ```
 
 ```{r}
-bwplot(~ wt, data = data1, pch="|", main = "Bar-and-Whisker Plot of 'Weight'")
+box(data1, wt)
+#main = "Bar-and-Whisker Plot of 'Weight'")
 ```
 
 
 ##### 2c. Normality (Q-Q) Plots
 
 ```{r}
-xqqmath(~ mpg, data=data1, fitline = TRUE, main = "Normal Q-Q Plot of 'Miles per Gallon'", xlab = "Expected Normal")
+qq(data1, mpg)
 ```
 
 ```{r}
-xqqmath(~ wt, data=data1, fitline = TRUE, main = "Normal Q-Q Plot of 'Weight'", xlab = "Expected Normal")
+qq(data1, wt)
 ```
 
 

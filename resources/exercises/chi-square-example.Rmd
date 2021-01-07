@@ -49,8 +49,7 @@ options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 ```
 
 #
@@ -138,6 +137,14 @@ The assumptions for the Chi Square are...
 
 *The Chi Square test is finicky, in that you cannot see the expected frequencies (and observed frequencies) until you run the Chi Square function (see below)*
 
+To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you have to make the chi square function (<span style="color:blue">`chi.sq`</span>) into an object... as such... 
+
+```{r}
+tab(data, views, pol)
+```
+
+* <span style="color:red">We see here that fewer than 20% of cells in the 4x4 table have less than 5 expected counts (actually, no cell has fewer than 5). `Therefore, we meet the assumption of normality`.</span> 
+
 
 #
 ### The Chi Square Test Calculation
@@ -191,27 +198,6 @@ To interpret the findings, we report the following information:
 “Using the Chi Square test of independence ($X^2$), I reject/fail to reject the null hypothesis that there is no association between variable one and variable 2, in the population, $X^2(?) = ?, p ? .05$” 
 
 * <span style="color:red">“Using the Chi Square test of independence ($X^2$), I reject the null hypothesis that there is no association between the political orientation and views of the Black Lives Matter movement, in the population, $X^2(1) = 60.506, p \lt .05$.”</span> 
-
-
-##### Back to the Normality Assumption
-
-To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you have to make the chi square function (<span style="color:blue">`chi.sq`</span>) into an object... as such... 
-
-```{r}
-x2 <- chisq.test(data$views, data$pol, correct=FALSE)
-```
-
-and because the actual test is now an object, you can call it's component variables by using the object name, the dollar sign operator (<span style="color:blue">`$`</span>), and the variable named **expected** (you can also call the variable named **observed**) to get a crosstab of each. 
-
-```{r}
-x2$observed
-```
-
-```{r}
-x2$expected
-```
-
-* <span style="color:red">We see here that fewer than 20% of cells in the 4x4 table have less than 5 expected counts (actually, no cell has fewer than 5). `Therefore, we meet the assumption of normality`.</span> 
 
 
 <br><br><br>

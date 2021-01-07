@@ -50,8 +50,7 @@ options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 #install.packages("gplots")
 library(gplots)
 library(stats)
@@ -132,15 +131,8 @@ Plot the histogram for *Monthly Income* (Y variable) broken out by *Racial Categ
 
 
 ```{r}
-histogram(~ inc | factor(race), data = data, main = "Histogram of 'Monthly Income' by 'Race'", 
-          type = "density", 
-          panel=function(x, ...) {
-            panel.histogram(x, ...)
-            panel.abline(v=mean(x, na.rm = TRUE),col="red")
-            panel.mathdensity(dmath=dnorm, col="black", 
-                              args=list(mean=mean(x, na.rm = TRUE),
-                                        sd=sd(x, na.rm = TRUE)), ...)            
-          }) 
+hst(data, inc, race)
+#main = "Histogram of 'Monthly Income' by 'Race'"
 ```
 
   + <span style="color:red">We can see from the histogram that for both group distributions of the outcome variable (beers), the data are moderately positively skewed (with the exeception of the distribution of scores for black individuals). Although these are moderately skewed, it is safe to assume that these data are close enough to normal to proceed with the statistical test.</span> 
@@ -168,7 +160,8 @@ To plot a boxplot of *Monthly Income*, broken out by *Race*, we can do the follo
 
 
 ```{r}
-bwplot(~ inc | factor(race), data = data, pch="|", main = "Bar-and-Whisker Plot of 'Monthly Income' by 'Race'")
+box(data, inc, race)
+#main = "Bar-and-Whisker Plot of 'Monthly Income' by 'Race'")
 ```
 
   + <span style="color:red">We can see from the boxplots that for the black and other groups are somewhat normally distributed. The data for latinx and white individuals, however, possesses some outliers, and the median falls near or on the edge of the interquartile range. In addition, the minimum and maximum scores are missing for latinx individuals while the maximum is missing for white individuals (rather, those scores are read as extremes or outliers). These plots may give us some pause in proceeding. In many cases, finding distributions like this would warrant further data collection (e.g. there may be too few cases in this sample, which is why many are perceived as outliers). However, for this example, the data seem *normal enough*. It is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span> <br>
@@ -183,7 +176,8 @@ The quantile-quantile plot is a visual tool to help us figure out if the empiric
 We assess normality an break this plot out by a grouping variable. 
 
 ```{r}
-xqqmath(~ inc | factor(race), data = data, fitline = TRUE, main = "Normal Q-Q Plot of 'Monthly Income' by 'Race'", xlab = "Expected Normal")
+qq(data, inc, race)
+#main = "Normal Q-Q Plot of 'Monthly Income' by 'Race'", xlab = "Expected Normal"
 ```
 
   + <span style="color:red">We can see from the Q-Q plot that for both group distributions of the outcome variable (monthly income), the data are somewhat normal, since there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line) for the *income* variable for any group/level (*race*). It is therefore safe to proceed with the statistical test.</span> 

@@ -57,8 +57,7 @@ In addition, the previously-discussed assumptions for other tests (independence 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 ```
 
 
@@ -79,15 +78,18 @@ Where $m$ is the number of independent variables included in the regression mode
 To identify outliers, simply look at the *boxplots* to see "how outlying, these outliers are." In most cases, outliers should remain in the data. Need strong justification for removing outlying cases.
 
 ```{r}
-bwplot(~mpg, data=data1, pch="|", main = "Bar-and-Whisker Plots of 'Miles per Gallon'")
+box(data1, mpg)
+#main = "Bar-and-Whisker Plots of 'Miles per Gallon'")
 ```
 
 ```{r}
-bwplot(~wt, data=data1, pch="|", main = "Bar-and-Whisker Plots of 'Weight'")
+box(data1, wt)
+#main = "Bar-and-Whisker Plots of 'Weight'")
 ```
 
 ```{r}
-bwplot(~am, data=data1, pch="|", main = "Bar-and-Whisker Plots of 'Automatic Transmission'")
+box(data1, am)
+#main = "Bar-and-Whisker Plots of 'Automatic Transmission'")
 ```
 
 ##### 3. Multicollinearity and Singularity

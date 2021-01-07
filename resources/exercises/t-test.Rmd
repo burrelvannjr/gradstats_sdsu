@@ -41,8 +41,7 @@ options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 ```
 
 #
@@ -87,24 +86,11 @@ describeBy(data1$mpg, data1$am)
 Plot the histogram for mpg (Y variable) broken out by manual transmission (levels of the X variable)...  
 
 ```{r}
-histogram(~ mpg | factor(am), data = data1, type = "count", main = "Histogram of 'Miles per Gallon' by 'Manual Transmission'")
+hst(data1, mpg, am)
+#can add call: main = "Histogram of 'Miles per Gallon' by 'Manual Transmission Type'"
 ```
 
 #
-
-...next, overlay a normal curve...
-
-```{r}
-histogram(~ mpg | factor(am), data = data1, main = "Histogram of 'Miles per Gallon' by 'Manual Transmission Type'", 
-          type = "density", 
-          panel=function(x, ...) {
-            panel.histogram(x, ...)
-            panel.abline(v=mean(x, na.rm = TRUE),col="red")
-            panel.mathdensity(dmath=dnorm, col="black", 
-                              args=list(mean=mean(x, na.rm = TRUE),
-                                        sd=sd(x, na.rm = TRUE)), ...)            
-          }) 
-```
 
 
 ##### 4b. Boxplots (Box-and-Whisker Plots)
@@ -130,7 +116,8 @@ To plot a boxplot, broken out by *Manual Transmission*, we can do the following.
 
 
 ```{r}
-bwplot(~mpg | factor(am), data = data1, pch="|", main = "Bar-and-Whisker Plot of 'mpg' by 'Manual Transmission Type'")
+box(data1, mpg, am)
+# can add main = "Bar-and-Whisker Plot of 'mpg' by 'Manual Transmission Type'"
 ```
 
 
@@ -141,7 +128,7 @@ The quantile-quantile plot is a visual tool to help us figure out if the empiric
 We assess normality an break this plot out by a grouping variable. 
 
 ```{r}
-xqqmath(~mpg | factor(am), data=data1, fitline = TRUE, main = "Normal Q-Q Plot of 'Wr.Hnd' by 'Manual Transmission Type'", xlab = "Expected Normal")
+qq(data1, mpg, am)
 ```
 
 

@@ -42,8 +42,7 @@ options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 #install.packages("gplots")
 library(gplots)
 library(stats)
@@ -93,24 +92,10 @@ describeBy(data1$mpg, data1$cyl)
 Plot the histogram for mpg (Y variable) broken out by number of cylinders in a car (levels of the X variable)...  
 
 ```{r}
-histogram(~ mpg | factor(cyl), data = data1, type = "count", main = "Histogram of 'Miles per Gallon' by 'Number of Cylinders'")
+hst(data1, mpg, cyl)
+#main = "Histogram of 'Miles per Gallon' by 'Number of Cylinders'"
 ```
 
-#
-
-...next, overlay a normal curve...
-
-```{r}
-histogram(~ mpg | factor(cyl), data = data1, main = "Histogram of 'Miles per Gallon' by 'Number of Cylinders'", 
-          type = "density", 
-          panel=function(x, ...) {
-            panel.histogram(x, ...)
-            panel.abline(v=mean(x, na.rm = TRUE),col="red")
-            panel.mathdensity(dmath=dnorm, col="black", 
-                              args=list(mean=mean(x, na.rm = TRUE),
-                                        sd=sd(x, na.rm = TRUE)), ...)            
-          }) 
-```
 
 
 ##### 4b. Boxplots (Box-and-Whisker Plots)
@@ -136,7 +121,8 @@ To plot a boxplot, broken out by *Number of Cylinders in a Car*, we can do the f
 
 
 ```{r}
-bwplot(~mpg | factor(cyl), data = data1, pch="|", main = "Bar-and-Whisker Plot of 'Miles per Gallon' by 'Number of Cylinders'")
+box(data1, mpg, cyl)
+#main = "Bar-and-Whisker Plot of 'Miles per Gallon' by 'Number of Cylinders'"
 ```
 
 
@@ -147,7 +133,7 @@ The quantile-quantile plot is a visual tool to help us figure out if the empiric
 We assess normality an break this plot out by a grouping variable. 
 
 ```{r}
-xqqmath(~mpg | factor(cyl), data=data1, fitline = TRUE, main = "Normal Q-Q Plot of 'Miles per Gallon' by 'Number of Cylinders'", xlab = "Expected Normal")
+qq(data1, mpg, cyl)
 ```
 
 

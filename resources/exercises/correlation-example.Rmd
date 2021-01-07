@@ -46,8 +46,7 @@ options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
-library(lattice)
-library(mosaic)
+library(vannstats)
 ```
 
 #
@@ -145,27 +144,13 @@ abline(lm(data$jealousy~data$esteem), col="Blue") # regression line (y~x))
 ##### 2a. Histogram
 
 ```{r}
-histogram(~ jealousy, data = data, main = "Histogram of 'Jealousy Score'", 
-          type = "density", 
-          panel=function(x, ...) {
-            panel.histogram(x, ...)
-            panel.abline(v=mean(x, na.rm = TRUE),col="red")
-            panel.mathdensity(dmath=dnorm, col="black", 
-                              args=list(mean=mean(x, na.rm = TRUE),
-                                        sd=sd(x, na.rm = TRUE)), ...)            
-          }) 
+hst(data, jealousy)
+#main = "Histogram of 'Jealousy Score'"
 ```
 
 ```{r}
-histogram(~ esteem, data = data, main = "Histogram of 'Self-Esteem Score'", 
-          type = "density", 
-          panel=function(x, ...) {
-            panel.histogram(x, ...)
-            panel.abline(v=mean(x, na.rm = TRUE),col="red")
-            panel.mathdensity(dmath=dnorm, col="black", 
-                              args=list(mean=mean(x, na.rm = TRUE),
-                                        sd=sd(x, na.rm = TRUE)), ...)            
-          }) 
+hst(data, esteem)
+#main = "Histogram of 'Self-Esteem Score'"
 ```
 
   + <span style="color:red">We can see from the histogram that for both variables, the data are moderately negatively skewed. It is safe to assume, however, that these data are close enough to normal to proceed with the statistical test.</span> 
@@ -173,11 +158,13 @@ histogram(~ esteem, data = data, main = "Histogram of 'Self-Esteem Score'",
 ##### 2b. Box-and-Whisker Plots
 
 ```{r}
-bwplot(~ jealousy, data = data, pch="|", main = "Bar-and-Whisker Plot of 'Jealousy Score'")
+box(data, jealousy)
+#main = "Bar-and-Whisker Plot of 'Jealousy Score'"
 ```
 
 ```{r}
-bwplot(~ esteem, data = data, pch="|", main = "Bar-and-Whisker Plot of 'Self-Esteem Score'")
+box(data, esteem)
+#main = "Bar-and-Whisker Plot of 'Self-Esteem Score'"
 ```
 
   + <span style="color:red">We can see from the boxplot that for both variables, the data are somewhat normally distributed. Although, for the jealousy variable, the median is closer to the upper end (75$^{th}$ percentile) of the interquartile range than the middle. Despite this trend, it is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span>
@@ -185,11 +172,13 @@ bwplot(~ esteem, data = data, pch="|", main = "Bar-and-Whisker Plot of 'Self-Est
 ##### 2c. Normality (Q-Q) Plots
 
 ```{r}
-xqqmath(~ jealousy, data=data, fitline = TRUE, main = "Normal Q-Q Plot of 'Jealousy Score'", xlab = "Expected Normal")
+qq(data, jealousy)
+#main = "Normal Q-Q Plot of 'Jealousy Score'", xlab = "Expected Normal"
 ```
 
 ```{r}
-xqqmath(~ esteem, data=data, fitline = TRUE, main = "Normal Q-Q Plot of 'Self-Esteem Score'", xlab = "Expected Normal")
+qq(data, esteem)
+#main = "Normal Q-Q Plot of 'Self-Esteem Score'", xlab = "Expected Normal"
 ```
 
   + <span style="color:red">We can see from the Q-Q plot that for both variable, the data are somewhat normal, since there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line). It is therefore safe to proceed with the statistical test.</span> 
