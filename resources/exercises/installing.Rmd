@@ -33,7 +33,7 @@ We will be using [R](https://cran.r-project.org/), an open-source statistical pr
 
 ### Downloading & Installing R
 
-1. Go to the [**R website**](http://cran.stat.ucla.edu/) to download the program. Under the "Download and Install R" section, select the distribution that matches your computer's operating system (macOS/OSX, Windows, Linux). 
+1. Go to the [**R website**](https://cran.r-project.org/) to download the program. Under the "Download and Install R" section, select the distribution that matches your computer's operating system (macOS/OSX, Windows, Linux). 
 
     + For Mac Users: On the next page, under the "Files" section, select the first file/link (which should be something like "R-3.x.x.pkg")
 
