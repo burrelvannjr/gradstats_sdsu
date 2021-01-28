@@ -45,7 +45,7 @@ We will be using [R](https://cran.r-project.org/), an open-source statistical pr
 
 ### Downloading & Installing RStudio
 
-1. Next, we will download [**RStudio**](https://www.rstudio.com/products/rstudio/download2/) which is a easily understandable user interface for using R. Under "Installers for Supported Platforms" select the RStudio installer that matches your operating system.
+1. Next, we will download [**RStudio**](https://rstudio.com/products/rstudio/download/) which is a easily understandable user interface for using R. If you're using a machine (e.g. a non-tablet pc/mac), under "RStudio Desktop" click "Download". Next, it should take you to a page with a "Download" button. Additionaly, under "All Installers" you can select the RStudio download that matches your operating system.
 
 2. After the download is complete, install the RStudio program.
 
