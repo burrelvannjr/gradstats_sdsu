@@ -446,67 +446,69 @@ summary {
 <div id="section-2" class="section level1">
 <h1></h1>
 <p>This will be different for you. To set your working directory, use <span style="color:blue"><code>setwd(&quot;directory&quot;)</code></span>, and replace the word “directory” with the <em>pathname</em> of the folder you want to be your directory (or under the <strong>Session</strong> menu, select <strong>Set Working Directory</strong>, then select <strong>Choose Directory</strong> and navigate to your desired folder).</p>
+<div id="a-note-on-commenting" class="section level4">
+<h4>A Note on Commenting</h4>
+<p>Througout any script, you’ll also notice a line of text with a pound sign (e.g. hashtag) preceding it, like this <span style="color:green"><code>#this is a how to calculate a mean</code></span>. This is a <strong>comment</strong>, which is just a note to yourself. Comments remind the user what the a bit of code is supposed to do.</p>
+</div>
 </div>
 <div id="section-3" class="section level1">
+<h1></h1>
+</div>
+<div id="section-4" class="section level1">
 <h1></h1>
 <div id="installing-packages-and-loading-as-libraries" class="section level4">
 <h4>Installing Packages and Loading as Libraries</h4>
 <p>Because R is and open-source statistical program, many of its functions are built by programmers in the form of <strong>packages</strong> or <strong>libraries</strong>. Most of these are published and hosted on the <a href="https://cran.r-project.org/">Comprehensive R Archive Network (CRAN)</a> website. We will be using 3 main packages in this exercise: the <span style="color:blue"><code>MASS</code></span>, the <span style="color:blue"><code>psych</code></span>, and the <span style="color:blue"><code>car</code></span>.</p>
 </div>
 </div>
-<div id="section-4" class="section level1">
+<div id="section-5" class="section level1">
 <h1></h1>
 <p>Install the packages from the repository (copy and paste the lines below)</p>
-<pre><code>install.packages(&quot;MASS&quot;)
+<pre class="r"><code>install.packages(&quot;MASS&quot;)
 install.packages(&quot;psych&quot;)
-install.packages(&quot;car&quot;)</code></pre>
+install.packages(&quot;car&quot;)
+install.packages(&quot;devtools&quot;)</code></pre>
 </div>
-<div id="section-5" class="section level1">
+<div id="section-6" class="section level1">
 <h1></h1>
 <p>Load the packages as libraries</p>
 <pre class="r"><code>library(MASS)
 library(psych)
-library(car)</code></pre>
-</div>
-<div id="section-6" class="section level1">
-<h1></h1>
+library(car)
+library(devtools)</code></pre>
 </div>
 <div id="section-7" class="section level1">
 <h1></h1>
-<p>Additionally, many developers create packages of their own. These packages are “In Development,” and as such, aren’t yet published on CRAN. These packages are extremely useful, but are often published by individual users on the software development website <a href="https://github.com/">GitHub</a>. We will be using one such package for this: the <span style="color:blue"><code>vannstats</code></span> package that I developed (compiled from other packages).</p>
 </div>
 <div id="section-8" class="section level1">
 <h1></h1>
-<p>However, to access these “In Development” packages on GitHub, we need to first <code>install</code> and <code>load</code> a useful CRAN package that is used by developers. This is the Developer Tools or <span style="color:blue"><code>devtools</code></span> package.</p>
-<pre><code>install.packages(&quot;devtools&quot;)</code></pre>
-<pre class="r"><code>library(devtools)</code></pre>
+<p>Additionally, many developers create packages of their own. These packages are “In Development,” and as such, aren’t yet published on CRAN. These packages are extremely useful, but are often published by individual users on the software development website <a href="https://github.com/">GitHub</a>. We will be using one such package for this: the <span style="color:blue"><code>vannstats</code></span> package that I developed (compiled from other packages).</p>
 </div>
 <div id="section-9" class="section level1">
 <h1></h1>
-<p>Now that the <span style="color:blue"><code>devtools</code></span> package is loaded, you can <code>install</code> and <code>load</code> my GitHub package: <span style="color:blue"><code>vannstats</code></span> package:</p>
-<pre><code>devtools::install_github(&quot;burrelvannjr/vannstats&quot;)</code></pre>
-<pre class="r"><code>library(vannstats)</code></pre>
 </div>
 <div id="section-10" class="section level1">
 <h1></h1>
 </div>
 <div id="section-11" class="section level1">
 <h1></h1>
-<div id="a-note-on-commenting" class="section level4">
-<h4>A Note on Commenting</h4>
-<p>Througout any script, you’ll also notice a line of text with a pound sign (e.g. hashtag) preceding it, like this <span style="color:green"><code>#this is a how to calculate a mean</code></span>. This is a <strong>comment</strong>, which is just a note to yourself. Comments remind the user what the a bit of code is supposed to do.</p>
-</div>
+<p>To access this “In Development” package on GitHub, we rely on the <span style="color:blue"><code>devtools</code></span> to <code>install</code> and <code>load</code> the <span style="color:blue"><code>vannstats</code></span> package from GitHub:</p>
+<pre class="r"><code>devtools::install_github(&quot;burrelvannjr/vannstats&quot;)
+library(vannstats)</code></pre>
 </div>
 <div id="section-12" class="section level1">
 <h1></h1>
 </div>
 <div id="section-13" class="section level1">
 <h1></h1>
+</div>
+<div id="section-14" class="section level1">
+<h1></h1>
 <div id="working-with-data" class="section level3">
 <h3>Working with Data</h3>
 </div>
 </div>
-<div id="section-14" class="section level1">
+<div id="section-15" class="section level1">
 <h1></h1>
 <div id="calculations" class="section level4">
 <h4>Calculations</h4>
@@ -515,13 +517,13 @@ library(car)</code></pre>
 <pre><code>## [1] 5</code></pre>
 </div>
 </div>
-<div id="section-15" class="section level1">
+<div id="section-16" class="section level1">
 <h1></h1>
 <div id="the-assignment-operator-for-creating-objects" class="section level4">
 <h4>The Assignment Operator for Creating Objects</h4>
 </div>
 </div>
-<div id="section-16" class="section level1">
+<div id="section-17" class="section level1">
 <h1></h1>
 <p>The great thing about R is that, because it is an object-oriented programming language, you can assign <strong>object names</strong> to any calculation or data set. This creates a working copy of the calculation (or data set) in R’s memory that you can run operations on. To do so, you simply must assign an object name using a <em>left arrow</em> (the assignment operator) like this: <span style="color:blue"><code>new_object &lt;- dataset</code></span>. For example, we could run…</p>
 <pre class="r"><code>x &lt;- 3 + 2</code></pre>
@@ -530,7 +532,7 @@ library(car)</code></pre>
 <pre><code>## [1] 5</code></pre>
 <p>… which gives us the same result, but now we can run manipulations on the new object (or variable) <strong>x</strong>.</p>
 </div>
-<div id="section-17" class="section level1">
+<div id="section-18" class="section level1">
 <h1></h1>
 <div id="creating-a-list-as-an-object" class="section level4">
 <h4>Creating a List as an Object</h4>
@@ -567,7 +569,7 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 ## 7  other  79000 independent</code></pre>
 </div>
 </div>
-<div id="section-18" class="section level1">
+<div id="section-19" class="section level1">
 <h1></h1>
 <div id="removing-objects-from-your-environment" class="section level4">
 <h4>Removing Objects from your Environment</h4>
@@ -575,10 +577,10 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 <pre class="r"><code>rm(x)</code></pre>
 </div>
 </div>
-<div id="section-19" class="section level1">
+<div id="section-20" class="section level1">
 <h1></h1>
 </div>
-<div id="section-20" class="section level1">
+<div id="section-21" class="section level1">
 <h1></h1>
 <div id="reading-in-csv-data-sets" class="section level4">
 <h4>Reading in CSV Data Sets</h4>
@@ -586,7 +588,7 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 <p>A CSV file must be “read” into the R environment for you to use it. To do so, you’ll have to call in the CSV file (data set) with one of R’s functions: the <span style="color:blue"><code>read.csv</code></span> function. Additionally, you will have to give the CSV a new object name (using the assignment operator <strong>&lt;-</strong>), so we can place it in our working environment. You can do it like this, changing the word “PATHNAME” to the pathname to the csv file you’re reading into the R environment: <span style="color:blue"><code>data1 &lt;- read.csv(&quot;PATHNAME.csv&quot;, header=TRUE, sep=&quot;,&quot;)</code></span>.</p>
 </div>
 </div>
-<div id="section-21" class="section level1">
+<div id="section-22" class="section level1">
 <h1></h1>
 <div id="working-with-stock-data-sets-in-r" class="section level4">
 <h4>Working with Stock Data Sets in R</h4>
@@ -627,19 +629,19 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 ## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
 </div>
 </div>
-<div id="section-22" class="section level1">
+<div id="section-23" class="section level1">
 <h1></h1>
 <p>While this is great, and the dataset is loaded into your console window, you will need a local copy to run operations on. To create a local copy (an object) so that you can run manipulations on the <span style="color:blue"><code>mtcars</code></span> data, you should create a new object, like this:</p>
 <pre class="r"><code>data1 &lt;- mtcars</code></pre>
 </div>
-<div id="section-23" class="section level1">
+<div id="section-24" class="section level1">
 <h1></h1>
 </div>
-<div id="section-24" class="section level1">
+<div id="section-25" class="section level1">
 <h1></h1>
 <p>Like above, you can now call <span style="color:blue"><code>data1</code></span>, and it will load the same data set into your console window (not shown here). In addition, in RStudio, after you give the data a new name (converting it to a usable object), you can view the data in your upper-right <strong>Environment</strong> window.</p>
 </div>
-<div id="section-25" class="section level1">
+<div id="section-26" class="section level1">
 <h1></h1>
 <div id="calling-information-for-a-variable" class="section level4">
 <h4>Calling information for a Variable</h4>
@@ -650,10 +652,10 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 ## [31] 15.0 21.4</code></pre>
 </div>
 </div>
-<div id="section-26" class="section level1">
+<div id="section-27" class="section level1">
 <h1></h1>
 </div>
-<div id="section-27" class="section level1">
+<div id="section-28" class="section level1">
 <h1></h1>
 <div id="recoding-values-within-a-variable" class="section level3">
 <h3>Recoding Values within a Variable</h3>
@@ -670,23 +672,23 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 <p>As seen above, we’ve successfully recoded this variable, from 3 unique values in the <code>cyl</code> variable, to 2 unique values in the <code>gas_guzzler</code> variable.</p>
 </div>
 </div>
-<div id="section-28" class="section level1">
+<div id="section-29" class="section level1">
 <h1></h1>
 </div>
-<div id="section-29" class="section level1">
+<div id="section-30" class="section level1">
 <h1></h1>
 <p>Additionally, you can use several different calls within the recode function. Including the: concatenate (<code>c()</code>) function to create a list of values to recode, the <code>lo:</code> function (where you tell R to recode from the lowest value to whatever value follows the colon), the <code>:hi</code> function (where you tell R to recode from whatever value precedes the colon to the highest value), and the <code>else</code> function to recode everything else you missed as a specific value (rather than an <code>NA</code> missing value).</p>
 </div>
-<div id="section-30" class="section level1">
+<div id="section-31" class="section level1">
 <h1></h1>
 <pre><code>data1$type &lt;- recode(data1$cyl, &quot;c(4,6) = 0; 8 = 1&quot;)
 data1$type2 &lt;- recode(data1$cyl, &quot;lo:6 = 0; 8:hi = 1&quot;)
 data1$type3 &lt;- recode(data1$cyl, &quot;4 = 0; 6 = 0; 8 = 1; else = 1&quot;)</code></pre>
 </div>
-<div id="section-31" class="section level1">
+<div id="section-32" class="section level1">
 <h1></h1>
 </div>
-<div id="section-32" class="section level1">
+<div id="section-33" class="section level1">
 <h1></h1>
 <div id="r-for-data-science" class="section level3">
 <h3>R for Data Science</h3>
