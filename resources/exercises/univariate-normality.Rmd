@@ -1,5 +1,5 @@
 ---
-title: "Univariate Statistics & Normality"
+title: "Univariate/Descriptive Statistics & Normality"
 author: "Burrel Vann Jr"
 output: 
   html_document: 
@@ -11,8 +11,8 @@ output:
 * [**Installing R/RStudio**](installing.html)
 * [**Getting Started with RStudio**](getting-started.html)
 
-###### Univariate Statistics and Assessing Normality
-* [**Univariate Statistics & Normality**](univariate-normality.html)
+###### Univariate/Descriptive Statistics and Assessing Normality
+* [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html)
 
 ###### Bivariate and Multivariate Statistics
 * [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html)
@@ -26,7 +26,7 @@ output:
 
 
 
-### Univariate Statistics
+### Univariate/Descriptive Statistics
 
 There are various ways to call a number of univariate statistics in R. As social scientists, the main univariate statistics we are concerned with are the mean, median, standard deviation, minimum, maximum, and range. The stock R program comes with the <span style="color:blue">`summary`</span> function, which, unfortunately, does not provide the *some* measures. Therefore, we use the <span style="color:blue">`describe`</span> function from the <span style="color:blue">`psych`</span> package. We can call univariate statistics for both the full data set and a specific variable.
 
@@ -97,7 +97,7 @@ Low: $|.5| \geq x \geq |0|$
 #
 #
 
-Statisticians have developed a kurtosis measure that represents *excess* kurtosis beyond the normal curve (*although typical kurtosis ranges from 1 to $+ \infty$*). This excess kurtosis measure ranges from $-2$ to $+ \infty$. Using this metric, negative values represent platykurtic distributions and positive values indicate leptokurtic distributions. Distributions close to a kurtosis value of 0 are considered mesokurtic. We use cutoffs to indicate types of kurtosis, as follows...
+Statisticians have developed a kurtosis measure that represents *excess* kurtosis beyond the normal curve (*although typical kurtosis ranges from 1 to $+ \infty$*). This excess kurtosis measure [**ranges from**](https://stats.stackexchange.com/a/245953) $-2$ to $+ \infty$. Using this metric, negative values represent platykurtic distributions and positive values indicate leptokurtic distributions. Distributions close to a kurtosis value of 0 are considered mesokurtic. We use cutoffs to indicate types of kurtosis, as follows...
 
 Platykurtic: $-2 \leq x \lt 0$; or $x \lt 0$
 

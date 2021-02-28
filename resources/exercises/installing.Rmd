@@ -11,8 +11,8 @@ output:
 * [**Installing R/RStudio**](installing.html)
 * [**Getting Started with RStudio**](getting-started.html)
 
-###### Univariate Statistics and Assessing Normality
-* [**Univariate Statistics & Normality**](univariate-normality.html)
+###### Univariate/Descriptive Statistics and Assessing Normality
+* [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html)
 
 ###### Bivariate and Multivariate Statistics
 * [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html)
