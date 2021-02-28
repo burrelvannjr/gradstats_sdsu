@@ -79,7 +79,10 @@ Above, we can see that the mean miles per gallon differs by the number of cylind
 
 #### A Note on Skewness and Kurtosis
 
-**Skewness** is the measure of how close or far a distribution is from symmetry (the normal curve). It measures the clustering of scores along the X-axis, with regard to the position of the mode, median, and mean. **Kurtosis** is a measure of the *peakedness* of the distribution - how high or low the distribution is on the Y-axis, and how different it is from mesokurtic (e.g. middle kurtosis, or the normal curve).
+**Skewness** is the measure of how close or far a distribution is from symmetry (the normal curve). While it summarizes clustering of scores along the X-axis, with regard to the position of the mode, median, and mean, skewness is also  concerned with *length/width* of the tails of the distribution, relative to one another. 
+
+**Kurtosis** is sometimes referred to as a measure of the *peakedness* of the distribution, and how different the distribution is from mesokurtic (e.g. middle kurtosis, or the normal curve). Statisticians have argued that [**kurtosis**](http://www.r-tutor.com/elementary-statistics/numerical-measures/kurtosis) is, more appropriately, a measure of the *height/thickness* of the tails of the distribution.
+
 
 #
 
@@ -94,13 +97,13 @@ Low: $|.5| \geq x \geq |0|$
 #
 #
 
-Statisticians have developed a kurtosis measure that represents *excess* kurtosis beyond the normal curve (*although typical kurtosis ranges from 1 to $+ \infty$*). This measure ranges from $-2$ to $+ \infty$. Using this metric, we know that, generally, negative values represent platykurtic distributions and positive values indicate leptokurtic distributions. Distributions close to a kurtosis value of 0 are considered mesokurtic. We use cutoffs to indicate types of kurtosis, as follows...
+Statisticians have developed a kurtosis measure that represents *excess* kurtosis beyond the normal curve (*although typical kurtosis ranges from 1 to $+ \infty$*). This excess kurtosis measure ranges from $-2$ to $+ \infty$. Using this metric, negative values represent platykurtic distributions and positive values indicate leptokurtic distributions. Distributions close to a kurtosis value of 0 are considered mesokurtic. We use cutoffs to indicate types of kurtosis, as follows...
 
-Platykurtic: $0 \geq x \geq -2$
+Platykurtic: $-2 \leq x \lt 0$; or $x \lt 0$
 
-Mesokurtic: $1 \geq x \geq 0$
+Mesokurtic: $x \approx 0$
 
-Leptokurtic: $+ \infty \geq x \geq 1$
+Leptokurtic: $+ \infty \geq x \gt 0$; or $x \gt 0$
 
 
 #
