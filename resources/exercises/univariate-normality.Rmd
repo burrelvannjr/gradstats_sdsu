@@ -129,6 +129,82 @@ range(data1$mpg, na.rm=T)
 ```
 
 
+### Standardized Scores (Z-Scores) and Interval Estimates around Means (CI)
+
+#### Z-Score
+
+Recall that Z-scores are standardized scores -- how close or far an observation's score is from the mean, in standard deviation units. These are relative scores because the standard deviation (as well as the mean) incorporates information from all other observations. 
+
+The calculation for Z-scores is: 
+
+$Z = \frac{(X - \mu)}{\sigma}$
+
+But, the above calculation relies on population parameters $\mu$, (the population mean) and $\sigma$, (the population standard deviation), which we often do not have information on. Instead, the calculation, for each observation's Z-score, is:
+ 
+$Z_{i} = \frac{(X_{i} - \bar{X})}{SD}$
+
+where... <br>
+
+* $X_{i}$ is the raw score for a given observation<br>
+* $\bar{X}$ is the mean for all observations <br>
+* $SD$ is the standard deviation for all observations <br>
+
+For example, if we wanted to calculate a Z-score for the combined MPG of a Subaru Crosstrek, which is 30 MPG, relative to all other cars in the **mtcars** data set, we would use the formula: 
+
+$Z_{Crosstrek} = \frac{(30 - \bar{X_{mtcars\$mpg}})}{SD_{mtcars\$mpg}}$
+
+And we could use our knowledge of assignment operators/creating objects to run this calculation:
+
+
+```{r}
+x_crosstrek <- 30
+
+mean_mpg <- mean(data1$mpg, na.rm=T)
+sd_mpg <- sd(data1$mpg, na.rm=T)
+
+z_crosstrek <- ((x_crosstrek - mean_mpg) / (sd_mpg))
+
+#print result
+z_crosstrek
+```
+
+This indicates that the MPG for the Crosstrek is 1.645 standard deviation units above the mean.
+#
+#
+#
+
+
+#### Confidence Intervals
+
+Recall that Z-scores are standardized scores -- how close or far an observation's score is from the mean, in standard deviation units. These are relative scores because the standard deviation (as well as the mean) incorporates information from all other observations. 
+
+The calculation for confidence intervals is: 
+
+$CI = \mu \pm Z {\sigma}$
+
+...or, more appropriately, the calculation for a given confidence interval, based on a given confidence level (CL) is: 
+
+$CI_{CL} = \mu \pm Z_{CL}{\sigma}$
+
+where... <br>
+
+* $CL$ represents the Confidence Level you're interested in using (e.g. 95%, 99%, 99.9%, etc.) <br>
+* $Z_{CL}$ represents the Z-score associated with that Confidence Level you're using (e.g. 95%, 99%, 99.9%, etc.) <br>
+
+For example, for the 99.9% CI, we would have an associated Z-score ($Z_{CL}$) of $Z_{99.9} = 3.29$, such that, the CI calculation would be:
+
+$CI_{99.9} = \mu \pm 3.29{\sigma}$
+
+#
+
+However, because the above formula relies on $\sigma$, which is an unknown population parameter -- the standard deviation of a variable from the population. Our best guess of that standard deviation population parameter is the standard deviation statistic from our sample, or $SD$, but our sample standard deviation is based on fewer cases than the the standard deviation from the population . As such, we need to adjust the size of $SD$ based on our sample size, creating a new value we can plug in in place of $\sigma$, which is called Standard Error of the Mean: $SE = \frac{SD}{\sqrt N}$. Thus, our new confidence interval calculation becomes:
+
+$CI_{CL} = \mu \pm Z_{CL}{\frac{SD}{\sqrt N}}$
+
+or....
+
+$CI_{CL} = \mu \pm Z_{CL}{SE}$
+
 
 ### Assessing Normality by Using Visualizations
 
