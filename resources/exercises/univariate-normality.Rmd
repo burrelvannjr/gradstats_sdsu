@@ -151,7 +151,7 @@ where... <br>
 
 For example, if we wanted to calculate a Z-score for the combined MPG of a Subaru Crosstrek, which is 30 MPG, relative to all other cars in the **mtcars** data set, we would use the formula: 
 
-$Z_{Crosstrek} = \frac{(30 - \bar{X_{mtcars\$mpg}})}{SD_{mtcars\$mpg}}$
+$Z_{Crosstrek} = \frac{(30 - \bar{X}_{mtcars\$mpg}}{SD_{mtcars\$mpg}}$
 
 And we could use our knowledge of assignment operators/creating objects to run this calculation:
 
@@ -169,9 +169,7 @@ z_crosstrek
 ```
 
 This indicates that the MPG for the Crosstrek is 1.645 standard deviation units above the mean.
-#
-#
-#
+
 
 
 #### Confidence Intervals
