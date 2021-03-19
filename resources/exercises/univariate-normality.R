@@ -60,7 +60,6 @@ z_crosstrek <- ((x_crosstrek - mean_mpg) / (sd_mpg)) #object of the Z-score calc
 
 z_crosstrek #print the Z-score object, result 
 
-
 #----------------------------------------
 # Confidence Interval around mean 'mpg' in 'data1' for a 99.9% Confidence Level
 #----------------------------------------
@@ -140,19 +139,4 @@ hst(hundred_thousand)
 # descriptive statistics for 'hundred_thousand'
 #----------------------------------------
 describe(hundred_thousand) 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

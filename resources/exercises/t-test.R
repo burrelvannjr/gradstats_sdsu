@@ -17,7 +17,7 @@ mtcars
 data1 <- mtcars
 
 #----------------------------------------
-# univariate stats for 'mpg' variable in 'data1' object, broken out by 'am' variable
+# univariate stats for 'mpg' variable in 'data1' object, broken out by 'am' (manual transmission) variable
 #----------------------------------------
 describeBy(data1$mpg, data1$am)
 
@@ -37,22 +37,7 @@ box(data1, mpg, am)
 qq(data1, mpg, am)
 
 #----------------------------------------
-# run the t-test, examining the difference between 'mpg' means for each 'am;
+# run the t-test, examining the difference between 'mpg' means for each 'am'
 #----------------------------------------
 t.test(data1$mpg ~ data1$am, var.equal=TRUE)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,0 +1,28 @@
+#----------------------------------------
+# Load packages
+#----------------------------------------
+library(MASS)
+library(psych)
+devtools::install_github("burrelvannjr/vannstats") #run this to update package from github
+library(vannstats)
+
+#----------------------------------------
+# call mtcars data in console
+#----------------------------------------
+mtcars
+
+#----------------------------------------
+# load mtcars as new 'data1' object
+#----------------------------------------
+data1 <- mtcars
+
+#----------------------------------------
+# bivariate table: observed and expected frequencies for the relationship between 'vs' (straight/not-V-shaped engine) and 'am' (manual transmission)
+#----------------------------------------
+tab(data1, vs, am)
+
+#----------------------------------------
+# run the chi square test, examining the relationship between 'vs' and 'am'
+#----------------------------------------
+chisq.test(data1$vs, data1$am, correct=FALSE)
+

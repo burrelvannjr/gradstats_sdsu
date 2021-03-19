@@ -12,14 +12,14 @@ output:
 * [**Getting Started with RStudio**](getting-started.html)
 
 ###### Univariate/Descriptive Statistics and Assessing Normality
-* [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html)
+* [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/univariate-normality.R" target="_blank"><i>R Script</i></a> ]
 
 ###### Bivariate and Multivariate Statistics
-* [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html) [[*R Script*]](t-test.R)
-* [**Analysis of Variance (ANOVA)**](anova.html) [[*ANOVA example*]](anova-example.html)
-* [**Chi Square**](chi-square.html) [[*Chi Square example*]](chi-square-example.html)
-* [**Correlation**](correlation.html) [[*Correlation example*]](correlation-example.html)
-* [**Regression**](regression.html) [[*Regression example*]](regression-example.html)
+* [**t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
+* [**Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
+* [**Chi Square**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
+* [**Correlation**](correlation.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>R Script</i></a> | [*Example*](correlation-example.html) ]
+* [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
 
 #
