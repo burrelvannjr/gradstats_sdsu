@@ -15,7 +15,7 @@ output:
 * [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html)
 
 ###### Bivariate and Multivariate Statistics
-* [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html)
+* [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html) [[*R Script*]](t-test.R)
 * [**Analysis of Variance (ANOVA)**](anova.html) [[*ANOVA example*]](anova-example.html)
 * [**Chi Square**](chi-square.html) [[*Chi Square example*]](chi-square-example.html)
 * [**Correlation**](correlation.html) [[*Correlation example*]](correlation-example.html)
