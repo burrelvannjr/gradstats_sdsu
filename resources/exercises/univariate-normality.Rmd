@@ -12,7 +12,7 @@ output:
 * [**Getting Started with RStudio**](getting-started.html)
 
 ###### Univariate/Descriptive Statistics and Assessing Normality
-* [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html)
+* [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html) [[*R Script*]](univariate-normality.R)
 
 ###### Bivariate and Multivariate Statistics
 * [**t-Test**](t-test.html) [[*t-Test example*]](t-test-example.html)
