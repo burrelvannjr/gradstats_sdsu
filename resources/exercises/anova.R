@@ -1,6 +1,7 @@
 #----------------------------------------
-# Load packages
+# Clear environment and load packages
 #----------------------------------------
+rm(list=ls())
 library(MASS)
 library(psych)
 install.packages("gplots") #run this to install the 'gplots' package for plotting
