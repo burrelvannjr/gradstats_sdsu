@@ -420,34 +420,44 @@ summary {
 <h3>What is the Chi Square Test of Independence?</h3>
 <p>The Chi Square test (<span class="math inline">\(X^2\)</span>) examines the association or relationship between two nominal/ordinal variables to see if the relationship reflects a true relationship that we could expect to find in the population. The test also tells us whether or not a category (attribute) of one variable varies by categories of another variable.</p>
 <p>The test is called the <em>test of independence</em> because it really tests the absence of association between (independence of) two variables.</p>
+<p><br><br></p>
+<div id="example-the-relationship-between-shape-of-a-cars-engine-vs-and-its-transmission-type-am" class="section level4">
+<h4>Example: The Relationship between Shape of a Car’s Engine (<span><code>vs</code></span>) and its Transmission Type (<span><code>am</code></span>)</h4>
+<p>Here, we’ll be working from the <span style="color:blue"><code>mtcars</code></span> data set, to examine the relationship between the shape of a car’s engine (<span><code>vs</code></span>: measured 0 for V-shaped engines and 1 for straight-shaped engines) and its transmission type (<span><code>am</code></span>: measured 0 for automatic and 1 for manual).</p>
+<p><br></p>
 </div>
-</div>
-<div id="section-1" class="section level1">
-<h1></h1>
+<div id="load-the-necessary-stuff" class="section level4">
+<h4>Load the Necessary Stuff</h4>
 <pre class="r"><code>library(MASS)
 library(psych)
 library(vannstats)</code></pre>
 </div>
-<div id="section-2" class="section level1">
+</div>
+</div>
+<div id="section-1" class="section level1">
 <h1></h1>
-<div id="assumptions-and-diagnostics-for-chi-square" class="section level4">
-<h4>Assumptions and Diagnostics for Chi Square</h4>
+<pre class="r"><code>data1 &lt;- mtcars</code></pre>
+<p><br><br></p>
+<div id="assumptions-and-diagnostics-for-chi-square" class="section level3">
+<h3>Assumptions and Diagnostics for Chi Square</h3>
 <p>The assumptions for the Chi Square are…</p>
 <ul>
 <li>Independence of Observations</li>
 <li>Normality</li>
 </ul>
-<pre class="r"><code>data1 &lt;- mtcars</code></pre>
 <div id="independence-of-observations-examine-data-collection-strategy" class="section level5">
 <h5>1. Independence of Observations (Examine Data Collection Strategy)</h5>
 <ul>
-<li>Cases (observations) are not related or dependent upon each other. Case can’t have more than one attribute. No ties between observations. Examine data collection strategy to see if there are linkages between observations.</li>
+<li><p>Cases (observations) are not related or dependent upon each other. Case can’t have more than one attribute. No ties between observations. Examine data collection strategy to see if there are linkages between observations.</p>
+<ul>
+<li><span style="color:red">Given that the <span><code>mtcars</code></span> data have been randomly-sampled, we have met the assumption of independence of observations.</span></li>
+</ul></li>
 </ul>
 </div>
-<div id="normality-examine-crosstabs-for-expected-frequencies" class="section level5">
-<h5>2. Normality (Examine Crosstabs for Expected Frequencies)</h5>
+<div id="normality-examine-expected-frequencies-crosstabcontingency-table" class="section level5">
+<h5>2. Normality (Examine Expected Frequencies Crosstab/Contingency Table)</h5>
 <ul>
-<li>Distributions must be relatively normal. A good way to see if we meet the normality assumption is to look at the <strong>Expected Frequencies</strong> in each cell of the crosstab. <strong>If 20 percent or more of our Expected Frequencies across all the cells are less than 5 cases (<span class="math inline">\(E \lt 5\)</span>), then you violate the assumption of normality</strong>.</li>
+<li>Distributions must be relatively normal.The normality assumption is met if <strong>no more than 20 percent of the cells in our Expected Frequencies Crosstab have fewer than 5 cases.</strong> Therefore, if (<span class="math inline">\(E \lt 5\)</span>) for more than 20 percent of the cells in the Expected Frequences table, the assumption of normality is violated**.</li>
 </ul>
 <p><em>The Chi Square test is finicky, in that you cannot see the expected frequencies (and observed frequencies) until you run the Chi Square function</em> As such, I’ve included, in the <span style="color:blue"><code>vannstats</code></span> package, a <span style="color:blue"><code>tab</code></span> function which returns the observed and expected frequencies.</p>
 <p>To check if you’ve met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below <span class="math inline">\(n=5\)</span>), you use the following</p>
@@ -463,12 +473,12 @@ library(vannstats)</code></pre>
 ## vs        0      1
 ##   0 10.6875 7.3125
 ##   1  8.3125 5.6875</code></pre>
-<p>We see here that we have met the assumption of normality: fewer than 20% of cells in the 4x4 table have less than 5 expected counts (actually, no cell has fewer than 5).</p>
+<ul>
+<li><span style="color:red">We see here that we have met the assumption of normality: less than 20% of cells in the 2x2 Expected Frequency crosstab have fewer than 5 expected counts. Actually, no cell has fewer than 5.</span></li>
+</ul>
+<p><br><br></p>
 </div>
 </div>
-</div>
-<div id="section-3" class="section level1">
-<h1></h1>
 <div id="the-chi-square-test-calculation" class="section level3">
 <h3>The Chi Square Test Calculation</h3>
 <p>The calculation for the Chi Square is:</p>
@@ -500,7 +510,7 @@ library(vannstats)</code></pre>
 ## 
 ## data:  data1$vs and data1$am
 ## X-squared = 0.90688, df = 1, p-value = 0.3409</code></pre>
-<p>In the output above, we see the <span class="math inline">\(X^2\)</span>-obtained value (0.90688), the degrees of freedom (30), and the p-value (0.3409, which is greater than our set alpha level of .05).</p>
+<p>In the output above, we see the <span class="math inline">\(X^2\)</span>-obtained value (0.90688), the degrees of freedom (1), and the p-value (0.3409, which is greater than our set alpha level of .05).</p>
 <p>To interpret the findings, we report the following information:</p>
 <ul>
 <li>The test used</li>
@@ -512,7 +522,9 @@ library(vannstats)</code></pre>
 </ul></li>
 </ul>
 <p>“Using the Chi Square test of independence (<span class="math inline">\(X^2\)</span>), I reject/fail to reject the null hypothesis that there is no association between variable one and variable 2, in the population, <span class="math inline">\(X^2(?) = ?, p ? .05\)</span>”</p>
-<p>“Using the Chi Square test of independence (<span class="math inline">\(X^2\)</span>), I fail to reject the null hypothesis that there is no association between the shape and the transmission type of cars, in the population, <span class="math inline">\(X^2(1) = .90688, p \gt .05\)</span>”</p>
+<ul>
+<li><span style="color:red">“Using the Chi Square test of independence (<span class="math inline">\(X^2\)</span>), I fail to reject the null hypothesis that there is no association between the shape and the transmission type of cars, in the population, <span class="math inline">\(X^2(1) = .90688, p \gt .05\)</span>” </span></li>
+</ul>
 <p><br><br><br></p>
 </div>
 </div>

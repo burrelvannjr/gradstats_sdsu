@@ -30,13 +30,19 @@ output:
 The ANOVA test examines the differences in means between **three or more** groups, in effort to see if the differences reflect true differences that we could expect to find in the population. The resulting test calculates an F value.  
 
 
+<br><br>
+
+#### Example: Differences in Mean Miles-Per-Gallon (<span>`mpg`</span>) by Type of Car in Cylinders (<span>`cyl`</span>)
+
+Here, we'll be working from the <span style="color:blue">`mtcars`</span> data set, to examine mean differences in the miles per gallon of a car (<span>`mpg`</span>: measured as an interval-ratio variable) by the type of car, in its number of cylinders (<span>`cyl`</span>: measured 4 for four cylinder cars, 6 for six cylinder cars, and 8 for eight cylinder cars).
+
+<br>
+
+#### Load the Necessary Stuff
 
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
-
-# 
-
 
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
@@ -48,7 +54,7 @@ library(gplots)
 library(stats)
 ```
 
-#
+<br><br>
 
 #### Assumptions and Diagnostics for the ANOVA
 
@@ -65,9 +71,9 @@ data1 <- mtcars
 
 
 ##### 1. Independence of Observations (Examine Data Collection Strategy)
-* Groups are not related or dependent upon each other. Case can’t be in more than one group. No ties between observations.
+* Groups are not related or dependent upon each other. Case can’t be in more than one group. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
 
-Examine data collection strategy to see if there are linkages between observations. 
+  + <span style="color:red">Given that the <span>`mtcars`</span> data have been randomly-sampled, we have met the assumption of independence of observations.</span>
 
 ##### 2. Equal Sample Sizes (Examine N for each group)
 * The number of cases in each group should be relatively similar. (If not, use pooled variance/unequal variances asssume t-test formula)
@@ -81,6 +87,7 @@ For both of the above assumptions, we can examine the univariate data table, bro
 describeBy(data1$mpg, data1$cyl)
 ```
 
+  + <span style="color:red">Given that the group sizes are similar, we have met the assumption of equal sample sizes. Further, given that the standard deviations for all three groups do not exceed a 3:1 ratio, we have met the assumption of homogeneity of variance.</span>
 
 ##### 4. Normality (Examine Plots: Histogram, Q-Q Normality Plots, Box-and-Whiskers Plots)
 * Distribution must be relatively normal. (If violated, use “unequal variances assumed” formula, otherwise, use “equal variances assumed”)
@@ -91,9 +98,8 @@ describeBy(data1$mpg, data1$cyl)
 
 Plot the histogram for mpg (Y variable) broken out by number of cylinders in a car (levels of the X variable)...  
 
-```{r}
+```{r, warning=FALSE}
 hst(data1, mpg, cyl)
-#main = "Histogram of 'Miles per Gallon' by 'Number of Cylinders'"
 ```
 
 
@@ -122,7 +128,6 @@ To plot a boxplot, broken out by *Number of Cylinders in a Car*, we can do the f
 
 ```{r}
 box(data1, mpg, cyl)
-#main = "Bar-and-Whisker Plot of 'Miles per Gallon' by 'Number of Cylinders'"
 ```
 
 
@@ -136,6 +141,10 @@ We assess normality an break this plot out by a grouping variable.
 qq(data1, mpg, cyl)
 ```
 
+
+  + <span style="color:red">Given that, across all three plots of <span>`mpg`</span> broken out by <span>`cylinder`</span>, the variables do not seem to drastically deviate from normality. Therefore, we can assume normality.</span>
+  
+<br><br>
 
 ### The ANOVA (F-Test)
 
@@ -179,11 +188,18 @@ To interpret the findings, we report the following information:
 
 “Using a one-way ANOVA, I reject/fail to reject the null hypothesis that there is no mean difference between groups, in the population, $F(?) = ?, p ? .05$” 
 
-“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the miles per gallon in cars with different cylinders, in the population, $F(1,30) = 79.56, p \leq .05$” 
+  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the miles per gallon in cars with different cylinders, in the population, $F(1,30) = 79.56, p \leq .05$”</span>
 
+<br><br>
 
 ### Which means differ?
 
+After finding a significant result in your omnibus/overall F-test/ANOVA, to identify *where* the differences lie, you can do two things:
+
+* Examine a means plot
+* Run a Post-hoc significance test
+
+#### Means Plot
 We can simply plot means, using the <span style="color:blue">`plotmeans`</span> function...
 
 ```{r}
@@ -192,7 +208,11 @@ plotmeans(mpg ~ cyl, data = data1,
           main="Mean Plot with 95% CI") 
 ```
 
-Here, we can see that it looks like 4-cylinder cars have extremely different (higher) mean mpgs than eith 6-cylinder or 8-cylinder cars.
+  + <span style="color:red">Here, we can see that it looks like 4-cylinder cars have extremely different (higher) mean mpgs than eith 6-cylinder or 8-cylinder cars.</span>
+
+<br>
+
+#### Post-Hoc Significance Test: Tukey's HSD.
 
 And finally, we can see where the *significantly different* mean comparisons are, with the Tukey's HSD test... using the <span style="color:blue">`TukeyHSD`</span> function...(here I had to call the second variable a factor because it is read by R as a number)
 
@@ -200,7 +220,7 @@ And finally, we can see where the *significantly different* mean comparisons are
 TukeyHSD(aov(data1$mpg ~ factor(data1$cyl)))
 ```
 
-Here, we see that 4-cylinder cars are, actually, significantly different than 6-cylinder or 8-cylinder cars, and that 6-cylinder cars are, themselves, significantly different from 8-cylinder cars.
+  + <span style="color:red">Here, we see that 4-cylinder cars are, actually, significantly different than 6-cylinder or 8-cylinder cars, and that 6-cylinder cars are, themselves, significantly different from 8-cylinder cars.</span>
 
 
 <br><br><br>
