@@ -27,23 +27,21 @@ output:
 
 
 
-### Is there a mean difference in the number of beers undergraduate students versus graduate students have in their home refrigerator?
+#### Is there a mean difference in the number of beers undergraduate students versus graduate students have in their home refrigerator?
 
+<br>
 
-
-#### The t-Test
+### The t-Test
 The t-test is a bivariate (two variable) test that examines the differences in means between **two** groups (no more, no less), in effort to see if the differences reflect true differences that we could expect to find in the population. 
 
 For this example, the t-test works perfectly because we have only two groups (undergraduate students and graduate students), and we're examining each group's mean number of beers in their home fridge to see if there is a true difference between "beers in fridge" amongst the population of undergraduate and graduate students. 
 
+<br>
 
-
+#### Load the Necessary Stuff
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
-
-# 
-
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
@@ -53,7 +51,7 @@ library(vannstats)
 
 #
 
-#### The Data
+#### Reading in the Data
 
 In total, we have 10 undergraduate students and 10 graduate students in our sample. The data are as follows:
 
@@ -61,9 +59,7 @@ In total, we have 10 undergraduate students and 10 graduate students in our samp
 
 **Grads**: <span style="color:blue">`1, 6, 17, 9, 2, 0, 8, 4, 7, 3`</span>.
 
-#
-
-#### Reading in the Data
+<br>
 
 As in the [Intro to R](Intro-and-Univariate-Statistics.html) vignette, we can create an object out of a list of numbers using the concatenate <span style="color:blue">`c`</span> function.
 
@@ -95,8 +91,9 @@ data
 knitr::include_graphics("beers.png")
 ```
 
+<br>
 
-#### Assumptions and Diagnostics for the t-Test
+### Assumptions and Diagnostics for the t-Test
 
 The assumptions for a t-test are...
 
@@ -107,11 +104,13 @@ The assumptions for a t-test are...
 
 ##### 1. Independence of Observations (Examine Data Collection Strategy)
 * Groups are not related or dependent upon each other. Cases can’t be in more than one group. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
+
   + <span style="color:red">These data were randomly sampled. `Therefore, we meet the assumption of independence of observations`.</span> 
 
+<br>
+
 ##### 2. Equal Sample Sizes (Examine N for each group)
-* The number of cases in each group should be relatively similar. (If not, use pooled variance/unequal variances asssume t-test formula)
-  + <span style="color:red">The sample size for each group is not just *nearly* the same, but it is exactly the same for both groups. `Therefore, we have met the assumtption for equal sample sizes`.</span> 
+* The number of cases in each group should be relatively similar. (If not, use pooled variance/unequal variances asssume t-test formula).
 
 ##### 3. Homogeneity of Variance (Examine SD^2^ for each group)
 * Both groups have approximately equal variances (SD^2^). The distributions (or spread) for the groups are approximately equal. Keppel & Zedeck (1989) suggest that variance comparison should not exceed 10:1 ratio (*or... alternatively, the SDs, when compared, should not exceed around a 3:1 ratio*). For both of the above assumptions, we can examine the univariate data table, broken out by group:
@@ -120,7 +119,9 @@ The assumptions for a t-test are...
 describeBy(data$beers, data$level)
 ```
 
-  + <span style="color:red">We can see from the output that, comparing the SD for both groups, there is not a ratio larger than 3:1. For these data, the SDs for each group are 4.99 for graduate students and 2.77 for undergraduate students (its only nearly a 2:1 ratio). `Therefore, we have met the assumption for homogeneity of variance`.</span> 
+  + <span style="color:red">We can see from the output that, the sample size for each group is not just *nearly* the same, but it is exactly the same for both groups. Therefore, `we have met the assumption for equal sample sizes`. Moreover, when comparing the SD for both groups, there is not a ratio larger than 3:1. For these data, the SDs for each group are 4.99 for graduate students and 2.77 for undergraduate students (its only nearly a 2:1 ratio). Therefore, `we have met the assumption for homogeneity of variance`.</span> 
+
+<br>
 
 ##### 4. Normality (Examine Plots: Histogram, Q-Q Normality Plots, Box-and-Whiskers Plots)
 * Distribution must be relatively normal. (If violated, use “unequal variances assumed” formula, otherwise, use “equal variances assumed”)
@@ -136,6 +137,8 @@ hst(data, beers, level)
 ```
 
   + <span style="color:red">We can see from the histogram that for both group distributions of the outcome variable (beers), the data are moderately positively skewed (since .89 for undergrads and .91 for grad students is between $|.5|$ and $|1|$. Although this is moderately positively skewed, it is safe to assume that these data are close enough to normal to proceed with the statistical test.</span> 
+  
+<br>
 
 ##### 4b. Boxplots (Box-and-Whisker Plots)
 
@@ -164,10 +167,8 @@ box(data, beers, level)
 #main = "Bar-and-Whisker Plot of 'Beers' by 'Student Type'"
 ```
 
-  + <span style="color:red">We can see from the boxplot that for both group distributions of the outcome variable (beers), the data are somewhat normally distributed. For both grads and undergrads, the interquartile range is closer to the lower end of the distribution rather than the middle. Importantly, while the median is in the center of the IQR for graduates, it is off-center and closer to the 25$^{th}$ percentile for undergraduates. Despite these trends, it is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span> <br>
-  
-#
-
+  + <span style="color:red">We can see from the boxplot that for both group distributions of the outcome variable (beers), the data are somewhat normally distributed. For both grads and undergrads, the interquartile range is closer to the lower end of the distribution rather than the middle. Importantly, while the median is in the center of the IQR for graduates, it is off-center and closer to the 25$^{th}$ percentile for undergraduates. Despite these trends, it is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span> 
+<br>
 
 ##### 4c. Normal Q-Q (Quantile-Quantile) Plots
 
@@ -181,9 +182,13 @@ qq(data, beers, level)
 
   + <span style="color:red">We can see from the Q-Q plot that for both group distributions of the outcome variable (beers), the data are somewhat normal, since there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line) for the *number of beers* variable for either group/level (*student type*). It is therefore safe to proceed with the statistical test.</span> 
 
-  + <span style="color:red">Based on the the three visual depictions above, the data seem normally-distributed. `Therefore, we meet the assumption of normality`.</span> 
+<br>
 
-### The t-Test
+  + <span style="color:red">Based on the the three visual depictions above, the data seem normally-distributed. `Therefore, we meet the assumption of normality`.</span> 
+  
+<br>
+
+### The t-Test Calculation
 
 The calculation for the t-Test is:
 
@@ -201,6 +206,7 @@ where... <br>
 In addition, the degrees of freedom ($df$) for the test is...<br> 
 $df = n_1 + n_2 -2$ (aka $df = N-2$)
 
+<br>
 
 ### Running the t-Test in R
 
@@ -228,7 +234,7 @@ To interpret the findings, we report the following information:
 
 “Using an independent samples t-test, I reject/fail to reject the null hypothesis that there is no mean difference between group 1 and group 2, in the population, $t(?) = ?, p ? .05$” 
 
-* <span style="color:red">“Using an independent samples t-test, I fail to reject the null hypothesis that there is no difference between the mean number of beers for undergraduate students and graduate students, in the population, $t(18) = \pm 1.5518, p > .05$.”</span>
+  + <span style="color:red">“Using an independent samples t-test, I fail to reject the null hypothesis that there is no difference between the mean number of beers for undergraduate students and graduate students, in the population, $t(18) = \pm 1.5518, p > .05$.”</span>
 
 
 <br><br><br>

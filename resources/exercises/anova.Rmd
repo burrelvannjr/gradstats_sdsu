@@ -74,6 +74,8 @@ The assumptions for an ANOVA are...
 
   + <span style="color:red">Given that the <span>`mtcars`</span> data have been randomly-sampled, we have met the assumption of independence of observations.</span>
 
+<br>
+
 ##### 2. Equal Sample Sizes (Examine N for each group)
 * The number of cases in each group should be relatively similar. (If not, use pooled variance/unequal variances asssume t-test formula)
 
@@ -148,6 +150,8 @@ qq(data1, mpg, cyl)
 ```
 
   + <span style="color:red">We can see from the Q-Q plot that group distributions of the outcome variable (mpg), the data are somewhat normal. However, it is important to notice that for the 4-cylinder and the 8-cylinder cars, the data tend to curve *away from* the normality line at the tails of the distribution. This indicates *some* deviation from normality. We would want to possibly increase our sample size, since these deviations from normality are likely resulting from the small sample size ($n$). Given that the data are normal enough, and there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line) for the *mpg* variable for any group/level (*cyl*), it is safe to proceed with the statistical test.</span> 
+
+<br>
 
   + <span style="color:red">Across all three plots of <span>`mpg`</span> broken out by <span>`cylinder`</span>, the variables do not seem to drastically deviate from normality. Therefore, `we can assume normality`.</span>
   

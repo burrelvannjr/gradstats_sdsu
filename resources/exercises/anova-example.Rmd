@@ -102,6 +102,7 @@ The assumptions for an ANOVA are...
 ##### 1. Independence of Observations (Examine Data Collection Strategy)
 * Groups are not related or dependent upon each other. Cases can’t be in more than one group. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
   + <span style="color:red">These data were randomly sampled. `Therefore, we meet the assumption of independence of observations`.</span> 
+<br>
 
 ##### 2. Equal Sample Sizes (Examine N for each group)
 * The number of cases in each group should be relatively similar. 
@@ -179,7 +180,7 @@ qq(data, inc, race)
 
 <br>
 
-### The ANOVA (F-Test)
+### The ANOVA (F-Test) Calculation
 
 The calculation for the F-Test is:
 

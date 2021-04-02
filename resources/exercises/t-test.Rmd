@@ -22,21 +22,23 @@ output:
 * [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
 
-#
+#### Are there mean differences in miles-per-gallon (<span>`mpg`</span>) by a car's transmission type (<span>`am`</span>)?
 
+Here, we'll be working from the <span style="color:blue">`mtcars`</span> data set, to examine mean differences in the miles per gallon of a car (<span>`mpg`</span>: measured as an interval-ratio variable), by the transmission type of a car (<span>`am`</span>: measured 0 for automatic and 1 for manual).
+
+<br>
 
 ### What is the t-Test?
 
 The t-test examines the differences in means between **two** groups, in effort to see if the differences reflect true differences that we could expect to find in the population. 
 
 
+<br>
 
+#### Load the Necessary Stuff
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
-
-# 
-
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
@@ -44,9 +46,16 @@ library(psych)
 library(vannstats)
 ```
 
-#
+<br>
 
-#### Assumptions and Diagnostics for the t-Test
+#### Reading in the Data
+
+```{r}
+data1 <- mtcars
+```
+<br>
+
+### Assumptions and Diagnostics for the t-Test
 
 The assumptions for a t-test are...
 
@@ -55,13 +64,12 @@ The assumptions for a t-test are...
 * Homogeneity of Variance
 * Normality
 
-```{r}
-data1 <- mtcars
-```
 
 
 ##### 1. Independence of Observations (Examine Data Collection Strategy)
 * Groups are not related or dependent upon each other. Case can’t be in more than one group. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
+  + <span style="color:red">Given that the <span>`mtcars`</span> data have been randomly-sampled, we have met the assumption of independence of observations.</span>
+<br>
 
 ##### 2. Equal Sample Sizes (Examine N for each group)
 * The number of cases in each group should be relatively similar. (If not, use pooled variance/unequal variances asssume t-test formula)
@@ -75,6 +83,9 @@ For both of the above (2 and 3) assumptions, we can examine the univariate data 
 describeBy(data1$mpg, data1$am)
 ```
 
+  + <span style="color:red">Given that the group sizes are similar, `we have met the assumption of equal sample sizes`. Further, given that the standard deviations for all three groups do not exceed a 3:1 ratio, `we have met the assumption of homogeneity of variance`.</span>
+
+<br>
 
 ##### 4. Normality (Examine Plots: Histogram, Q-Q Normality Plots, Box-and-Whiskers Plots)
 * Distribution must be relatively normal. (If violated, use “unequal variances assumed” formula, otherwise, use “equal variances assumed”)
@@ -85,12 +96,13 @@ describeBy(data1$mpg, data1$am)
 
 Plot the histogram for mpg (Y variable) broken out by manual transmission (levels of the X variable)...  
 
-```{r}
+```{r, warning=FALSE}
 hst(data1, mpg, am)
-#can add call: main = "Histogram of 'Miles per Gallon' by 'Manual Transmission Type'"
 ```
 
-#
+  + <span style="color:red">We can see from the histograms that the distributions of the outcome variable (mpg) by the predictor/grouping/independent variable (am), are relatively normal.</span> 
+
+<br>
 
 
 ##### 4b. Boxplots (Box-and-Whisker Plots)
@@ -117,9 +129,11 @@ To plot a boxplot, broken out by *Manual Transmission*, we can do the following.
 
 ```{r}
 box(data1, mpg, am)
-# can add main = "Bar-and-Whisker Plot of 'mpg' by 'Manual Transmission Type'"
 ```
 
+  + <span style="color:red">We can see from the boxplots that the data for both groups tend to be normally-distributed: The medians *generally* fall in the center of the interquartile range and that interquartile range is generally centered between the whiskers. Interestingly, the interquartile range is much larger for manual transmission cars (am = 1), and the median is nearer the low end of the interquartile range. However, the data seem *normal enough*. It is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span> 
+
+<br>
 
 ##### 4c. Normal Q-Q (Quantile-Quantile) Plots
 
@@ -131,8 +145,17 @@ We assess normality an break this plot out by a grouping variable.
 qq(data1, mpg, am)
 ```
 
+  + <span style="color:red">We can see from the Q-Q plot that group distributions of the outcome variable (mpg), the data are somewhat normal. However, it is important to notice that for manual cars (am = 1), the data tend to curl *toward* and *away from* the normality line and intervals. This indicates *some* deviation from normality. We would want to possibly increase our sample size, since these deviations from normality are likely resulting from the small sample size ($n$). However, for this example, given the small sample size, the data look normal enough... even if there is a *slight* discernible pattern across the line (yet, it is not a strong curvilinear trend around normality line) for the *mpg* variable for any group/level (*cyl*). Therefore, it is safe to proceed with the statistical test.</span> 
 
-### The t-Test
+<br>
+
+  + <span style="color:red">Across all three plots of <span>`mpg`</span> broken out by <span>`am`</span>, the variables do not seem to drastically deviate from normality. Therefore, `we can assume normality`.</span>
+  
+<br>
+
+
+
+### The t-Test Calculation
 
 The calculation for the t-Test is:
 
@@ -150,6 +173,7 @@ where... <br>
 In addition, the degrees of freedom ($df$) for the test is...<br> 
 $df = n_1 + n_2 -2$ (aka $df = N-2$)
 
+<br>
 
 ### Running the t-Test in R
 
@@ -177,7 +201,7 @@ To interpret the findings, we report the following information:
 
 “Using an independent samples t-test, I reject/fail to reject the null hypothesis that there is no mean difference between group 1 and group 2, in the population, $t(?) = ?, p ? .05$” 
 
-“Using an independent samples t-test, I reject the null hypothesis that there is no difference between the mean mpg of automatic and manual transmission cars, in the population, $t(30) = \pm 4.1061, p \leq .05$” 
+  + <span style="color:red">“Using an independent samples t-test, I reject the null hypothesis that there is no difference between the mean mpg of automatic and manual transmission cars, in the population, $t(30) = \pm 4.1061, p \leq .05$” </span>
 
 
 <br><br><br>
