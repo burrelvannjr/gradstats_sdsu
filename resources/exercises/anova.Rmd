@@ -22,19 +22,18 @@ output:
 * [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
 
-#
+
+#### Are there mean differences in miles-per-gallon (<span>`mpg`</span>) by type of cylinders in a car (<span>`cyl`</span>)?
+
+Here, we'll be working from the <span style="color:blue">`mtcars`</span> data set, to examine mean differences in the miles per gallon of a car (<span>`mpg`</span>: measured as an interval-ratio variable) by the type of car, in its number of cylinders (<span>`cyl`</span>: measured 4 for four cylinder cars, 6 for six cylinder cars, and 8 for eight cylinder cars).
+
+<br>
 
 
 ### What is the Analysis of Variance (ANOVA)?
 
 The ANOVA test examines the differences in means between **three or more** groups, in effort to see if the differences reflect true differences that we could expect to find in the population. The resulting test calculates an F value.  
 
-
-<br><br>
-
-#### Example: Differences in Mean Miles-Per-Gallon (<span>`mpg`</span>) by Type of Car in Cylinders (<span>`cyl`</span>)
-
-Here, we'll be working from the <span style="color:blue">`mtcars`</span> data set, to examine mean differences in the miles per gallon of a car (<span>`mpg`</span>: measured as an interval-ratio variable) by the type of car, in its number of cylinders (<span>`cyl`</span>: measured 4 for four cylinder cars, 6 for six cylinder cars, and 8 for eight cylinder cars).
 
 <br>
 
@@ -44,7 +43,6 @@ Here, we'll be working from the <span style="color:blue">`mtcars`</span> data se
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
 
-
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
@@ -53,10 +51,15 @@ library(vannstats)
 library(gplots)
 library(stats)
 ```
+<br>
 
-<br><br>
+#### Reading in the Data
+```{r}
+data1 <- mtcars
+```
+<br>
 
-#### Assumptions and Diagnostics for the ANOVA
+### Assumptions and Diagnostics for the ANOVA
 
 The assumptions for an ANOVA are...
 
@@ -64,10 +67,6 @@ The assumptions for an ANOVA are...
 * Equal Sample Sizes
 * Homogeneity of Variance
 * Normality
-
-```{r}
-data1 <- mtcars
-```
 
 
 ##### 1. Independence of Observations (Examine Data Collection Strategy)
@@ -87,7 +86,9 @@ For both of the above assumptions, we can examine the univariate data table, bro
 describeBy(data1$mpg, data1$cyl)
 ```
 
-  + <span style="color:red">Given that the group sizes are similar, we have met the assumption of equal sample sizes. Further, given that the standard deviations for all three groups do not exceed a 3:1 ratio, we have met the assumption of homogeneity of variance.</span>
+  + <span style="color:red">Given that the group sizes are similar, `we have met the assumption of equal sample sizes`. Further, given that the standard deviations for all three groups do not exceed a 3:1 ratio, `we have met the assumption of homogeneity of variance`.</span>
+
+<br>
 
 ##### 4. Normality (Examine Plots: Histogram, Q-Q Normality Plots, Box-and-Whiskers Plots)
 * Distribution must be relatively normal. (If violated, use “unequal variances assumed” formula, otherwise, use “equal variances assumed”)
@@ -102,7 +103,9 @@ Plot the histogram for mpg (Y variable) broken out by number of cylinders in a c
 hst(data1, mpg, cyl)
 ```
 
+  + <span style="color:red">We can see from the histograms that the distributions of the outcome variable (mpg) by the predictor/grouping/independent variable (cyl), are relatively normal. Interestingly, the missing right tail of the distribution for 4-cylinder cars implies a longer right tail, which would indicate positive skewness. Yet, overall, these data are close enough to normal.</span> 
 
+<br>
 
 ##### 4b. Boxplots (Box-and-Whisker Plots)
 
@@ -130,6 +133,9 @@ To plot a boxplot, broken out by *Number of Cylinders in a Car*, we can do the f
 box(data1, mpg, cyl)
 ```
 
+  + <span style="color:red">We can see from the boxplots that the data for all three groups tend to be normally-distributed: All medians fall in the center of the interquartile range and that interquartile range is generally centered between the whiskers. The data for 8-cylinder cars, however, possesses an outlier. These plots may give us some pause in proceeding. However, the data seem *normal enough*. It is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span> 
+
+<br>
 
 ##### 4c. Normal Q-Q (Quantile-Quantile) Plots
 
@@ -141,12 +147,13 @@ We assess normality an break this plot out by a grouping variable.
 qq(data1, mpg, cyl)
 ```
 
+  + <span style="color:red">We can see from the Q-Q plot that group distributions of the outcome variable (mpg), the data are somewhat normal. However, it is important to notice that for the 4-cylinder and the 8-cylinder cars, the data tend to curve *away from* the normality line at the tails of the distribution. This indicates *some* deviation from normality. We would want to possibly increase our sample size, since these deviations from normality are likely resulting from the small sample size ($n$). Given that the data are normal enough, and there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line) for the *mpg* variable for any group/level (*cyl*), it is safe to proceed with the statistical test.</span> 
 
-  + <span style="color:red">Given that, across all three plots of <span>`mpg`</span> broken out by <span>`cylinder`</span>, the variables do not seem to drastically deviate from normality. Therefore, we can assume normality.</span>
+  + <span style="color:red">Across all three plots of <span>`mpg`</span> broken out by <span>`cylinder`</span>, the variables do not seem to drastically deviate from normality. Therefore, `we can assume normality`.</span>
   
-<br><br>
+<br>
 
-### The ANOVA (F-Test)
+### The ANOVA (F-Test) Calculation
 
 The calculation for the F-Test is:
 
@@ -163,9 +170,9 @@ In addition, the degrees of freedom ($df$) for the test is...<br>
 $df_{between} = k - 1$; where $k$ is the number of groups
 $df_{within} = N - k$
 
+<br>
 
-### Running the ANOVA in R
-
+### Running the ANOVA
 
 To run the one-way ANOVA in R, we take the summary (output) of the analysis of variance <span style="color:blue">`aov`</span> function.
 
@@ -192,7 +199,7 @@ To interpret the findings, we report the following information:
 
 <br><br>
 
-### Which means differ?
+### Post-Hoc Checks: Which means differ?
 
 After finding a significant result in your omnibus/overall F-test/ANOVA, to identify *where* the differences lie, you can do two things:
 
@@ -208,11 +215,11 @@ plotmeans(mpg ~ cyl, data = data1,
           main="Mean Plot with 95% CI") 
 ```
 
-  + <span style="color:red">Here, we can see that it looks like 4-cylinder cars have extremely different (higher) mean mpgs than eith 6-cylinder or 8-cylinder cars.</span>
+  + <span style="color:red">Here, we can see that it looks like 4-cylinder cars have extremely different (higher) mean mpgs than with 6-cylinder or 8-cylinder cars.</span>
 
 <br>
 
-#### Post-Hoc Significance Test: Tukey's HSD.
+#### Post-Hoc Significance Test: Tukey's HSD
 
 And finally, we can see where the *significantly different* mean comparisons are, with the Tukey's HSD test... using the <span style="color:blue">`TukeyHSD`</span> function...(here I had to call the second variable a factor because it is read by R as a number)
 

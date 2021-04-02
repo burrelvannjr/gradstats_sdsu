@@ -24,7 +24,11 @@ output:
 
 #
 
+#### Is there a relationship between the shape of a car's engine (<span>`vs`</span>) and its transmission type (<span>`am`</span>)?
 
+Here, we'll be working from the <span style="color:blue">`mtcars`</span> data set, to examine the relationship between the shape of a car's engine (<span>`vs`</span>: measured 0 for V-shaped engines and 1 for straight-shaped engines) and its transmission type (<span>`am`</span>: measured 0 for automatic and 1 for manual).
+
+<br>
 
 
 ### What is the Chi Square Test of Independence?
@@ -33,34 +37,29 @@ The Chi Square test ($X^2$) examines the association or relationship between two
 
 The test is called the *test of independence* because it really tests the absence of association between (independence of) two variables.
 
-<br><br>
-
-#### Example: The Relationship between Shape of a Car's Engine (<span>`vs`</span>) and its Transmission Type (<span>`am`</span>)
-
-Here, we'll be working from the <span style="color:blue">`mtcars`</span> data set, to examine the relationship between the shape of a car's engine (<span>`vs`</span>: measured 0 for V-shaped engines and 1 for straight-shaped engines) and its transmission type (<span>`am`</span>: measured 0 for automatic and 1 for manual).
-
 <br>
 
-#### Load the Necessary Stuff
 
+
+#### Load the Necessary Stuff
 
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
-
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
 library(vannstats)
 ```
+<br>
 
-#
+#### Reading in the Data
 ```{r}
 data1 <- mtcars
 ```
 
-<br><br>
+<br>
 
 ### Assumptions and Diagnostics for Chi Square
 
@@ -75,30 +74,29 @@ The assumptions for the Chi Square are...
 ##### 1. Independence of Observations (Examine Data Collection Strategy)
 * Cases (observations) are not related or dependent upon each other. Case can’t have more than one attribute. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
 
-  + <span style="color:red">Given that the <span>`mtcars`</span> data have been randomly-sampled, we have met the assumption of independence of observations.</span>
+  + <span style="color:red">Given that the mtcars data have been randomly-sampled, `we have met the assumption of independence of observations`.</span>
 
+<br>
 
 ##### 2. Normality (Examine Expected Frequencies Crosstab/Contingency Table)
 
 
-* Distributions must be relatively normal.The normality assumption is met if **no more than 20 percent of the cells in our Expected Frequencies Crosstab have fewer than 5 cases.** Therefore, if ($E \lt 5$) for more than 20 percent of the cells in the Expected Frequences table, the assumption of normality is violated**.
+* Distributions must be relatively normal.The normality assumption is met if **no more than 20 percent of the cells in our Expected Frequencies crosstab have fewer than 5 cases.** Therefore, if ($E \lt 5$) for more than 20 percent of the cells in the Expected Frequences table, the assumption of normality is violated.
 
-*The Chi Square test is finicky, in that you cannot see the expected frequencies (and observed frequencies) until you run the Chi Square function* As such, I've included, in the <span style="color:blue">`vannstats`</span> package, a <span style="color:blue">`tab`</span> function which returns the observed and expected frequencies. 
-
-To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you use the following 
+In the <span style="color:blue">`vannstats`</span> package, I have included the <span style="color:blue">`tab`</span> function which returns the crosstabs of observed and expected frequencies. To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you use the following:
 
 ```{r}
 tab(data1, vs, am)
 ```
 
-  + <span style="color:red">We see here that we have met the assumption of normality: less than 20% of cells in the 2x2 Expected Frequency crosstab have fewer than 5 expected counts. Actually, no cell has fewer than 5.</span>
+  + <span style="color:red">We see here that `we have met the assumption of normality`: less than 20% of cells in the 2x2 Expected Frequency crosstab have fewer than 5 expected counts. Actually, no cell has fewer than 5.</span>
 
 
 ```{r, results="hide", echo=FALSE}
 table(data1$vs, data1$am)
 ```
 
-<br><br>
+<br>
 
 ### The Chi Square Test Calculation
 
@@ -124,13 +122,11 @@ where...
 * $c$ is the number of columns in a crosstabulation<br>
 
 
+<br>
 
 ### Running the Chi Square Test
 
-
-
 For Chi Square, within the <span style="color:blue">`chi.sq`</span> function, the dependent variable is listed first and the independent variable is listed second. 
-
 
 
 ```{r}

@@ -416,28 +416,29 @@ summary {
 </div>
 <div id="section" class="section level1">
 <h1></h1>
+<div id="is-there-a-relationship-between-the-shape-of-a-cars-engine-vs-and-its-transmission-type-am" class="section level4">
+<h4>Is there a relationship between the shape of a car’s engine (<span><code>vs</code></span>) and its transmission type (<span><code>am</code></span>)?</h4>
+<p>Here, we’ll be working from the <span style="color:blue"><code>mtcars</code></span> data set, to examine the relationship between the shape of a car’s engine (<span><code>vs</code></span>: measured 0 for V-shaped engines and 1 for straight-shaped engines) and its transmission type (<span><code>am</code></span>: measured 0 for automatic and 1 for manual).</p>
+<p><br></p>
+</div>
 <div id="what-is-the-chi-square-test-of-independence" class="section level3">
 <h3>What is the Chi Square Test of Independence?</h3>
 <p>The Chi Square test (<span class="math inline">\(X^2\)</span>) examines the association or relationship between two nominal/ordinal variables to see if the relationship reflects a true relationship that we could expect to find in the population. The test also tells us whether or not a category (attribute) of one variable varies by categories of another variable.</p>
 <p>The test is called the <em>test of independence</em> because it really tests the absence of association between (independence of) two variables.</p>
-<p><br><br></p>
-<div id="example-the-relationship-between-shape-of-a-cars-engine-vs-and-its-transmission-type-am" class="section level4">
-<h4>Example: The Relationship between Shape of a Car’s Engine (<span><code>vs</code></span>) and its Transmission Type (<span><code>am</code></span>)</h4>
-<p>Here, we’ll be working from the <span style="color:blue"><code>mtcars</code></span> data set, to examine the relationship between the shape of a car’s engine (<span><code>vs</code></span>: measured 0 for V-shaped engines and 1 for straight-shaped engines) and its transmission type (<span><code>am</code></span>: measured 0 for automatic and 1 for manual).</p>
 <p><br></p>
-</div>
 <div id="load-the-necessary-stuff" class="section level4">
 <h4>Load the Necessary Stuff</h4>
 <pre class="r"><code>library(MASS)
 library(psych)
 library(vannstats)</code></pre>
+<p><br></p>
 </div>
-</div>
-</div>
-<div id="section-1" class="section level1">
-<h1></h1>
+<div id="reading-in-the-data" class="section level4">
+<h4>Reading in the Data</h4>
 <pre class="r"><code>data1 &lt;- mtcars</code></pre>
-<p><br><br></p>
+<p><br></p>
+</div>
+</div>
 <div id="assumptions-and-diagnostics-for-chi-square" class="section level3">
 <h3>Assumptions and Diagnostics for Chi Square</h3>
 <p>The assumptions for the Chi Square are…</p>
@@ -450,17 +451,17 @@ library(vannstats)</code></pre>
 <ul>
 <li><p>Cases (observations) are not related or dependent upon each other. Case can’t have more than one attribute. No ties between observations. Examine data collection strategy to see if there are linkages between observations.</p>
 <ul>
-<li><span style="color:red">Given that the <span><code>mtcars</code></span> data have been randomly-sampled, we have met the assumption of independence of observations.</span></li>
+<li><span style="color:red">Given that the mtcars data have been randomly-sampled, <code>we have met the assumption of independence of observations</code>.</span></li>
 </ul></li>
 </ul>
+<p><br></p>
 </div>
 <div id="normality-examine-expected-frequencies-crosstabcontingency-table" class="section level5">
 <h5>2. Normality (Examine Expected Frequencies Crosstab/Contingency Table)</h5>
 <ul>
-<li>Distributions must be relatively normal.The normality assumption is met if <strong>no more than 20 percent of the cells in our Expected Frequencies Crosstab have fewer than 5 cases.</strong> Therefore, if (<span class="math inline">\(E \lt 5\)</span>) for more than 20 percent of the cells in the Expected Frequences table, the assumption of normality is violated**.</li>
+<li>Distributions must be relatively normal.The normality assumption is met if <strong>no more than 20 percent of the cells in our Expected Frequencies crosstab have fewer than 5 cases.</strong> Therefore, if (<span class="math inline">\(E \lt 5\)</span>) for more than 20 percent of the cells in the Expected Frequences table, the assumption of normality is violated.</li>
 </ul>
-<p><em>The Chi Square test is finicky, in that you cannot see the expected frequencies (and observed frequencies) until you run the Chi Square function</em> As such, I’ve included, in the <span style="color:blue"><code>vannstats</code></span> package, a <span style="color:blue"><code>tab</code></span> function which returns the observed and expected frequencies.</p>
-<p>To check if you’ve met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below <span class="math inline">\(n=5\)</span>), you use the following</p>
+<p>In the <span style="color:blue"><code>vannstats</code></span> package, I have included the <span style="color:blue"><code>tab</code></span> function which returns the crosstabs of observed and expected frequencies. To check if you’ve met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below <span class="math inline">\(n=5\)</span>), you use the following:</p>
 <pre class="r"><code>tab(data1, vs, am)</code></pre>
 <pre><code>## $`Observed Frequencies`
 ##    am
@@ -474,9 +475,9 @@ library(vannstats)</code></pre>
 ##   0 10.6875 7.3125
 ##   1  8.3125 5.6875</code></pre>
 <ul>
-<li><span style="color:red">We see here that we have met the assumption of normality: less than 20% of cells in the 2x2 Expected Frequency crosstab have fewer than 5 expected counts. Actually, no cell has fewer than 5.</span></li>
+<li><span style="color:red">We see here that <code>we have met the assumption of normality</code>: less than 20% of cells in the 2x2 Expected Frequency crosstab have fewer than 5 expected counts. Actually, no cell has fewer than 5.</span></li>
 </ul>
-<p><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div id="the-chi-square-test-calculation" class="section level3">
@@ -500,6 +501,7 @@ library(vannstats)</code></pre>
 <li><span class="math inline">\(r\)</span> is the number of rows in a crosstabulation<br></li>
 <li><span class="math inline">\(c\)</span> is the number of columns in a crosstabulation<br></li>
 </ul>
+<p><br></p>
 </div>
 <div id="running-the-chi-square-test" class="section level3">
 <h3>Running the Chi Square Test</h3>

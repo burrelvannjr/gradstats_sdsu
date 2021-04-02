@@ -22,30 +22,24 @@ output:
 * [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
 
-#
 
+#### Is there a mean difference in monthly income across different racial groups?
 
+<br>
 
-### Is there a mean difference in monthly income across different racial groups?
-
-
-#### The Analysis of Variance (ANOVA)
+### The Analysis of Variance (ANOVA)
 
 The ANOVA is a bivariate (two variable) test that examines the differences in means between **three or more** groups, in effort to see if the differences reflect true differences that we could expect to find in the population. The resulting test calculates an F value.  
 
 For this example, the ANOVA works because we have have four groups (black, white, latinx, and other), and we're examining each group's mean monthly income to see if there is a true difference in income amongst racial groups in the population. 
 
+<br>
 
-
-
+#### Load the Necessary Stuff
 
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
-
-# 
-
-
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
@@ -56,8 +50,7 @@ library(gplots)
 library(stats)
 ```
 
-#
-
+<br>
 
 #### Reading in the Data
 
@@ -94,8 +87,9 @@ Now we can call the data...
 data
 ```
 
+<br>
 
-#### Assumptions and Diagnostics for the ANOVA
+### Assumptions and Diagnostics for the ANOVA
 
 The assumptions for an ANOVA are...
 
@@ -111,7 +105,6 @@ The assumptions for an ANOVA are...
 
 ##### 2. Equal Sample Sizes (Examine N for each group)
 * The number of cases in each group should be relatively similar. 
-  + <span style="color:red">The sample size for each group is exactly the same for all groups. `Therefore, we have met the assumtption for equal sample sizes`.</span> 
 
 ##### 3. Homogeneity of Variance (Examine SD^2^ for each group)
 * All groups have approximately equal variances (SD^2^). The distributions (or spread) for the groups are approximately equal. Keppel & Zedeck (1989) suggest that variance comparison should not exceed 10:1 ratio (*or... alternatively, the SDs, when compared, should not exceed around a 3:1 ratio*). For both of the above assumptions, we can examine the univariate data table, broken out by group:
@@ -120,7 +113,8 @@ The assumptions for an ANOVA are...
 describeBy(data$inc, data$race)
 ```
 
-  + <span style="color:red">We can see from the output that, comparing the SD for all groups, there is not a ratio larger than 3:1. For these data, the largest descrepancy between SDs for each group is between black individuals (SD = 358.68) and white individuals (SD = 1016.5), which is less than the 3:1 ratio suggested. `Therefore, we have met the assumption for homogeneity of variance`.</span> 
+  + <span style="color:red">The sample size for each group is exactly the same for all groups. Therefore, `we have met the assumtption for equal sample sizes`. We can also see that, when comparing the SD for all groups, there is not a ratio larger than 3:1. For these data, the largest discrepancy between SDs for each group is between black individuals (SD = 358.68) and white individuals (SD = 1016.5), which is less than the 3:1 ratio suggested. Therefore, `we have met the assumption for homogeneity of variance`.</span> 
+<br>
 
 ##### 4. Normality (Examine Plots: Histogram, Q-Q Normality Plots, Box-and-Whiskers Plots)
 * Distribution must be relatively normal. 
@@ -130,12 +124,13 @@ describeBy(data$inc, data$race)
 Plot the histogram for *Monthly Income* (Y variable) broken out by *Racial Category* (levels of the X variable), overlaying a normal curve... 
 
 
-```{r}
+```{r, warning=FALSE}
 hst(data, inc, race)
-#main = "Histogram of 'Monthly Income' by 'Race'"
 ```
 
-  + <span style="color:red">We can see from the histogram that for both group distributions of the outcome variable (beers), the data are moderately positively skewed (with the exeception of the distribution of scores for black individuals). Although these are moderately skewed, it is safe to assume that these data are close enough to normal to proceed with the statistical test.</span> 
+  + <span style="color:red">We can see from the histogram that for group distributions of the outcome variable (beers), the data are moderately positively skewed (with the exception of the distribution of scores for black individuals). Although these are moderately skewed, it is safe to assume that these data are close enough to normal to proceed with the statistical test.</span> 
+
+<br>
 
 ##### 4b. Boxplots (Box-and-Whisker Plots)
 
@@ -164,10 +159,8 @@ box(data, inc, race)
 #main = "Bar-and-Whisker Plot of 'Monthly Income' by 'Race'")
 ```
 
-  + <span style="color:red">We can see from the boxplots that for the black and other groups are somewhat normally distributed. The data for latinx and white individuals, however, possesses some outliers, and the median falls near or on the edge of the interquartile range. In addition, the minimum and maximum scores are missing for latinx individuals while the maximum is missing for white individuals (rather, those scores are read as extremes or outliers). These plots may give us some pause in proceeding. In many cases, finding distributions like this would warrant further data collection (e.g. there may be too few cases in this sample, which is why many are perceived as outliers). However, for this example, the data seem *normal enough*. It is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span> <br>
-  
-#
-
+  + <span style="color:red">We can see from the boxplots that for the black and other groups are somewhat normally distributed. The data for latinx and white individuals, however, possesses some outliers, and the median falls near or on the edge of the interquartile range. In addition, the minimum and maximum scores are missing for latinx individuals while the maximum is missing for white individuals (rather, those scores are read as extremes or outliers). These plots may give us some pause in proceeding. In many cases, finding distributions like this would warrant further data collection (e.g. there may be too few cases in this sample, which is why many are perceived as outliers). However, for this example, the data seem *normal enough*. It is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span> 
+<br>
 
 ##### 4c. Normal Q-Q (Quantile-Quantile) Plots
 
@@ -180,9 +173,11 @@ qq(data, inc, race)
 #main = "Normal Q-Q Plot of 'Monthly Income' by 'Race'", xlab = "Expected Normal"
 ```
 
-  + <span style="color:red">We can see from the Q-Q plot that for both group distributions of the outcome variable (monthly income), the data are somewhat normal, since there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line) for the *income* variable for any group/level (*race*). It is therefore safe to proceed with the statistical test.</span> 
+  + <span style="color:red">We can see from the Q-Q plot that for group distributions of the outcome variable (monthly income), the data are somewhat normal, since there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line) for the *income* variable for any group/level (*race*). It is therefore safe to proceed with the statistical test.</span> 
 
   + <span style="color:red">Based on the the three visual depictions above, the data seem normally-distributed. `Therefore, we meet the assumption of normality`.</span> 
+
+<br>
 
 ### The ANOVA (F-Test)
 
@@ -201,9 +196,9 @@ In addition, the degrees of freedom ($df$) for the test is...<br>
 $df_{between} = k - 1$; where $k$ is the number of groups
 $df_{within} = N - k$
 
+<br>
 
 ### Running the ANOVA in R
-
 
 To run the one-way ANOVA in R, we take the summary (output) of the analysis of variance <span style="color:blue">`aov`</span> function.
 
@@ -226,11 +221,19 @@ To interpret the findings, we report the following information:
 
 “Using a one-way ANOVA, I reject/fail to reject the null hypothesis that there is no mean difference between groups, in the population, $F(?) = ?, p ? .05$” 
 
-“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the monthly income of differnt racial categories, in the population, $F(3,16) = 4.043, p \leq .05$” 
+  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the monthly income of differnt racial categories, in the population, $F(3,16) = 4.043, p \leq .05$”</span> 
 
 
-### Which means differ?
+<br><br>
 
+### Post-Hoc Checks: Which means differ?
+
+After finding a significant result in your omnibus/overall F-test/ANOVA, to identify *where* the differences lie, you can do two things:
+
+* Examine a means plot
+* Run a Post-hoc significance test
+
+#### Means Plot
 We can simply plot means, using the <span style="color:blue">`plotmeans`</span> function...
 
 ```{r}
@@ -239,7 +242,11 @@ plotmeans(inc ~ factor(race), data = data,
           main="Mean Plot with 95% CI") 
 ```
 
-Here, we can see that it looks like whites have higher monthly incomes than others. Yet to see, statistically, if group means differ, we have to run post-hoc tests that compare all possible pairs of means to determine which differences are statistically significant.
+  + <span style="color:red">Here, we can see that it looks like whites have higher monthly incomes than others. Yet to see, statistically, if group means differ, we have to run post-hoc tests that compare all possible pairs of means to determine which differences are statistically significant.</span>
+
+<br>
+
+#### Post-Hoc Significance Test: Tukey's HSD
 
 We can see where the *significantly different* mean comparisons are, with the Tukey's HSD test... using the <span style="color:blue">`TukeyHSD`</span> function...(here I had to call the second variable a factor because it is read by R as a number)
 

@@ -27,32 +27,31 @@ output:
 
 
 
-### Is there an association between political orientation and views of the Black Lives Matter movement? 
+#### Is there an association between political orientation and views of the Black Lives Matter movement? 
+<br>
 
 
-#### The Chi Square Test of Independence
+### The Chi Square Test of Independence
 
 The Chi Square test ($X^2$) examines the association or relationship between two nominal/ordinal variables to see if the relationship reflects a true relationship that we could expect to find in the population. The test also tells us whether or not a category (attribute) of one variable varies by categories of another variable. 
 
 For this example, the Chi Square test works perfectly because we're looking at *categories* of the political orientation variable (liberal and conservative) across *categories* of another (positive and negative views of the Black Lives Matter movement) to see if there is a true association between political orientation and views of BLM in the population. 
 
 
+<br>
 
+#### Load the Necessary Stuff
 
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
-
-# 
-
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
 library(psych)
 library(vannstats)
 ```
-
-#
+<br>
 
 #### Reading in the Data
 
@@ -114,10 +113,10 @@ and the data should look like this, in your Environment window...
 knitr::include_graphics("blm_data.png")
 ```
 
-#
+<br>
 
 
-#### Assumptions and Diagnostics for Chi Square
+### Assumptions and Diagnostics for Chi Square
 
 The assumptions for the Chi Square are...
 
@@ -129,24 +128,22 @@ The assumptions for the Chi Square are...
 * Cases (observations) are not related or dependent upon each other. Case can’t have more than one attribute. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
   + <span style="color:red">These data were randomly sampled. `Therefore, we meet the assumption of independence of observations`.</span> 
 
+<br>
 
 ##### 2. Normality (Examine Crosstabs for Expected Frequencies)
 
+* Distributions must be relatively normal.The normality assumption is met if **no more than 20 percent of the cells in our Expected Frequencies Crosstab have fewer than 5 cases.** Therefore, if ($E \lt 5$) for more than 20 percent of the cells in the Expected Frequences table, the assumption of normality is violated.
 
-* Distributions must be relatively normal. A good way to see if we meet the normality assumption is to look at the **Expected Frequencies** in each cell of the crosstab. **If 20 percent or more of our Expected Frequencies across all the cells are less than 5 cases ($E \lt 5$), then you violate the assumption of normality**.
-
-*The Chi Square test is finicky, in that you cannot see the expected frequencies (and observed frequencies) until you run the Chi Square function (see below)*
-
-To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you have to make the chi square function (<span style="color:blue">`chi.sq`</span>) into an object... as such... 
+To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you use the following:
 
 ```{r}
 tab(data, views, pol)
 ```
 
-* <span style="color:red">We see here that fewer than 20% of cells in the 4x4 table have less than 5 expected counts (actually, no cell has fewer than 5). `Therefore, we meet the assumption of normality`.</span> 
+  + <span style="color:red">We see here that less than 20% of cells in the 2x2 table have fewer than 5 expected counts (actually, no cell has fewer than 5). `Therefore, we meet the assumption of normality`.</span> 
 
+<br>
 
-#
 ### The Chi Square Test Calculation
 
 The calculation for the Chi Square is:
@@ -170,7 +167,7 @@ where...
 * $r$ is the number of rows in a crosstabulation<br>
 * $c$ is the number of columns in a crosstabulation<br>
 
-
+<br>
 
 ### Running the Chi Square Test
 
@@ -197,7 +194,7 @@ To interpret the findings, we report the following information:
 
 “Using the Chi Square test of independence ($X^2$), I reject/fail to reject the null hypothesis that there is no association between variable one and variable 2, in the population, $X^2(?) = ?, p ? .05$” 
 
-* <span style="color:red">“Using the Chi Square test of independence ($X^2$), I reject the null hypothesis that there is no association between the political orientation and views of the Black Lives Matter movement, in the population, $X^2(1) = 60.506, p \lt .05$.”</span> 
+  + <span style="color:red">“Using the Chi Square test of independence ($X^2$), I reject the null hypothesis that there is no association between the political orientation and views of the Black Lives Matter movement, in the population, $X^2(1) = 60.506, p \lt .05$.”</span> 
 
 
 <br><br><br>
