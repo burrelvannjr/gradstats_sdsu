@@ -69,6 +69,7 @@ The assumptions for a t-test are...
 ##### 1. Independence of Observations (Examine Data Collection Strategy)
 * Groups are not related or dependent upon each other. Case can’t be in more than one group. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
   + <span style="color:red">Given that the <span>`mtcars`</span> data have been randomly-sampled, we have met the assumption of independence of observations.</span>
+
 <br>
 
 ##### 2. Equal Sample Sizes (Examine N for each group)

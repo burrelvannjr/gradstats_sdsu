@@ -26,7 +26,9 @@ output:
 
 
 
-### Is there a relationship between a person's jealousy and their self-esteem? 
+#### Is there a relationship between a person's jealousy and their self-esteem? 
+
+<br>
 
 ### The correlation
 
@@ -34,14 +36,14 @@ The correlation ($r$) or Pearson's product-moment correlation coefficient examin
 
 For this example, the correlation works perfectly because we're looking at how a person's self-esteem (a scale ranging from 1 -- low self-esteem to 50 -- high self-esteem), an interval-ratio level variable, is related to that person's level of jealousy (a scale ranging from 50 -- low jealousy to 150 -- high jealousy), another interval-ratio variable, to see if there is a true relationship that would exist in the population.
 
+<br>
 
+
+#### Load the Necessary Stuff
 
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
-
-# 
-
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 library(MASS)
@@ -49,10 +51,9 @@ library(psych)
 library(vannstats)
 ```
 
-#
+<br>
 
-
-#### The Data
+#### Reading in the Data
 
 In total, we have 20 individuals. Below, show an image of their data in a spreadsheet and list their respective self-esteem scores and their jealousy scores. The data are as follows:
 
@@ -65,9 +66,7 @@ knitr::include_graphics("est_jeal.png")
 
 **Jealousy**: <span style="color:blue">`79, 104, 113, 94, 143, 88, 81, 48, 105, 115, 81, 87, 58, 113, 119, 111, 109, 108, 119, 133`</span>.
 
-#
-
-#### Reading in the Data
+<br>
 
 As in the [Intro to R](Intro-and-Univariate-Statistics.html) vignette, we can create an object out of a list of numbers using the concatenate <span style="color:blue">`c`</span> function.
 
@@ -93,10 +92,10 @@ Now we can call the data...
 data
 ```
 
+<br>
 
 
-
-#### Assumptions and Diagnostics for Correlation
+### Assumptions and Diagnostics for Correlation
 
 The assumptions for the Correlation are...
 
@@ -120,37 +119,24 @@ plot(data$esteem, data$jealousy) #(x,y)
 abline(lm(data$jealousy~data$esteem), col="Blue") # regression line (y~x))
 ```
 
-Alternatively, we can add labels to the plot...
-
-```{r}
-plot(data$esteem, data$jealousy,
-     main = "Scatterplot",
-     xlab = "Self-Esteem Score",
-     ylab = "Jealousy Score")
-abline(lm(data$jealousy~data$esteem), col="Blue") # regression line (y~x))
-```
-
   + <span style="color:red">Visual inspection of **scatterplot** to see if relationship is linear (straight-line). `Therefore, we meet the assumption of linearity`.</span> 
 
 ##### 2. Normality 
 
 * Distributions must be relatively normal.
   + Visual inspection of...
-    + Scatterplot (above)
     + Histograms for each variable
     + Box-and-Whiskers plot for each variable
     + Normality (Q-Q) plot for each variable
 
 ##### 2a. Histogram
 
-```{r}
+```{r, warning=FALSE}
 hst(data, jealousy)
-#main = "Histogram of 'Jealousy Score'"
 ```
 
-```{r}
+```{r, warning=FALSE}
 hst(data, esteem)
-#main = "Histogram of 'Self-Esteem Score'"
 ```
 
   + <span style="color:red">We can see from the histogram that for both variables, the data are moderately negatively skewed. It is safe to assume, however, that these data are close enough to normal to proceed with the statistical test.</span> 
@@ -159,12 +145,10 @@ hst(data, esteem)
 
 ```{r}
 box(data, jealousy)
-#main = "Bar-and-Whisker Plot of 'Jealousy Score'"
 ```
 
 ```{r}
 box(data, esteem)
-#main = "Bar-and-Whisker Plot of 'Self-Esteem Score'"
 ```
 
   + <span style="color:red">We can see from the boxplot that for both variables, the data are somewhat normally distributed. Although, for the jealousy variable, the median is closer to the upper end (75$^{th}$ percentile) of the interquartile range than the middle. Despite this trend, it is safe to assume that these data are close enough to normal, since they aren't *drastically* different from normal, and therefore safe to proceed with the statistical test.</span>
@@ -173,18 +157,19 @@ box(data, esteem)
 
 ```{r}
 qq(data, jealousy)
-#main = "Normal Q-Q Plot of 'Jealousy Score'", xlab = "Expected Normal"
 ```
 
 ```{r}
 qq(data, esteem)
-#main = "Normal Q-Q Plot of 'Self-Esteem Score'", xlab = "Expected Normal"
 ```
 
   + <span style="color:red">We can see from the Q-Q plot that for both variable, the data are somewhat normal, since there is no discernible pattern across the line (e.g. no strong curvilinear trend around normality line). It is therefore safe to proceed with the statistical test.</span> 
 
+<br>
+
   + <span style="color:red">Based on the the three visual depictions above, the data seem normally-distributed. `Therefore, we meet the assumption of normality`.</span> 
 
+<br>
 
 ##### 3. Absence of Range Restrictions
 * Values on variables cannot be restricted to small range. Examine range for variables
@@ -199,13 +184,15 @@ describe(data$esteem)
 
   + <span style="color:red">Here, it doesn't seem as though there are restictions on the possible ranges of self esteem or jealousy. `Therefore, we meet the assumption of absence of range restrictions`.</span> 
 
+<br>
+
 ##### 4. Absence of Heterogeneous Subsamples
 * Not having groups that have extremely different values (e.g. for which a t-test/ANOVA might appropriately identify). Examine various groups in the sample
 
   + <span style="color:red">Here. we don't different samples, since there is no identifying information for the cases. `Therefore, we meet the assumption of absence of heterogeneous subsamples`.</span> 
 
+<br>
 
-#
 ### The Correlation Test Calculation
 
 The calculation for the correlation is:
@@ -217,20 +204,17 @@ The calculation for the correlation is:
 In addition, the degrees of freedom ($df$) for the test is...<br> 
 * $df = N - 2$
 
+<br>
 
 ### Running the Correlation
 
-
-
 For Correlation, within the <span style="color:blue">`cor.test`</span> function, the independent variable is listed first and the dependent variable is listed second. 
 
-
-
 ```{r}
-cor.test(data1$wt, data1$mpg)
+cor.test(data$esteem, data$jealousy)
 ```
 
-In the output above, we see the $r$-obtained value (-.8676594), the degrees of freedom (30), and the p-value (1.294 x $10^{-10}$ = .0000000001294), which is much less than our set alpha level of .05).
+In the output above, we see the $r$-obtained value (-.452405), the degrees of freedom (18), and the p-value (.0452), which is technically less than our set alpha level of .05, but not by much.
 
 To interpret the findings, we report the following information:
 
@@ -242,7 +226,7 @@ To interpret the findings, we report the following information:
 
 “Using the Pearson's correlation test ($r$), I reject/fail to reject the null hypothesis that there is no association between variable one and variable 2, in the population, $r(?) = ?, p ? .05$” 
 
-  + <span style="color:red">“Using the Pearson's correlation test ($r$), I reject the null hypothesis that there is no association between the weight of a car and its fuel economy in terms of miles per gallon, in the population, $r = -.8676594, p \lt .05$. In particular, we have a *strong* *negative* relationship between car weight and car mpg, such that, as the weight of the car increases, the miles-per-gallon decreases.”</span>
+  + <span style="color:red">“Using the Pearson's correlation test ($r$), I reject the null hypothesis that there is no association between a person's self-esteem level and their level of jealousy (both measured in scales or degrees of each), in the population, $r(18) = -.452405, p \leq .05$. In particular, we have a *moderate* *negative* relationship between esteem and jealousy, such that, as a person's self-esteem increases, their jealousy decreases.”</span>
 
 
 
