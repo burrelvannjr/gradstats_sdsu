@@ -47,15 +47,6 @@ if (!!window.navigator.userAgent.match("MSIE 8")) {
 !function(a){"use strict";a.matchMedia=a.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){"use strict";function b(){u(!0)}var c={};a.respond=c,c.update=function(){};var d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}(),f=function(a,b){var c=e();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))};if(c.ajax=f,c.queue=d,c.regex={media:/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi,keyframes:/@(?:\-(?:o|moz|webkit)\-)?keyframes[^\{]+\{(?:[^\{\}]*\{[^\}\{]*\})+[^\}]*\}/gi,urls:/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,findStyles:/@media *([^\{]+)\{([\S\s]+?)$/,only:/(only\s+)?([a-zA-Z]+)\s?/,minw:/\([\s]*min\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/,maxw:/\([\s]*max\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/},c.mediaQueriesSupported=a.matchMedia&&null!==a.matchMedia("only all")&&a.matchMedia("only all").matches,!c.mediaQueriesSupported){var g,h,i,j=a.document,k=j.documentElement,l=[],m=[],n=[],o={},p=30,q=j.getElementsByTagName("head")[0]||k,r=j.getElementsByTagName("base")[0],s=q.getElementsByTagName("link"),t=function(){var a,b=j.createElement("div"),c=j.body,d=k.style.fontSize,e=c&&c.style.fontSize,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",c||(c=f=j.createElement("body"),c.style.background="none"),k.style.fontSize="100%",c.style.fontSize="100%",c.appendChild(b),f&&k.insertBefore(c,k.firstChild),a=b.offsetWidth,f?k.removeChild(c):c.removeChild(b),k.style.fontSize=d,e&&(c.style.fontSize=e),a=i=parseFloat(a)},u=function(b){var c="clientWidth",d=k[c],e="CSS1Compat"===j.compatMode&&d||j.body[c]||d,f={},o=s[s.length-1],r=(new Date).getTime();if(b&&g&&p>r-g)return a.clearTimeout(h),h=a.setTimeout(u,p),void 0;g=r;for(var v in l)if(l.hasOwnProperty(v)){var w=l[v],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?i||t():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?i||t():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f[w.media]||(f[w.media]=[]),f[w.media].push(m[w.rules]))}for(var C in n)n.hasOwnProperty(C)&&n[C]&&n[C].parentNode===q&&q.removeChild(n[C]);n.length=0;for(var D in f)if(f.hasOwnProperty(D)){var E=j.createElement("style"),F=f[D].join("\n");E.type="text/css",E.media=D,q.insertBefore(E,o.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(j.createTextNode(F)),n.push(E)}},v=function(a,b,d){var e=a.replace(c.regex.keyframes,"").match(c.regex.media),f=e&&e.length||0;b=b.substring(0,b.lastIndexOf("/"));var g=function(a){return a.replace(c.regex.urls,"$1"+b+"$2$3")},h=!f&&d;b.length&&(b+="/"),h&&(f=1);for(var i=0;f>i;i++){var j,k,n,o;h?(j=d,m.push(g(a))):(j=e[i].match(c.regex.findStyles)&&RegExp.$1,m.push(RegExp.$2&&g(RegExp.$2))),n=j.split(","),o=n.length;for(var p=0;o>p;p++)k=n[p],l.push({media:k.split("(")[0].match(c.regex.only)&&RegExp.$2||"all",rules:m.length-1,hasquery:k.indexOf("(")>-1,minw:k.match(c.regex.minw)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:k.match(c.regex.maxw)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}u()},w=function(){if(d.length){var b=d.shift();f(b.href,function(c){v(c,b.href,b.media),o[b.href]=!0,a.setTimeout(function(){w()},0)})}},x=function(){for(var b=0;b<s.length;b++){var c=s[b],e=c.href,f=c.media,g=c.rel&&"stylesheet"===c.rel.toLowerCase();e&&g&&!o[e]&&(c.styleSheet&&c.styleSheet.rawCssText?(v(c.styleSheet.rawCssText,e,f),o[e]=!0):(!/^([a-zA-Z:]*\/\/)/.test(e)&&!r||e.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&("//"===e.substring(0,2)&&(e=a.location.protocol+e),d.push({href:e,media:f})))}w()};x(),c.update=x,c.getEmValue=t,a.addEventListener?a.addEventListener("resize",b,!1):a.attachEvent&&a.attachEvent("onresize",b)}}(this);
 };
 </script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
 <script>
 
 /**
@@ -228,6 +219,11 @@ color: #d14;
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -240,6 +236,32 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 
 <style type="text/css">code {
@@ -265,6 +287,10 @@ background-color: none;
   margin-left: auto;
   margin-right: auto;
 }
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
 img {
   max-width:100%;
 }
@@ -280,9 +306,6 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
-pre code {
-  padding: 0;
-}
 </style>
 
 
@@ -295,6 +318,7 @@ pre code {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
+  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -358,7 +382,7 @@ pre code {
 
 
 
-<div id="header">
+<div class="fluid-row" id="header">
 
 
 
@@ -416,7 +440,7 @@ pre code {
 <div id="setting-the-working-directory" class="section level4">
 <h4>Setting the Working Directory</h4>
 <p>Before running analyses, you have to set your working directory. This is the folder where your data/output is and will be saved. For example, I use the following:</p>
-<pre class="r"><code>#setwd(&quot;/Users/burrelvannjr/Desktop/PA606&quot;)</code></pre>
+<pre class="r"><code>setwd(&quot;/Users/burrelvannjr/Desktop/PA606&quot;)</code></pre>
 </div>
 </div>
 <div id="section-2" class="section level1">
@@ -443,7 +467,7 @@ pre code {
 <pre class="r"><code>install.packages(&quot;MASS&quot;)
 install.packages(&quot;psych&quot;)
 install.packages(&quot;car&quot;)
-install.packages(&quot;vannstats&quot;)</code></pre>
+install.packages(&quot;devtools&quot;)</code></pre>
 </div>
 <div id="section-6" class="section level1">
 <h1></h1>
@@ -451,12 +475,40 @@ install.packages(&quot;vannstats&quot;)</code></pre>
 <pre class="r"><code>library(MASS)
 library(psych)
 library(car)
+library(devtools)</code></pre>
+</div>
+<div id="section-7" class="section level1">
+<h1></h1>
+</div>
+<div id="section-8" class="section level1">
+<h1></h1>
+<p>Additionally, many developers create packages of their own. These packages are “In Development,” and as such, aren’t yet published on CRAN. These packages are extremely useful, but are often published by individual users on the software development website <a href="https://github.com/">GitHub</a>. We will be using one such package for this: the <span style="color:blue"><code>vannstats</code></span> package that I developed (compiled from other packages).</p>
+</div>
+<div id="section-9" class="section level1">
+<h1></h1>
+</div>
+<div id="section-10" class="section level1">
+<h1></h1>
+</div>
+<div id="section-11" class="section level1">
+<h1></h1>
+<p>To access this “In Development” package on GitHub, we rely on the <span style="color:blue"><code>devtools</code></span> to <code>install</code> and <code>load</code> the <span style="color:blue"><code>vannstats</code></span> package from GitHub:</p>
+<pre class="r"><code>devtools::install_github(&quot;burrelvannjr/vannstats&quot;)
 library(vannstats)</code></pre>
+</div>
+<div id="section-12" class="section level1">
+<h1></h1>
+</div>
+<div id="section-13" class="section level1">
+<h1></h1>
+</div>
+<div id="section-14" class="section level1">
+<h1></h1>
 <div id="working-with-data" class="section level3">
 <h3>Working with Data</h3>
 </div>
 </div>
-<div id="section-7" class="section level1">
+<div id="section-15" class="section level1">
 <h1></h1>
 <div id="calculations" class="section level4">
 <h4>Calculations</h4>
@@ -465,13 +517,13 @@ library(vannstats)</code></pre>
 <pre><code>## [1] 5</code></pre>
 </div>
 </div>
-<div id="section-8" class="section level1">
+<div id="section-16" class="section level1">
 <h1></h1>
 <div id="the-assignment-operator-for-creating-objects" class="section level4">
 <h4>The Assignment Operator for Creating Objects</h4>
 </div>
 </div>
-<div id="section-9" class="section level1">
+<div id="section-17" class="section level1">
 <h1></h1>
 <p>The great thing about R is that, because it is an object-oriented programming language, you can assign <strong>object names</strong> to any calculation or data set. This creates a working copy of the calculation (or data set) in R’s memory that you can run operations on. To do so, you simply must assign an object name using a <em>left arrow</em> (the assignment operator) like this: <span style="color:blue"><code>new_object &lt;- dataset</code></span>. For example, we could run…</p>
 <pre class="r"><code>x &lt;- 3 + 2</code></pre>
@@ -480,7 +532,7 @@ library(vannstats)</code></pre>
 <pre><code>## [1] 5</code></pre>
 <p>… which gives us the same result, but now we can run manipulations on the new object (or variable) <strong>x</strong>.</p>
 </div>
-<div id="section-10" class="section level1">
+<div id="section-18" class="section level1">
 <h1></h1>
 <div id="creating-a-list-as-an-object" class="section level4">
 <h4>Creating a List as an Object</h4>
@@ -517,7 +569,7 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 ## 7  other  79000 independent</code></pre>
 </div>
 </div>
-<div id="section-11" class="section level1">
+<div id="section-19" class="section level1">
 <h1></h1>
 <div id="removing-objects-from-your-environment" class="section level4">
 <h4>Removing Objects from your Environment</h4>
@@ -525,10 +577,10 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 <pre class="r"><code>rm(x)</code></pre>
 </div>
 </div>
-<div id="section-12" class="section level1">
+<div id="section-20" class="section level1">
 <h1></h1>
 </div>
-<div id="section-13" class="section level1">
+<div id="section-21" class="section level1">
 <h1></h1>
 <div id="reading-in-csv-data-sets" class="section level4">
 <h4>Reading in CSV Data Sets</h4>
@@ -536,7 +588,7 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 <p>A CSV file must be “read” into the R environment for you to use it. To do so, you’ll have to call in the CSV file (data set) with one of R’s functions: the <span style="color:blue"><code>read.csv</code></span> function. Additionally, you will have to give the CSV a new object name (using the assignment operator <strong>&lt;-</strong>), so we can place it in our working environment. You can do it like this, changing the word “PATHNAME” to the pathname to the csv file you’re reading into the R environment: <span style="color:blue"><code>data1 &lt;- read.csv(&quot;PATHNAME.csv&quot;, header=TRUE, sep=&quot;,&quot;)</code></span>.</p>
 </div>
 </div>
-<div id="section-14" class="section level1">
+<div id="section-22" class="section level1">
 <h1></h1>
 <div id="working-with-stock-data-sets-in-r" class="section level4">
 <h4>Working with Stock Data Sets in R</h4>
@@ -577,19 +629,19 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 ## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
 </div>
 </div>
-<div id="section-15" class="section level1">
+<div id="section-23" class="section level1">
 <h1></h1>
 <p>While this is great, and the dataset is loaded into your console window, you will need a local copy to run operations on. To create a local copy (an object) so that you can run manipulations on the <span style="color:blue"><code>mtcars</code></span> data, you should create a new object, like this:</p>
 <pre class="r"><code>data1 &lt;- mtcars</code></pre>
 </div>
-<div id="section-16" class="section level1">
+<div id="section-24" class="section level1">
 <h1></h1>
 </div>
-<div id="section-17" class="section level1">
+<div id="section-25" class="section level1">
 <h1></h1>
 <p>Like above, you can now call <span style="color:blue"><code>data1</code></span>, and it will load the same data set into your console window (not shown here). In addition, in RStudio, after you give the data a new name (converting it to a usable object), you can view the data in your upper-right <strong>Environment</strong> window.</p>
 </div>
-<div id="section-18" class="section level1">
+<div id="section-26" class="section level1">
 <h1></h1>
 <div id="calling-information-for-a-variable" class="section level4">
 <h4>Calling information for a Variable</h4>
@@ -600,7 +652,10 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 ## [31] 15.0 21.4</code></pre>
 </div>
 </div>
-<div id="section-19" class="section level1">
+<div id="section-27" class="section level1">
+<h1></h1>
+</div>
+<div id="section-28" class="section level1">
 <h1></h1>
 <div id="recoding-values-within-a-variable" class="section level3">
 <h3>Recoding Values within a Variable</h3>
@@ -617,23 +672,23 @@ party &lt;- c(&quot;democrat&quot;,&quot;democrat&quot;,&quot;independent&quot;,
 <p>As seen above, we’ve successfully recoded this variable, from 3 unique values in the <code>cyl</code> variable, to 2 unique values in the <code>gas_guzzler</code> variable.</p>
 </div>
 </div>
-<div id="section-20" class="section level1">
+<div id="section-29" class="section level1">
 <h1></h1>
 </div>
-<div id="section-21" class="section level1">
+<div id="section-30" class="section level1">
 <h1></h1>
 <p>Additionally, you can use several different calls within the recode function. Including the: concatenate (<code>c()</code>) function to create a list of values to recode, the <code>lo:</code> function (where you tell R to recode from the lowest value to whatever value follows the colon), the <code>:hi</code> function (where you tell R to recode from whatever value precedes the colon to the highest value), and the <code>else</code> function to recode everything else you missed as a specific value (rather than an <code>NA</code> missing value).</p>
 </div>
-<div id="section-22" class="section level1">
+<div id="section-31" class="section level1">
 <h1></h1>
 <pre><code>data1$type &lt;- recode(data1$cyl, &quot;c(4,6) = 0; 8 = 1&quot;)
 data1$type2 &lt;- recode(data1$cyl, &quot;lo:6 = 0; 8:hi = 1&quot;)
 data1$type3 &lt;- recode(data1$cyl, &quot;4 = 0; 6 = 0; 8 = 1; else = 1&quot;)</code></pre>
 </div>
-<div id="section-23" class="section level1">
+<div id="section-32" class="section level1">
 <h1></h1>
 </div>
-<div id="section-24" class="section level1">
+<div id="section-33" class="section level1">
 <h1></h1>
 <div id="r-for-data-science" class="section level3">
 <h3>R for Data Science</h3>
@@ -669,7 +724,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+    $(this).parent().toggleClass('nav-tabs-open')
   });
 });
 </script>

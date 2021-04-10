@@ -20,8 +20,11 @@ data1 <- mtcars
 #----------------------------------------
 # check the linearity assumption by plotting the relationship between 'wt' and 'mpg'. Plot a scatterplot with a least-squares line (of best fit)
 #----------------------------------------
-plot(data1$wt, data1$mpg) #(x,y)
-abline(lm(data1$mpg~data1$wt), col="Blue") #regression line (y~x))
+scatter(data1, mpg, wt)
+
+#can also run the two lines below to get the same result
+#plot(data1$wt, data1$mpg) #(x,y)
+#abline(lm(data1$mpg~data1$wt), col="Blue") #regression line (y~x))
 
 #----------------------------------------
 # histogram of 'mpg'

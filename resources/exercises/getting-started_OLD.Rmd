@@ -58,7 +58,7 @@ And the Plot/Viewer window, where your output figures/diagrams, help information
 Before running analyses, you have to set your working directory. This is the folder where your data/output is and will be saved. For example, I use the following:
 
 ```{r}
-#setwd("/Users/burrelvannjr/Desktop/PA606")
+setwd("/Users/burrelvannjr/Desktop/PA606")
 ```
 
 # 
@@ -79,8 +79,6 @@ Because R is and open-source statistical program, many of its functions are buil
 
 ```{r, echo=F}
 options(repos=c(CRAN="http://cran.wustl.edu/"))
-#install.packages("https://cran.r-project.org/src/contrib/Archive/car/car_3.0-5.tar.gz", repos=NULL, type="source")
-#library(car)
 ```
 
 # 
@@ -90,7 +88,7 @@ Install the packages from the repository (copy and paste the lines below)
 install.packages("MASS")
 install.packages("psych")
 install.packages("car")
-install.packages("vannstats")
+install.packages("devtools")
 ```
 
 #
@@ -101,9 +99,33 @@ Load the packages as libraries
 library(MASS)
 library(psych)
 library(car)
+library(devtools)
+```
+
+#
+
+# 
+
+Additionally, many developers create packages of their own. These packages are "In Development," and as such, aren't yet published on CRAN. These packages are extremely useful, but are often published by individual users on the software development website [GitHub](https://github.com/). We will be using one such package for this: the <span style="color:blue">`vannstats`</span> package that I developed (compiled from other packages). 
+
+#
+#
+#
+
+To access this "In Development" package on GitHub, we rely on the <span style="color:blue">`devtools`</span> to `install` and `load` the <span style="color:blue">`vannstats`</span> package from GitHub:
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+devtools::install_github("burrelvannjr/vannstats")
 library(vannstats)
 ```
 
+#
+
+#
+
+
+
+#
 
 
 ### Working with Data 
@@ -266,6 +288,9 @@ To call a specific *variable* or column within the data set, you simply use the 
 data1$mpg
 ```
 
+
+#
+
 # 
 
 ### Recoding Values within a Variable
@@ -314,7 +339,6 @@ data1$type3 <- recode(data1$cyl, "4 = 0; 6 = 0; 8 = 1; else = 1")
 
 #
 #
-
 
 ### R for Data Science
 

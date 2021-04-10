@@ -77,21 +77,21 @@ In addition, the previously-discussed assumptions for other tests (independence 
 * Variables move together in a linear fashion. Visual inspection of **scatterplot** to see if relationship is linear (straight-line)
 
 ```{r}
+scatter(data1, mpg, wt)
+```
+
+<br>
+
+*Or, you can run it the old-school way: run the two lines below to get the same result*
+
+```{r, fig.keep = 'none'}
 plot(data1$wt, data1$mpg) #(x,y)
 abline(lm(data1$mpg~data1$wt), col="Blue") # regression line (y~x))
 ```
 
   + <span style="color:red">Given that we don't see a non-linear (e.g. curvilinear) relationship, and that the points generally cluster near the "line of best fit" (AKA the regression line), `we have met the assumption of linearity`.</span>
 
-
-```{r, echo=FALSE}
-#plot(data1$wt, data1$mpg,
-#     main = "Scatterplot",
-#     xlab = "Weight",
-#     ylab = "Miles per Gallon") #(x,y)
-#abline(lm(data1$mpg~data1$wt), col="Blue") # regression line (y~x))
-```
-
+<br>
 
 ##### 2. Normality 
 
