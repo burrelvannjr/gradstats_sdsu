@@ -42,7 +42,7 @@ qq(data1, mpg, cyl)
 #----------------------------------------
 # run the analysis of variance, examining the difference between 'mpg' means for each 'cyl'
 #----------------------------------------
-summary(aov(data1$mpg ~ data1$cyl))
+summary(aov(data1$mpg ~ factor(data1$cyl)))
 
 #----------------------------------------
 # plot the means (and 95% confidence intervals around the mean) to examine whether and which means are different from others

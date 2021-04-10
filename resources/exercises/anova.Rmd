@@ -184,10 +184,10 @@ For the ANOVA, within the <span style="color:blue">`aov`</span> function, the de
 
 
 ```{r}
-summary(aov(data1$mpg ~ data1$cyl))
+summary(aov(data1$mpg ~ factor(data1$cyl)))
 ```
 
-In the output above, we see the F-obtained value (79.56), the degrees of freedom between and within (1,30), and the p-value (6.11e-10, or .000000000611, which is much less than our set alpha level of .05).
+In the output above, we see the F-obtained value (39.7), the degrees of freedom between and within (2,29), and the p-value (4.98e-09, or .00000000498, which is much less than our set alpha level of .05).
 
 To interpret the findings, we report the following information:
 
@@ -199,7 +199,7 @@ To interpret the findings, we report the following information:
 
 “Using a one-way ANOVA, I reject/fail to reject the null hypothesis that there is no mean difference between groups, in the population, $F(?) = ?, p ? .05$” 
 
-  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the miles per gallon in cars with different cylinders, in the population, $F(1,30) = 79.56, p \leq .05$”</span>
+  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the miles per gallon in cars with different cylinders, in the population, $F(2,29) = 39.7, p \leq .05$”</span>
 
 <br><br>
 
