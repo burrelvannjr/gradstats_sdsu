@@ -78,7 +78,7 @@ In addition, the previously-discussed assumptions for other tests (independence 
 <br><br>
 **UPDATE**
 <br>
-If you have updated to the most recent version of the <span style="color:blue">`vannstats`</span> package (version 1.0.4.5) -- which you can get by running the `install_github` code above -- then you can call a scatterplot using the <span style="color:blue">`scatter`</span> function:
+If you have updated to the most recent version of the <span style="color:blue">`vannstats`</span> package (version 1.0.4.5) -- which you can get by running the `install_github` (in the <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>script</i></a> above)  -- then you can call a scatterplot using the <span style="color:blue">`scatter`</span> function:
 
 ```{r}
 scatter(data1, mpg, wt)
@@ -99,8 +99,8 @@ abline(lm(data1$mpg~data1$wt), col="Blue") # regression line (y~x))
 
 ##### 2. Normality 
 
-* Distributions must be relatively normal.
-  + Visual inspection of the following **for each variable**...
+* Distributions must be relatively normal. *Unlike the t-test and ANOVA, where you look at clustered plots (histograms, boxplots, and Q-Q plots), displaying the means, broken out by levels/categories of the grouping variable* for correlation, you must visually inspect the same plots **for each variable**.
+  + Inspect individual plots **for each variable**...
     + Histograms
     + Box-and-Whiskers plot
     + Normality (Q-Q) plot 
