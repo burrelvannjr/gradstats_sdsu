@@ -67,7 +67,7 @@ describe(data1$mpg)
 describe(data1$wt)
 
 #----------------------------------------
-# run the correlation, examining the relationship betwee 'mpg' and 'wt'
+# run the correlation, examining the relationship between 'mpg' and 'wt'
 #----------------------------------------
 cor.test(data1$wt, data1$mpg)
 

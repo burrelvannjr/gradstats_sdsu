@@ -79,17 +79,14 @@ To identify outliers, simply look at the *boxplots* to see "how outlying, these 
 
 ```{r}
 box(data1, mpg)
-#main = "Bar-and-Whisker Plots of 'Miles per Gallon'")
 ```
 
 ```{r}
 box(data1, wt)
-#main = "Bar-and-Whisker Plots of 'Weight'")
 ```
 
 ```{r}
 box(data1, am)
-#main = "Bar-and-Whisker Plots of 'Automatic Transmission'")
 ```
 
 ##### 3. Multicollinearity and Singularity
@@ -98,7 +95,7 @@ box(data1, am)
   + Check the correlation matrix for variables.
 
 ```{r}
-cor(data1)
+cormat(data1, mpg ~ wt + am)
 ```
 
 * Singularity: If independent variables included are (together) all possible subsets of measure also included in model. For example, if you have a xenophobia scale... based on 4 different questions (the sum of the scale is a "total xenophobia" scale)... and you include all 4 questions in the regression model, AND you include the total scale (the sum of the 4 questions) in the model. There will be so much overlap in the total scale, and the 4 items, that all of them would appear in the regression model with no coefficients... no $b$ values... 
@@ -111,21 +108,11 @@ cor(data1)
 * Homoskedasticity: Homogeneity of Variance - Variance of variables are similar (10:1, 3:1 for SDs).
   + Visual inspection of **Residuals Plot** to see if relationship is linear, normal, and similar variances. Plot should have **points that extend beyond both sides of the 0 line** (normality), **should not have a U or inverted-U shape in the points** (linearity), and it **should not have a funnel shape**, where points are tightly clustered near the 0 line at one end of the plot, and completely dispersed along y-axis at other end of plot (homoskedasticity).
 
-```{r}
-#run the regression and save it as a 'reg' object
-reg <- lm(mpg ~ wt + am, data=data1)
-#extract predicted Y values and residuals from 'reg' model object
-data1$predicted <- predict(reg)  
-data1$residuals <- residuals(reg)
-```
-
-then plot the above data
 
 ```{r}
-plot(data1$predicted, data1$residuals, 
-     xlab="Predicted Y Value", ylab="Residuals", main="Miles per Gallon")
-abline(0, 0)  
+residplot(data1, mpg ~ wt + am)
 ```
+
 
 #
 ### The Regression Calculation
