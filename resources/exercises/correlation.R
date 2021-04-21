@@ -7,10 +7,6 @@ library(psych)
 devtools::install_github("burrelvannjr/vannstats") #run this to update package from github
 library(vannstats)
 
-#----------------------------------------
-# call mtcars data in console
-#----------------------------------------
-mtcars
 
 #----------------------------------------
 # load mtcars as new 'data1' object
@@ -69,5 +65,5 @@ describe(data1$wt)
 #----------------------------------------
 # run the correlation, examining the relationship between 'mpg' and 'wt'
 #----------------------------------------
-cor.test(data1$wt, data1$mpg)
+p.corr(data1, mpg, wt)
 

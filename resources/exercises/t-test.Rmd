@@ -1,5 +1,5 @@
 ---
-title: "T-test"
+title: "Independent Samples T-test"
 #author: "Burrel Vann Jr"
 output: 
   html_document: 
@@ -15,9 +15,9 @@ output:
 * [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/univariate-normality.R" target="_blank"><i>R Script</i></a> ]
 
 ###### Bivariate and Multivariate Statistics
-* [**t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
-* [**Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
-* [**Chi Square**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
+* [**Independent Samples t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
+* [**One-Way Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
+* [**Chi Square Test of Independence**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
 * [**Correlation**](correlation.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>R Script</i></a> | [*Example*](correlation-example.html) ]
 * [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
@@ -28,7 +28,7 @@ Here, we'll be working from the <span style="color:blue">`mtcars`</span> data se
 
 <br>
 
-### What is the t-Test?
+### What is the Independent Samples t-Test?
 
 The t-test examines the differences in means between **two** groups, in effort to see if the differences reflect true differences that we could expect to find in the population. 
 
@@ -55,7 +55,7 @@ data1 <- mtcars
 ```
 <br>
 
-### Assumptions and Diagnostics for the t-Test
+### Assumptions and Diagnostics for the Independent Samples t-Test
 
 The assumptions for a t-test are...
 
@@ -156,7 +156,7 @@ qq(data1, mpg, am)
 
 
 
-### The t-Test Calculation
+### The Independent Samples t-Test Calculation
 
 The calculation for the t-Test is:
 
@@ -176,7 +176,7 @@ $df = n_1 + n_2 -2$ (aka $df = N-2$)
 
 <br>
 
-### Running the t-Test in R
+### Running the Independent Samples t-Test in R
 
 
 To run the independent samples t-test in R, we use the <span style="color:blue">`t.test`</span> function.

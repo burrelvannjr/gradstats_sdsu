@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Variance"
+title: "One-Way Analysis of Variance"
 #author: "Burrel Vann Jr"
 output: 
   html_document: 
@@ -15,13 +15,12 @@ output:
 * [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/univariate-normality.R" target="_blank"><i>R Script</i></a> ]
 
 ###### Bivariate and Multivariate Statistics
-* [**t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
-* [**Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
-* [**Chi Square**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
+* [**Independent Samples t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
+* [**One-Way Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
+* [**Chi Square Test of Independence**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
 * [**Correlation**](correlation.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>R Script</i></a> | [*Example*](correlation-example.html) ]
 * [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
-
 
 #### Are there mean differences in miles-per-gallon (<span>`mpg`</span>) by type of cylinders in a car (<span>`cyl`</span>)?
 
@@ -47,9 +46,6 @@ options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 library(MASS)
 library(psych)
 library(vannstats)
-#install.packages("gplots")
-library(gplots)
-library(stats)
 ```
 <br>
 
@@ -59,7 +55,7 @@ data1 <- mtcars
 ```
 <br>
 
-### Assumptions and Diagnostics for the ANOVA
+### Assumptions and Diagnostics for the One-Way ANOVA
 
 The assumptions for an ANOVA are...
 
@@ -157,7 +153,7 @@ qq(data1, mpg, cyl)
   
 <br>
 
-### The ANOVA (F-Test) Calculation
+### The One-Way ANOVA (F-Test) Calculation
 
 The calculation for the F-Test is:
 
@@ -176,15 +172,17 @@ $df_{within} = N - k$
 
 <br>
 
-### Running the ANOVA
+### Running the One-Way ANOVA
 
-To run the one-way ANOVA in R, we take the summary (output) of the analysis of variance <span style="color:blue">`aov`</span> function.
+To run the one-way ANOVA in R, we can use the <span style="color:blue">`ow.anova`</span> function from the `vannstats` package.
 
-For the ANOVA, within the <span style="color:blue">`aov`</span> function, the dependent (interval-ratio level) variable is listed first and the independent (discrete/categorical) variable is listed second, separated by a tilde <span style="color:blue">`~`</span>. 
+For the One-Way ANOVA, within the <span style="color:blue">`ow.anova`</span> function, the data set is listed first, followed by the dependent (interval-ratio level) variable, and the independent (categorical) variable is listed second. 
+
+Additionally, within the <span style="color:blue">`ow.anova`</span> function, you have the option to request a means plot (by adding the call <span style="color:blue">`plot = T`</span>), and you also have the option of requesting a Tukey's HSD post-hoc comparisons test (by adding the call <span style="color:blue">`hsd = T`</span>). I have added both below
 
 
 ```{r}
-summary(aov(data1$mpg ~ factor(data1$cyl)))
+ow.anova(data1, mpg, cyl, plot = T, hsd = T)
 ```
 
 In the output above, we see the F-obtained value (39.7), the degrees of freedom between and within (2,29), and the p-value (4.98e-09, or .00000000498, which is much less than our set alpha level of .05).
@@ -211,13 +209,8 @@ After finding a significant result in your omnibus/overall F-test/ANOVA, to iden
 * Run a Post-hoc significance test
 
 #### Means Plot
-We can simply plot means, using the <span style="color:blue">`plotmeans`</span> function...
 
-```{r}
-plotmeans(mpg ~ cyl, data = data1, 
-          xlab = "Cylinder", ylab = "Miles Per Gallon",
-          main="Mean Plot with 95% CI") 
-```
+The means plot can be called from the <span style="color:blue">`ow.anova`</span> function. As seen above: 
 
   + <span style="color:red">Here, we can see that it looks like 4-cylinder cars have extremely different (higher) mean mpgs than with 6-cylinder or 8-cylinder cars.</span>
 
@@ -225,11 +218,7 @@ plotmeans(mpg ~ cyl, data = data1,
 
 #### Post-Hoc Significance Test: Tukey's HSD
 
-And finally, we can see where the *significantly different* mean comparisons are, with the Tukey's HSD test... using the <span style="color:blue">`TukeyHSD`</span> function...(here I had to call the second variable a factor because it is read by R as a number)
-
-```{r}
-TukeyHSD(aov(data1$mpg ~ factor(data1$cyl)))
-```
+And finally, we can see where the *significantly different* mean comparisons are, with the Tukey's HSD test... which can also be called from the <span style="color:blue">`ow.anova`</span> function. As seen above:
 
   + <span style="color:red">Here, we see that 4-cylinder cars are, actually, significantly different than 6-cylinder or 8-cylinder cars, and that 6-cylinder cars are, themselves, significantly different from 8-cylinder cars.</span>
 

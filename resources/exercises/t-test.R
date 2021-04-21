@@ -7,10 +7,6 @@ library(psych)
 devtools::install_github("burrelvannjr/vannstats") #run this to update package from github
 library(vannstats)
 
-#----------------------------------------
-# call mtcars data in console
-#----------------------------------------
-mtcars
 
 #----------------------------------------
 # load mtcars as new 'data1' object
