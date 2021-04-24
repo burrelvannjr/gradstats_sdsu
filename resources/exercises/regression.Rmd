@@ -154,10 +154,11 @@ residplot(data1, mpg ~ wt + am)
 
 The calculation for the Regression is:
 
- $\hat{Y} = b_1X_1 + b_2X_2$
+ $\hat{Y} = b_0 + b_1X_1 + b_2X_2$
  
 Where...
 * $\hat{Y}$ is the predicted Y value for the combination of slopes for X values
+* $b_0$ is the intercept
 * $b_1$ is the slope associated with $X_1$
 * $b_2$ is the slope associated with $X_2$
 * $X_1$ is a specific value for the first $X$ variable that you can plug in for a specific case
