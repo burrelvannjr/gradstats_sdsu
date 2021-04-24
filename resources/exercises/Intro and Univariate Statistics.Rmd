@@ -72,7 +72,7 @@ This will be different for you. To set your working directory, use <span style="
 Because R is and open-source statistical program, many of its functions are built by programmers in the form of **packages** or **libraries**. We will be using four packages in this exercise: the <span style="color:blue">`MASS`</span>, <span style="color:blue">`psych`</span>, <span style="color:blue">`lattice`</span>, and <span style="color:blue">`mosaic`</span> packages. 
 
 ```{r, echo=F}
-options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
+options(repos=c(CRAN="http://cran.wustl.edu/"))
 ```
 
 # 

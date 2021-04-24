@@ -43,7 +43,7 @@ For this example, the Chi Square test works perfectly because we're looking at *
 #### Load the Necessary Stuff
 
 ```{r, echo=F}
-options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
+options(repos=c(CRAN="http://cran.wustl.edu/"))
 ```
 
 ```{r, results="hide", warning=FALSE, message=FALSE}

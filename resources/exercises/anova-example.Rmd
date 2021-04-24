@@ -38,7 +38,8 @@ For this example, the ANOVA works because we have have four groups (black, white
 #### Load the Necessary Stuff
 
 ```{r, echo=F}
-options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
+options(repos=c(CRAN="http://cran.wustl.edu/"))
+#options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
 ```
 
 ```{r, results="hide", warning=FALSE, message=FALSE}

@@ -43,7 +43,7 @@ The correlation ($r$) or Pearson's product-moment correlation coefficient examin
 #### Load the Necessary Stuff
 
 ```{r, echo=F}
-options(repos=c(CRAN="http://cran.stat.ucla.edu/"))
+options(repos=c(CRAN="http://cran.wustl.edu/"))
 ```
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
@@ -75,11 +75,7 @@ In addition, the previously-discussed assumptions for other tests (independence 
 
 
 ##### 1. Linearity
-* Variables move together in a linear fashion. Visual inspection of **scatterplot** to see if relationship is linear (straight-line). 
-<br><br>
-**UPDATE**
-<br>
-If you have updated to the most recent version of the <span style="color:blue">`vannstats`</span> package (version 1.0.4.5) -- which you can get by running the `install_github` (in the <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>script</i></a> above)  -- then you can call a scatterplot using the <span style="color:blue">`scatter`</span> function:
+* Variables move together in a linear fashion. Visual inspection of **scatterplot** to see if relationship is linear (straight-line). If you have updated to the most recent version of the <span style="color:blue">`vannstats`</span> package (version 1.0.4.5) -- which you can get by running the `install_github` (in the <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>script</i></a> above)  -- then you can call a scatterplot using the <span style="color:blue">`scatter`</span> function:
 
 ```{r}
 scatter(data1, mpg, wt)
