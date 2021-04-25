@@ -53,7 +53,7 @@ library(vannstats)
 
 #### Reading in the Data
 
-In total, we have 20 individuals. Below, show an image of their data in a spreadsheet and list their respective self-esteem scores and their jealousy scores. The data are as follows:
+In total, we have 20 individuals. Below, is an image of their data in a spreadsheet and list their respective self-esteem scores and their jealousy scores. The data are as follows:
 
 ```{r, out.width = "200px", echo=FALSE}
 knitr::include_graphics("est_jeal.png")

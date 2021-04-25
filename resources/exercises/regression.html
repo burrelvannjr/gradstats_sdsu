@@ -246,7 +246,7 @@ font-family: Consolas, Monaco, Andale Mono, monospace;
 color: blue;
 line-height: 1.5;
 font-size: 13px;
-background-color: yellow;
+background-color: #eae9e9;
 }
 pro {
 font-family: Consolas, Monaco, Andale Mono, monospace;
@@ -461,7 +461,7 @@ library(vannstats)</code></pre>
 ## wt  -0.87     1   
 ## am    0.6 -0.69  1</code></pre>
 <ul>
-<li><span style="color:red">We can see from the correlation matrix that none of the bivariate relationships between the independent variables (<code>wt</code> and <code>am</code>) variables are <em>above</em> a correlation coefficient of <span class="math inline">\(r \approx .90\)</span>. Therefore, <code>we have met the assumption of absence of multicollinearity</code>.</span></li>
+<li><span style="color:red">We can see from the correlation matrix that none of the bivariate relationships between the independent variables (<code>wt</code> and <code>am</code>) are <em>above</em> a correlation coefficient of <span class="math inline">\(r \approx .90\)</span>. Therefore, <code>we have met the assumption of absence of multicollinearity</code>.</span></li>
 </ul>
 <p><br></p>
 <ul>
@@ -491,13 +491,7 @@ library(vannstats)</code></pre>
 <ul>
 <li><span style="color:red">Based on the residuals plot (the difference between the actual <span class="math inline">\(Y\)</span> and the <span class="math inline">\(\hat{Y}\)</span>), we see that <code>we have met the assumptions of linearity, normality, and homoskedasticity</code>. Linearity is met given that the residuals do not exhibit a non-linear (e.g. curvilinear) relationship about the 0 distance (from <span class="math inline">\(\hat{Y}\)</span>) line. Normality is met given that the residuals do not have a hard stop on either side of the line – that is, they are evenly distributed about the 0 distance (from <span class="math inline">\(\hat{Y}\)</span>) line. Finally, homoskedasticity is met given that the residuals are evenly distanced from the 0 distance (from <span class="math inline">\(\hat{Y}\)</span>) line at all values of <span class="math inline">\(\hat{Y}\)</span> – as exemplified the lack of “fanning out” on one end.</span></li>
 </ul>
-</div>
-</div>
-</div>
-<div id="section" class="section level1">
-<h1></h1>
-<div id="the-regression-calculation" class="section level3">
-<h3>The Regression Calculation</h3>
+<p><br> # ### The Regression Calculation</p>
 <p>The calculation for the Regression is:</p>
 <p><span class="math inline">\(\hat{Y} = b_0 + b_1X_1 + b_2X_2\)</span></p>
 <p>Where…</p>
@@ -509,6 +503,9 @@ library(vannstats)</code></pre>
 <li><span class="math inline">\(X_1\)</span> is a specific value for the first <span class="math inline">\(X\)</span> variable that you can plug in for a specific case</li>
 <li><span class="math inline">\(X_2\)</span> is a specific value for the second <span class="math inline">\(X\)</span> variable that you can plug in for a specific case</li>
 </ul>
+<p><br></p>
+</div>
+</div>
 </div>
 <div id="running-the-regression" class="section level3">
 <h3>Running the Regression</h3>
@@ -546,7 +543,6 @@ library(vannstats)</code></pre>
 </ul></li>
 </ul>
 <p><br><br><br></p>
-</div>
 </div>
 
 

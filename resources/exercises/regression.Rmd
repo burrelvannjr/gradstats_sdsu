@@ -119,7 +119,7 @@ box(data1, am)
 cormat(data1, mpg ~ wt + am)
 ```
 
-  + <span style="color:red">We can see from the correlation matrix that none of the bivariate relationships between the independent variables (`wt` and `am`) variables are *above* a correlation coefficient of $r \approx .90$. Therefore, `we have met the assumption of absence of multicollinearity`.</span> 
+  + <span style="color:red">We can see from the correlation matrix that none of the bivariate relationships between the independent variables (`wt` and `am`) are *above* a correlation coefficient of $r \approx .90$. Therefore, `we have met the assumption of absence of multicollinearity`.</span> 
   
 <br>
 
@@ -148,7 +148,7 @@ residplot(data1, mpg ~ wt + am)
 
   + <span style="color:red">Based on the residuals plot (the difference between the actual $Y$ and the $\hat{Y}$), we see that `we have met the assumptions of linearity, normality, and homoskedasticity`. Linearity is met given that the residuals do not exhibit a non-linear (e.g. curvilinear) relationship about the 0 distance (from $\hat{Y}$) line. Normality is met given that the residuals do not have a hard stop on either side of the line -- that is, they are evenly distributed about the 0 distance (from $\hat{Y}$) line. Finally, homoskedasticity is met given that the residuals are evenly distanced from the 0 distance (from $\hat{Y}$) line at all values of $\hat{Y}$ -- as exemplified the lack of "fanning out" on one end.</span> 
 
-
+<br>
 #
 ### The Regression Calculation
 
@@ -168,7 +168,7 @@ Where...
  
 
 
-
+<br>
 
 
 ### Running the Regression
