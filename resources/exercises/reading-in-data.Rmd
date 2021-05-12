@@ -1,0 +1,89 @@
+---
+title: "Reading-in Data from External Sources"
+author: "Burrel Vann Jr"
+output: 
+  html_document: 
+    css: markdown3.css
+---
+<br>
+
+###### Getting RStudio Up and Running
+* [**Installing R/RStudio**](installing.html)
+* [**Getting Started with RStudio**](getting-started.html)
+* [**Reading-in Data**](reading-in-data.html)
+
+###### Univariate/Descriptive Statistics and Assessing Normality
+* [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/univariate-normality.R" target="_blank"><i>R Script</i></a> ]
+
+###### Bivariate and Multivariate Statistics
+* [**Independent Samples t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
+* [**One-Way Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
+* [**Chi Square Test of Independence**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
+* [**Correlation**](correlation.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>R Script</i></a> | [*Example*](correlation-example.html) ]
+* [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
+<br><br>
+
+
+```{r, echo=F}
+options(repos=c(CRAN="http://cran.wustl.edu/"))
+#install.packages("https://cran.r-project.org/src/contrib/Archive/car/car_3.0-5.tar.gz", repos=NULL, type="source")
+#library(car)
+```
+
+
+#### Reading in CSV Data Sets from your Own (Local) Computer
+
+Many data sets that researchers work with come in the form of a **CSV** file. A CSV (Comma Separated Values) file is just a Microsoft Excel spreadsheet (with rows as observations and columns as variables), that is converted into CSV format. 
+
+A CSV file must be "read" into the R environment for you to use it. To do so, you'll have to call in the CSV file (data set) with one of R's functions: the <span style="color:blue">`read.csv`</span> function. Additionally, you will have to give the CSV a new object name (using the assignment operator **<-**), so we can place it in our working environment. You can do it like this, changing the word `Pathname/to/CSV/file.csv` to the pathname to the csv file you're reading into the R environment: <span style="color:blue">`data1 <- read.csv("Pathname/to/CSV/file.csv", header=TRUE, sep=",")`</span>. 
+
+The pathname to a file is the digital address to a file on your current (local) machine. Here, to our file called file.csv is "Pathname/to/CSV/file.csv" 
+
+Some important things about the pathname ... which is obviously basic computer stuff: 1) every item on your computer has an address/pathname, 2) the pathnames are unique to YOUR computer (e.g. the structure of files/directories on your computer, so you can't just copy and paste it to use on another computer, since the other computer will likely have a different setup/structure/set of files and directories), and 3) the pathname changes every time you move your file to a new directory. 
+
+To get the pathname to a file, you should right-click on it. Within this menu, on a Mac, simply 1) hold down the option key, and select `copy "file.csv" as Pathname`, then 2) then replace the `"Pathname/to/CSV/file.csv"` with the Pathname to your file by pasting the copied Pathname. To see this in action, watch the next few minutes of **<a href="https://www.youtube.com/watch?v=I9S9B8kXHbQ&t=1707s" target="_blank"><i>this video</i></a>**  I created a few years ago.
+
+For example, let's assume I have saved the `mtcars` data as `cars.csv' in my PA606 folder/directory on my Desktop. I would find it, right click on it, and copy the pathname to the file below, reading in the data set as an object call `data1`:
+
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+data1 <- read.csv("/Users/burrelvannjr/Desktop/PA606/cars.csv", header=TRUE, sep=",")
+data1
+```
+
+<br><br>
+#### Reading in CSV Data Sets from a URL link to a CSV
+
+Sometimes you'll want to use a CSV file from a website, where you have a direct link to the CSV. For example, I uploaded the same `mtcars` data set as `cars.csv` on **<a href="www.burrelvannjr.com/cars.csv" target="_blank"><i>my website</i></a>**. 
+
+To read in this data set, you can either download/save it on your own machine, then use the steps above (reading in a CSV from your own computer), or you can read it directly into R using the `RCurl` package. This means that first, you'll have to, first, install the `RCurl` package, then load the package, and use this code to read in the linked CSV as a new object called `data1`: <span style="color:blue">`data1 <- read.csv(text=getURL("URL-to-CSV.csv"))`</span>. 
+
+Within the quotations, replace `URL-to-CSV.csv` with the actual URL link to the CSV file, as seen here:
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+install.packages("RCurl")
+library(RCurl)
+data1 <- read.csv(text=getURL("www.burrelvannjr.com/cars.csv"))
+data1
+```
+
+
+<br><br>
+
+#### Reading in a Google Sheets as a Data Set
+
+In a more complicated way, you can also access a Google Sheet data set. To do so, however, you need to authorize the `googlesheets4` package (within *tidyverse* package family) API to essentially "speak to" Google Sheets... which means you need to grant it access to a Google Sheet that **YOU OWN**. This means that you need to respond to the package when it asks you to grant access to your Google Drive account. 
+
+Because I can't authorize it here (because it will open up a new window and ask for credentials), I only provide you with the package to install and load script... and have commented out the `read_sheet` function that enables you to read in a Google Sheet.
+
+If you were to do this for yourself, you would: 1) remove the #, so the line is no longer commented out, and 2) replace `URL-to-Google-Sheet` with the actual URL link to the Google Sheet you're trying to read in.
+
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+install.packages("googlesheets4")
+library(googlesheets4)
+#data1 <- read_sheet("URL-to-Google-Sheet")
+```
+
+
+<br><br>

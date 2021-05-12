@@ -7,9 +7,12 @@ output:
 ---
 <br>
 
+<br>
+
 ###### Getting RStudio Up and Running
 * [**Installing R/RStudio**](installing.html)
 * [**Getting Started with RStudio**](getting-started.html)
+* [**Reading-in Data**](reading-in-data.html)
 
 ###### Univariate/Descriptive Statistics and Assessing Normality
 * [**Univariate/Descriptive Statistics & Normality**](univariate-normality.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/univariate-normality.R" target="_blank"><i>R Script</i></a> ]
