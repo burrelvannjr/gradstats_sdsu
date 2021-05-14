@@ -55,7 +55,7 @@ data1
 
 #### Reading in CSV Data Sets from a URL link to a CSV
 
-Sometimes you'll want to use a CSV file from a website, where you have a direct link to the CSV. For example, I uploaded the same `mtcars` data set as `cars.csv` on **<a href="www.burrelvannjr.com/cars.csv" target="_blank"><i>my website</i></a>**. 
+Sometimes you'll want to use a CSV file from a website, where you have a direct link to the CSV. For example, I uploaded the same `mtcars` data set as `cars.csv` on [**my website**](http://www.burrelvannjr.com/cars.csv). 
 
 To read in this data set, you can either download/save it on your own machine, then use the steps above (reading in a CSV from your own computer), or you can read it directly into R using the `RCurl` package. This means that first, you'll have to, first, install the `RCurl` package, then load the package, and use this code to read in the linked CSV as a new object called `data1`: <span style="color:blue">`data1 <- read.csv(text=getURL("URL-to-CSV.csv"))`</span>. 
 
