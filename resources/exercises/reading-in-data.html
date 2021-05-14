@@ -400,10 +400,13 @@ pre code {
 <p>The pathname to a file is the digital address to a file on your current (local) machine. Here, to our file called file.csv is “Pathname/to/CSV/file.csv”</p>
 <p>Some important things about the pathname … which is obviously basic computer stuff: 1) every item on your computer has an address/pathname, 2) the pathnames are unique to YOUR computer (e.g. the structure of files/directories on your computer, so you can’t just copy and paste it to use on another computer, since the other computer will likely have a different setup/structure/set of files and directories), and 3) the pathname changes every time you move your file to a new directory.</p>
 <p>To get the pathname to a file, you should right-click on it. Within this menu, on a Mac, simply 1) hold down the option key, and select <code>copy &quot;file.csv&quot; as Pathname</code>, then 2) then replace the <code>&quot;Pathname/to/CSV/file.csv&quot;</code> with the Pathname to your file by pasting the copied Pathname. To see this in action, watch the next few minutes of <strong><a href="https://www.youtube.com/watch?v=I9S9B8kXHbQ&amp;t=1707s" target="_blank"><i>this video</i></a></strong> I created a few years ago.</p>
-<p>For example, let’s assume I have saved the <code>mtcars</code> data as <code>cars.csv&#39; in my PA606 folder/directory on my Desktop. I would find it, right click on it, and copy the pathname to the file below, reading in the data set as an object call</code>data1`:</p>
+<p>For example, let’s assume I have saved the <code>mtcars</code> data as <code>cars.csv</code> in my PA606 folder/directory on my Desktop. I would find it, right click on it, and copy the pathname to the file below, reading in the data set as an object call <code>data1</code>:</p>
 <pre class="r"><code>data1 &lt;- read.csv(&quot;/Users/burrelvannjr/Desktop/PA606/cars.csv&quot;, header=TRUE, sep=&quot;,&quot;)
 data1</code></pre>
-<p><br><br> #### Reading in CSV Data Sets from a URL link to a CSV</p>
+<p><br><br></p>
+</div>
+<div id="reading-in-csv-data-sets-from-a-url-link-to-a-csv" class="section level4">
+<h4>Reading in CSV Data Sets from a URL link to a CSV</h4>
 <p>Sometimes you’ll want to use a CSV file from a website, where you have a direct link to the CSV. For example, I uploaded the same <code>mtcars</code> data set as <code>cars.csv</code> on <strong><a href="www.burrelvannjr.com/cars.csv" target="_blank"><i>my website</i></a></strong>.</p>
 <p>To read in this data set, you can either download/save it on your own machine, then use the steps above (reading in a CSV from your own computer), or you can read it directly into R using the <code>RCurl</code> package. This means that first, you’ll have to, first, install the <code>RCurl</code> package, then load the package, and use this code to read in the linked CSV as a new object called <code>data1</code>: <span style="color:blue"><code>data1 &lt;- read.csv(text=getURL(&quot;URL-to-CSV.csv&quot;))</code></span>.</p>
 <p>Within the quotations, replace <code>URL-to-CSV.csv</code> with the actual URL link to the CSV file, as seen here:</p>

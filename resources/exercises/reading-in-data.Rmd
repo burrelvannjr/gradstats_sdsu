@@ -43,7 +43,7 @@ Some important things about the pathname ... which is obviously basic computer s
 
 To get the pathname to a file, you should right-click on it. Within this menu, on a Mac, simply 1) hold down the option key, and select `copy "file.csv" as Pathname`, then 2) then replace the `"Pathname/to/CSV/file.csv"` with the Pathname to your file by pasting the copied Pathname. To see this in action, watch the next few minutes of **<a href="https://www.youtube.com/watch?v=I9S9B8kXHbQ&t=1707s" target="_blank"><i>this video</i></a>**  I created a few years ago.
 
-For example, let's assume I have saved the `mtcars` data as `cars.csv' in my PA606 folder/directory on my Desktop. I would find it, right click on it, and copy the pathname to the file below, reading in the data set as an object call `data1`:
+For example, let's assume I have saved the `mtcars` data as `cars.csv` in my PA606 folder/directory on my Desktop. I would find it, right click on it, and copy the pathname to the file below, reading in the data set as an object call `data1`:
 
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
@@ -52,6 +52,7 @@ data1
 ```
 
 <br><br>
+
 #### Reading in CSV Data Sets from a URL link to a CSV
 
 Sometimes you'll want to use a CSV file from a website, where you have a direct link to the CSV. For example, I uploaded the same `mtcars` data set as `cars.csv` on **<a href="www.burrelvannjr.com/cars.csv" target="_blank"><i>my website</i></a>**. 
