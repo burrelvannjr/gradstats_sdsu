@@ -320,9 +320,16 @@ data1$type3 <- recode(data1$cyl, "4 = 0; 6 = 0; 8 = 1; else = 1")
 #
 
 
-### R for Data Science
+### Additional R Resources
 
-For anyone interested in learning R from the ground, up, for data science, a great resource is [R for Data Science](https://r4ds.had.co.nz/index.html)
+[R for Data Science](https://r4ds.had.co.nz/index.html) <br>
+[Dr. Matt Blackwell's Advanced Quant Methods Course in Political Science](https://gov2002.mattblackwell.org/materials/) <br>
+[Dr. Chris Bail's Data & Society Course](https://dssoc.github.io/schedule/) <br>
+Summer Institute in Computational Social Science - [ [Github Repo of 2020 Materials](https://github.com/compsocialscience/summer-institute/tree/master/2020/materials), [2019 Materials](https://sicss.io/2019/princeton/schedule), [2020  Videos (with Links)](https://www.youtube.com/watch?v=zGG9wPl1C5E&list=PL9UNgBC7ODr4M1_4RLr4IYcXbHPUWYMrZ) ]<br>
+
+
+
+
 
 
 <br><br><br>
