@@ -196,14 +196,38 @@ $CI_{99.9} = \mu \pm 3.29{\sigma}$
 
 #
 
-However, because the above formula relies on $\sigma$, which is an unknown population parameter -- the standard deviation of a variable from the population. Our best guess of that standard deviation population parameter is the standard deviation statistic from our sample, or $SD$, but our sample standard deviation is based on fewer cases than the the standard deviation from the population . As such, we need to adjust the size of $SD$ based on our sample size, creating a new value we can plug in in place of $\sigma$, which is called Standard Error of the Mean: $SE = \frac{SD}{\sqrt N}$. Thus, our new confidence interval calculation becomes:
+However, because the above formula relies on $\sigma$, which is an unknown population parameter -- the standard deviation of a variable from the population. Our best guess of that standard deviation population parameter is the standard deviation statistic from our sample, or $SD$, but our sample standard deviation is based on fewer cases than the the standard deviation from the population . As such, we need to adjust the size of $SD$ based on our sample size, creating a new value we can plug in in place of $\sigma$, which is called Standard Error of the Mean: $SE = \frac{SD}{\sqrt N}$. Moreover, because we are relying on data from a sample, we also need to rely on sample statistics, rather than population parameters $\bar{X}$ Thus, our new confidence interval calculation becomes:
 
-$CI_{CL} = \mu \pm Z_{CL}{\frac{SD}{\sqrt N}}$
+$CI_{CL} = \bar{X} \pm Z_{CL}{\frac{SD}{\sqrt N}}$
 
 or....
 
-$CI_{CL} = \mu \pm Z_{CL}{SE}$
+$CI_{CL} = \bar{X} \pm Z_{CL}{SE}$
 
+Below, we've added a CI calculation function, <span style="color:blue">`ci.calc()`</span>, for calculating a confidence interval, for a given variable within a data frame (or a list of values), for a given confidence level.
+
+1. the `data frame` (or a `values list`)
+2. `variable name` for the variable of interest
+3. `confidence level`
+
+as such...
+
+
+```{r}
+ci.calc(data1, mpg, 95)
+```
+
+Above, we see the mean for the `mpg` variable (within the `data1` data frame), the lower and upper bounds for the 95 percent confidence level, and the standard error. 
+
+#
+
+Beyond this, we could read in a values list or a variable within a data frame using the dollar sign operator. However, when doing this, you should specify when you're reading in the confidence level. For example, if we wanted to calculate the 99 percent confidence interval for the `disp` variable from the `data1` data frame, then you could also run it as such:
+
+```{r}
+ci.calc(data1$disp, cl=99)
+```
+
+##
 
 ### Assessing Normality by Using Visualizations
 
