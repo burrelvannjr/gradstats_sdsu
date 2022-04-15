@@ -4,7 +4,6 @@
 rm(list=ls())
 library(MASS)
 library(psych)
-devtools::install_github("burrelvannjr/vannstats") #run this to update package from github
 library(vannstats)
 
 #----------------------------------------
