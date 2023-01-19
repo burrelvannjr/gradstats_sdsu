@@ -83,7 +83,7 @@ The assumptions for the Chi Square are...
 ##### 2. Normality (Examine Expected Frequencies Crosstab/Contingency Table)
 
 
-* Distributions must be relatively normal.The normality assumption is met if **no more than 20 percent of the cells in our Expected Frequencies crosstab have fewer than 5 cases.** Therefore, if ($E \lt 5$) for more than 20 percent of the cells in the Expected Frequences table, the assumption of normality is violated.
+* Distributions must be relatively normal.The normality assumption is met if **no more than 20 percent of the cells in our Expected Frequencies crosstab have fewer than 5 cases.** Therefore, if ($E \lt 5$) for more than 20 percent of the cells in the Expected Frequencies table, the assumption of normality is violated. If the assmuption of normality is violated, the researcher can employ Yates' Continuity Correction, which conservatively adjusts the numerator for small sample sizes. To employ this correction in R, simply change the option to `correct = TRUE`.
 
 In the <span style="color:blue">`vannstats`</span> package, I have included the <span style="color:blue">`tab`</span> function which returns the crosstabs of observed and expected frequencies. To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you use the following:
 
@@ -128,7 +128,7 @@ where...
 
 ### Running the Chi Square Test
 
-For Chi Square, within the <span style="color:blue">`chi.sq`</span> function, the dependent variable is listed first and the independent variable is listed second. 
+For Chi Square, within the <span style="color:blue">`chisq.test`</span> function, the dependent variable is listed first and the independent variable is listed second. 
 
 
 ```{r}
@@ -149,5 +149,22 @@ To interpret the findings, we report the following information:
 
   + <span style="color:red">“Using the Chi Square test of independence ($X^2$), I fail to reject the null hypothesis that there is no association between the shape and the transmission type of cars, in the population, $X^2(1) = .90688, p \gt .05$” </span>
 
+
+<br>
+
+#### Yates' Continuity Correction for the Chi Square Test 
+
+The calculation for Yates' Chi Square is:
+
+ $X^{2}_{Yates'} = \sum \frac{(|f_o - f_e| - 0.5)^2}{f_e}$    or   
+ $X^{2}_{Yates'} = \sum \frac{(|f_{o_i} - f_{e_i}| - 0.5)^2}{f_{e_i}}$
+
+To employ Yates' Continuity Correction, when we have violated the assumption of normality, simply change the `chisq.test` option to `correct = TRUE`, as below
+
+<br>
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+chisq.test(data1$vs, data1$am, correct=TRUE)
+```
 
 <br><br><br>
