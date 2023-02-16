@@ -150,26 +150,28 @@ where... <br>
 * $\bar{X}$ is the mean for all observations <br>
 * $SD$ is the standard deviation for all observations <br>
 
-For example, if we wanted to calculate a Z-score for the combined MPG of a Subaru Crosstrek, which is 30 MPG, relative to all other cars in the **mtcars** data set, we would use the formula: 
+For example, if we wanted to calculate a Z-score for the combined MPG of a Subaru Outback, which is 29 MPG, relative to all other cars in the **mtcars** data set, we would use the formula: 
 
-$Z_{Crosstrek} = \frac{(30 - \bar{X}_{mtcars\$mpg})}{SD_{mtcars\$mpg}}$
+$Z_{Outback} = \frac{(29 - \bar{X}_{mtcars\$mpg})}{SD_{mtcars\$mpg}}$
 
-And we could use our knowledge of assignment operators/creating objects to run this calculation:
+
+
+Luckily, I've created a Z-score calculation function, <span style="color:blue">`z.calc()`</span>, for calculating a z-score for a value, given the mean and standard deviation for a variable within a data frame (or a list of values).
+
+1. the `data frame` (or a `values list`)
+2. `variable name` for the variable of interest
+3. `raw score`
+
+as such...
 
 
 ```{r}
-x_crosstrek <- 30
-
-mean_mpg <- mean(data1$mpg, na.rm=T)
-sd_mpg <- sd(data1$mpg, na.rm=T)
-
-z_crosstrek <- ((x_crosstrek - mean_mpg) / (sd_mpg))
-
-#print result
-z_crosstrek
+z.calc(data1, mpg, 29)
 ```
 
-This indicates that the MPG for the Crosstrek is 1.645 standard deviation units above the mean.
+This indicates that the MPG for the Outback is 1.478 standard deviation units above the mean.
+
+#
 
 
 
