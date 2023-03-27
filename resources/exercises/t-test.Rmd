@@ -86,7 +86,7 @@ For both of the above (2 and 3) assumptions, we can examine the univariate data 
 describeBy(data1$mpg, data1$am)
 ```
 
-  + <span style="color:red">Given that the group sizes are similar, `we have met the assumption of equal sample sizes`. Further, given that the standard deviations for all three groups do not exceed a 3:1 ratio, `we have met the assumption of homogeneity of variance`.</span>
+  + <span style="color:red">Given that the group sizes are similar, `we have met the assumption of equal sample sizes`. Further, given that the standard deviations for both groups do not exceed a 3:1 ratio, `we have met the assumption of homogeneity of variance`.</span>
 
 <br>
 
@@ -148,7 +148,7 @@ We assess normality an break this plot out by a grouping variable.
 qq(data1, mpg, am)
 ```
 
-  + <span style="color:red">We can see from the Q-Q plot that group distributions of the outcome variable (mpg), the data are somewhat normal. However, it is important to notice that for manual cars (am = 1), the data tend to curl *toward* and *away from* the normality line and intervals. This indicates *some* deviation from normality. We would want to possibly increase our sample size, since these deviations from normality are likely resulting from the small sample size ($n$). However, for this example, given the small sample size, the data look normal enough... even if there is a *slight* discernible pattern across the line (yet, it is not a strong curvilinear trend around normality line) for the *mpg* variable for any group/level (*cyl*). Therefore, it is safe to proceed with the statistical test.</span> 
+  + <span style="color:red">We can see from the Q-Q plot that group distributions of the outcome variable (mpg), the data are somewhat normal. However, it is important to notice that for manual cars (am = 1), the data tend to curl *toward* and *away from* the normality line at intervals. This indicates *some* deviation from normality. We would want to possibly increase our sample size, since these deviations from normality are likely resulting from the small sample size ($n$). However, for this example, given the small sample size, the data look normal enough... even if there is a *slight* discernible pattern across the line (yet, it is not a strong curvilinear trend around normality line) for the *mpg* variable for any group/level (*cyl*). Therefore, it is safe to proceed with the statistical test.</span> 
 
 <br>
 
@@ -162,7 +162,7 @@ qq(data1, mpg, am)
 
 The calculation for the t-Test is:
 
- $\frac{\bar{x}_1-\bar{x}_2}{\sqrt{\frac{SD_1^2}{n_1}+\frac{SD_2^2}{n_2}}}$
+ $t = \frac{\bar{x}_1-\bar{x}_2}{\sqrt{\frac{SD_1^2}{n_1}+\frac{SD_2^2}{n_2}}}$
  
 where... <br>
 
@@ -204,7 +204,7 @@ To interpret the findings, we report the following information:
 
 “Using an independent samples t-test, I reject/fail to reject the null hypothesis that there is no mean difference between group 1 and group 2, in the population, $t(?) = ?, p ? .05$” 
 
-  + <span style="color:red">“Using an independent samples t-test, I reject the null hypothesis that there is no difference between the mean mpg of automatic and manual transmission cars, in the population, $t(30) = \pm 4.1061, p \leq .05$” </span>
+  + <span style="color:red">“Using an independent samples t-test, I reject the null hypothesis that there is no difference between the mean mpg of automatic and manual transmission cars, in the population, $t(30) = \pm 4.1061, p \lt .05$” </span> #leq
 
 
 <br><br><br>
