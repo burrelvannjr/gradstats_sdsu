@@ -198,7 +198,7 @@ To interpret the findings, we report the following information:
 
 “Using a one-way ANOVA, I reject/fail to reject the null hypothesis that there is no mean difference between groups, in the population, $F(?) = ?, p ? .05$” 
 
-  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the miles per gallon in cars with different cylinders, in the population, $F(2,29) = 39.7, p \leq .05$”</span>
+  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the miles per gallon in cars with different cylinders, in the population, $F(2,29) = 39.7, p \lt .05$”</span>
 
 <br><br>
 

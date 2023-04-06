@@ -219,7 +219,7 @@ To interpret the findings, we report the following information:
 
 “Using a one-way ANOVA, I reject/fail to reject the null hypothesis that there is no mean difference between groups, in the population, $F(?) = ?, p ? .05$” 
 
-  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the monthly income of differnt racial categories, in the population, $F(3,16) = 4.043, p \leq .05$”</span> 
+  + <span style="color:red">“Using one-way ANOVA, I reject the null hypothesis that there is no mean difference between the monthly income of different racial categories, in the population, $F(3,16) = 4.043, p \lt .05$”</span> 
 
 
 <br><br>
