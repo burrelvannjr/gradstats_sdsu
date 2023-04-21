@@ -1,7 +1,9 @@
 #----------------------------------------
 # Clear environment and load packages
 #----------------------------------------
-rm(list=ls())
+#rm(list=ls()) #clear environment
+#options(scipen = 999) #scientific notation off
+#options(scipen = 0) #scientific notation on
 library(MASS)
 library(psych)
 library(vannstats)
