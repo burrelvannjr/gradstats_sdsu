@@ -19,10 +19,6 @@ data1 <- mtcars
 #----------------------------------------
 scatter(data1, mpg, wt)
 
-#can also run the two lines below to get the same result
-#plot(data1$wt, data1$mpg) #(x,y)
-#abline(lm(data1$mpg~data1$wt), col="Blue") #regression line (y~x))
-
 #----------------------------------------
 # histogram of 'mpg'
 #----------------------------------------
