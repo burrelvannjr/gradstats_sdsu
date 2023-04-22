@@ -204,7 +204,7 @@ To interpret the findings, we report the following information:
 
 “Using an independent samples t-test, I reject/fail to reject the null hypothesis that there is no mean difference between group 1 and group 2, in the population, $t(?) = ?, p ? .05$” 
 
-  + <span style="color:red">“Using an independent samples t-test, I reject the null hypothesis that there is no difference between the mean mpg of automatic and manual transmission cars, in the population, $t(30) = \pm 4.1061, p \lt .05$” </span> #leq
+  + <span style="color:red">“Using an independent samples t-test, I reject the null hypothesis that there is no difference between the mean mpg of automatic and manual transmission cars, in the population, $t(30) = \pm 4.1061, p \lt .05$” </span> <!-- \leq  is less than or equal to, \geq is greater than or equal to -->
 
 
 <br><br><br>

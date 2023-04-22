@@ -227,7 +227,7 @@ To interpret the findings, we report the following information:
 
 “Using the Pearson's correlation test ($r$), I reject/fail to reject the null hypothesis that there is no association between variable one and variable 2, in the population, $r(?) = ?, p ? .05$” 
 
-  + <span style="color:red">“Using the Pearson's correlation test ($r$), I reject the null hypothesis that there is no association between a person's self-esteem level and their level of jealousy (both measured in scales or degrees of each), in the population, $r(18) = -.452405, p \leq .05$. In particular, we have a *moderate* *negative* relationship between esteem and jealousy, such that, as a person's self-esteem increases, their jealousy decreases.”</span>
+  + <span style="color:red">“Using the Pearson's correlation test ($r$), I reject the null hypothesis that there is no association between a person's self-esteem level and their level of jealousy (both measured in scales or degrees of each), in the population, $r(18) = -.452405, p \lt .05$. In particular, we have a *moderate* *negative* relationship between esteem and jealousy, such that, as a person's self-esteem increases, their jealousy decreases.”</span>
 
 
 
