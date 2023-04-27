@@ -511,9 +511,8 @@ vignette, we can use the <span style="color:blue"><code>data.frame</code></span>
 <p>The assumptions for the Correlation are…</p>
 <ul>
 <li>Linearity</li>
-<li>Normality</li>
-<li>Absence of Range Restrictions</li>
-<li>Absence of Heterogeneous Subsamples</li>
+<li>Normality <!-- * Absence of Range Restrictions
+* Absence of Heterogeneous Subsamples --></li>
 </ul>
 <p>In addition, the previously-discussed assumptions for other tests
 (independence of observations) is implied, since all of these bivariate
@@ -595,38 +594,37 @@ above, the data seem normally-distributed.
 <code>Therefore, we meet the assumption of normality</code>.</span></li>
 </ul>
 <p><br></p>
-</div>
-<div id="absence-of-range-restrictions" class="section level5">
-<h5>3. Absence of Range Restrictions</h5>
-<ul>
-<li>Values on variables cannot be restricted to small range. Examine
-range for variables</li>
-</ul>
-<pre class="r"><code>describe(data$jealousy)</code></pre>
-<pre><code>##    vars  n  mean    sd median trimmed   mad min max range  skew kurtosis   se
-## X1    1 20 100.4 23.52  106.5  101.62 18.53  48 143    95 -0.44    -0.37 5.26</code></pre>
-<pre class="r"><code>describe(data$esteem)</code></pre>
-<pre><code>##    vars  n  mean   sd median trimmed  mad min max range  skew kurtosis  se
-## X1    1 20 32.65 4.04     33   32.69 4.45  26  40    14 -0.05    -1.15 0.9</code></pre>
-<ul>
-<li><span style="color:red">Here, it doesn’t seem as though there are
-restictions on the possible ranges of self esteem or jealousy.
-<code>Therefore, we meet the assumption of absence of range restrictions</code>.</span></li>
-</ul>
-<p><br></p>
-</div>
-<div id="absence-of-heterogeneous-subsamples" class="section level5">
-<h5>4. Absence of Heterogeneous Subsamples</h5>
-<ul>
-<li><p>Not having groups that have extremely different values (e.g. for
-which a t-test/ANOVA might appropriately identify). Examine various
-groups in the sample</p>
-<ul>
-<li><span style="color:red">Here. we don’t different samples, since
-there is no identifying information for the cases.
-<code>Therefore, we meet the assumption of absence of heterogeneous subsamples</code>.</span></li>
-</ul></li>
-</ul>
+<!-- ##### 3. Absence of Range Restrictions
+* Values on variables cannot be restricted to small range. Examine range for variables
+  
+
+```r
+describe(data$jealousy)
+```
+
+```
+##    vars  n  mean    sd median trimmed   mad min max range  skew kurtosis   se
+## X1    1 20 100.4 23.52  106.5  101.62 18.53  48 143    95 -0.44    -0.37 5.26
+```
+
+
+```r
+describe(data$esteem)
+```
+
+```
+##    vars  n  mean   sd median trimmed  mad min max range  skew kurtosis  se
+## X1    1 20 32.65 4.04     33   32.69 4.45  26  40    14 -0.05    -1.15 0.9
+```
+
+  + <span style="color:red">Here, it doesn't seem as though there are restictions on the possible ranges of self esteem or jealousy. `Therefore, we meet the assumption of absence of range restrictions`.</span> 
+
+<br>
+
+##### 4. Absence of Heterogeneous Subsamples
+* Not having groups that have extremely different values (e.g. for which a t-test/ANOVA might appropriately identify). Examine various groups in the sample
+
+  + <span style="color:red">Here. we don't different samples, since there is no identifying information for the cases. `Therefore, we meet the assumption of absence of heterogeneous subsamples`.</span> -->
 <p><br></p>
 </div>
 </div>

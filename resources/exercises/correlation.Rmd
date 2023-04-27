@@ -68,15 +68,15 @@ The assumptions for the Correlation are...
 
 * Linearity
 * Normality
-* Absence of Range Restrictions
-* Absence of Heterogeneous Subsamples
+<!-- * Absence of Range Restrictions
+* Absence of Heterogeneous Subsamples -->
 
 In addition, the previously-discussed assumptions for other tests (independence of observations) is implied, since all of these bivariate tests require random samples.
 
 
 
 ##### 1. Linearity
-* Variables move together in a linear fashion. Visual inspection of **scatterplot** to see if relationship is linear (straight-line). If you have updated to the most recent version of the <span style="color:blue">`vannstats`</span> package (version 1.0.4.5) -- which you can get by running the `install_github` (in the <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>script</i></a> above)  -- then you can call a scatterplot using the <span style="color:blue">`scatter`</span> function:
+* Variables move together in a linear fashion. Visual inspection of **scatterplot** to see if relationship is linear (straight-line). If you have updated to the most recent version of the <span style="color:blue">`vannstats`</span> package <!-- (version 1.0.4.5) -- which you can get by running the `install_github` (in the <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>script</i></a> above)  --> then you can call a scatterplot using the <span style="color:blue">`scatter`</span> function:
 
 ```{r}
 scatter(data1, mpg, wt)
@@ -135,11 +135,11 @@ qq(data1, wt)
 
 <br>
 
-  + <span style="color:red">Across all three plots of <span>`mpg`</span> and all three plots of <span>`mpg`</span>, the variables do not seem to drastically deviate from normality. Therefore, `we can assume normality`.</span>
+  + <span style="color:red">Across all three plots of <span>`mpg`</span> and all three plots of <span>`wt`</span>, the variables do not seem to drastically deviate from normality. Therefore, `we can assume normality`.</span>
   
 <br>
 
-##### 3. Absence of Range Restrictions
+<!-- ##### 3. Absence of Range Restrictions
 * Values on variables cannot be restricted to small range. Examine range for variables
   
 ```{r}
@@ -157,7 +157,7 @@ describe(data1$wt)
 ##### 4. Absence of Heterogeneous Subsamples
 * Not having groups that have extremely different values (e.g. for which a t-test/ANOVA might appropriately identify). Examine various groups in the sample.
 
-  + <span style="color:red">While it is true that there are various groups within the sample, it is nearly impossible to determine which groups will affect the outcome of `mpg`. Therefore, it is safe to assume that `we have met the assumption of absence of heterogenous subsamples`.</span>
+  + <span style="color:red">While it is true that there are various groups within the sample, it is nearly impossible to determine which groups will affect the outcome of `mpg`. Therefore, it is safe to assume that `we have met the assumption of absence of heterogenous subsamples`.</span>-->
 
 
 

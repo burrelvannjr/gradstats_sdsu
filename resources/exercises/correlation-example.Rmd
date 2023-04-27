@@ -103,8 +103,8 @@ The assumptions for the Correlation are...
 
 * Linearity
 * Normality
-* Absence of Range Restrictions
-* Absence of Heterogeneous Subsamples
+<!-- * Absence of Range Restrictions
+* Absence of Heterogeneous Subsamples -->
 
 In addition, the previously-discussed assumptions for other tests (independence of observations) is implied, since all of these bivariate tests require random samples.
 
@@ -172,7 +172,7 @@ qq(data, esteem)
 
 <br>
 
-##### 3. Absence of Range Restrictions
+<!-- ##### 3. Absence of Range Restrictions
 * Values on variables cannot be restricted to small range. Examine range for variables
   
 ```{r}
@@ -190,7 +190,7 @@ describe(data$esteem)
 ##### 4. Absence of Heterogeneous Subsamples
 * Not having groups that have extremely different values (e.g. for which a t-test/ANOVA might appropriately identify). Examine various groups in the sample
 
-  + <span style="color:red">Here. we don't different samples, since there is no identifying information for the cases. `Therefore, we meet the assumption of absence of heterogeneous subsamples`.</span> 
+  + <span style="color:red">Here. we don't different samples, since there is no identifying information for the cases. `Therefore, we meet the assumption of absence of heterogeneous subsamples`.</span> -->
 
 <br>
 
