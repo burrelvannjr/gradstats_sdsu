@@ -629,12 +629,28 @@ R environment: <span style="color:blue"><code>data1 &lt;- read.csv(&quot;PATHNAM
 users can use. <em>To see which stock data sets are installed in your
 version of R, use the</em> <span style="color:blue"><code>data()</code></span> <em>function.</em> The
 <span style="color:blue"><code>MASS</code></span> package, for example,
-comes with a great data set on car manufacturers called <span style="color:blue;background:none"><code>mtcars</code></span>. To use
-this <span style="color:blue"><code>mtcars</code></span> data set, you
-must call it. Calling the data will load it into your console window. To
-call a stock data set, just type in the name of the data set (<em>Note:
-The data set you’re calling must come from a package that is already
-LOADED into your R session</em>). Because the <span style="color:blue;background:none"><code>MASS</code></span> package is
+comes with a great data set on car manufacturers called <span style="color:blue;background:none"><code>mtcars</code></span>. #</p>
+</div>
+<div id="getting-information-aboutcodebook-for-stock-data-sets-in-r" class="section level4">
+<h4>Getting Information about/Codebook for Stock Data Sets in R</h4>
+<p>Before loading the data set, you might want to know more about it. In
+order to get information about a data set (including the data set
+description, the size of the data set, and variable names and
+descriptions), you need to ask R. <em>To do so, you need use the</em>
+<span style="color:blue"><code>??</code></span>
+<em>(double-question-mark) function</em> as such…</p>
+<pre class="r"><code>??mtcars</code></pre>
+</div>
+</div>
+<div id="section-15" class="section level1">
+<h1></h1>
+<div id="working-with-stock-data-sets-in-r-1" class="section level4">
+<h4>Working with Stock Data Sets in R</h4>
+<p>To use the <span style="color:blue"><code>mtcars</code></span> data
+set, you must call it. Calling the data will load it into your console
+window. To call a stock data set, just type in the name of the data set
+(<em>Note: The data set you’re calling must come from a package that is
+already LOADED into your R session</em>). Because the <span style="color:blue;background:none"><code>MASS</code></span> package is
 already loaded, we can call our <span style="color:blue;background:none"><code>mtcars</code></span> data set
 as such…</p>
 <pre class="r"><code>mtcars</code></pre>
@@ -673,18 +689,18 @@ as such…</p>
 ## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
 </div>
 </div>
-<div id="section-15" class="section level1">
+<div id="section-16" class="section level1">
 <h1></h1>
-<p>While this is great, and the dataset is loaded into your console
+<p>While this is great, and the data set is loaded into your console
 window, you will need a local copy to run operations on. To create a
 local copy (an object) so that you can run manipulations on the <span style="color:blue"><code>mtcars</code></span> data, you should create a
 new object, like this:</p>
 <pre class="r"><code>data1 &lt;- mtcars</code></pre>
 </div>
-<div id="section-16" class="section level1">
+<div id="section-17" class="section level1">
 <h1></h1>
 </div>
-<div id="section-17" class="section level1">
+<div id="section-18" class="section level1">
 <h1></h1>
 <p>Like above, you can now call <span style="color:blue"><code>data1</code></span>, and it will load the same
 data set into your console window (not shown here). In addition, in
@@ -692,7 +708,7 @@ RStudio, after you give the data a new name (converting it to a usable
 object), you can view the data in your upper-right
 <strong>Environment</strong> window.</p>
 </div>
-<div id="section-18" class="section level1">
+<div id="section-19" class="section level1">
 <h1></h1>
 <div id="calling-information-for-a-variable" class="section level4">
 <h4>Calling information for a Variable</h4>
@@ -705,7 +721,7 @@ following.</p>
 ## [31] 15.0 21.4</code></pre>
 </div>
 </div>
-<div id="section-19" class="section level1">
+<div id="section-20" class="section level1">
 <h1></h1>
 <div id="recoding-values-within-a-variable" class="section level3">
 <h3>Recoding Values within a Variable</h3>
@@ -742,10 +758,10 @@ unique values in the <code>cyl</code> variable, to 2 unique values in
 the <code>gas_guzzler</code> variable.</p>
 </div>
 </div>
-<div id="section-20" class="section level1">
+<div id="section-21" class="section level1">
 <h1></h1>
 </div>
-<div id="section-21" class="section level1">
+<div id="section-22" class="section level1">
 <h1></h1>
 <p>Additionally, you can use several different calls within the recode
 function. Including the: concatenate (<code>c()</code>) function to
@@ -756,16 +772,16 @@ whatever value precedes the colon to the highest value), and the
 <code>else</code> function to recode everything else you missed as a
 specific value (rather than an <code>NA</code> missing value).</p>
 </div>
-<div id="section-22" class="section level1">
+<div id="section-23" class="section level1">
 <h1></h1>
 <pre><code>data1$type &lt;- recode(data1$cyl, &quot;c(4,6) = 0; 8 = 1&quot;)
 data1$type2 &lt;- recode(data1$cyl, &quot;lo:6 = 0; 8:hi = 1&quot;)
 data1$type3 &lt;- recode(data1$cyl, &quot;4 = 0; 6 = 0; 8 = 1; else = 1&quot;)</code></pre>
 </div>
-<div id="section-23" class="section level1">
+<div id="section-24" class="section level1">
 <h1></h1>
 </div>
-<div id="section-24" class="section level1">
+<div id="section-25" class="section level1">
 <h1></h1>
 <div id="additional-r-resources" class="section level3">
 <h3>Additional R Resources</h3>

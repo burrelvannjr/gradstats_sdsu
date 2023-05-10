@@ -235,7 +235,23 @@ A CSV file must be "read" into the R environment for you to use it. To do so, yo
 
 #### Working with Stock Data Sets in R
 
-Fortunately, nearly every package in R comes with a data set that R users can use. *To see which stock data sets are installed in your version of R, use the* <span style="color:blue">`data()`</span> *function.* The <span style="color:blue">`MASS`</span> package, for example, comes with a great data set on car manufacturers called <span style="color:blue;background:none">`mtcars`</span>. To use this <span style="color:blue">`mtcars`</span> data set, you must call it. Calling the data will load it into your console window. To call a stock data set, just type in the name of the data set (*Note: The data set you're calling must come from a package that is already LOADED into your R session*). Because the <span style="color:blue;background:none">`MASS`</span> package is already loaded, we can call our <span style="color:blue;background:none">`mtcars`</span> data set as such...
+Fortunately, nearly every package in R comes with a data set that R users can use. *To see which stock data sets are installed in your version of R, use the* <span style="color:blue">`data()`</span> *function.* The <span style="color:blue">`MASS`</span> package, for example, comes with a great data set on car manufacturers called <span style="color:blue;background:none">`mtcars`</span>.
+# 
+
+
+#### Getting Information about/Codebook for Stock Data Sets in R
+
+Before loading the data set, you might want to know more about it. In order to get information about a data set (including the data set description, the size of the data set, and variable names and descriptions), you need to ask R. *To do so, you need use the* <span style="color:blue">`??`</span> *(double-question-mark) function*  as such...
+
+```{r}
+??mtcars
+```
+
+# 
+
+#### Working with Stock Data Sets in R
+
+To use the <span style="color:blue">`mtcars`</span> data set, you must call it. Calling the data will load it into your console window. To call a stock data set, just type in the name of the data set (*Note: The data set you're calling must come from a package that is already LOADED into your R session*). Because the <span style="color:blue;background:none">`MASS`</span> package is already loaded, we can call our <span style="color:blue;background:none">`mtcars`</span> data set as such...
 
 ```{r}
 mtcars
@@ -243,7 +259,7 @@ mtcars
 
 # 
 
-While this is great, and the dataset is loaded into your console window, you will need a local copy to run operations on. To create a local copy (an object) so that you can run manipulations on the <span style="color:blue">`mtcars`</span> data, you should create a new object, like this:
+While this is great, and the data set is loaded into your console window, you will need a local copy to run operations on. To create a local copy (an object) so that you can run manipulations on the <span style="color:blue">`mtcars`</span> data, you should create a new object, like this:
 
 ```{r}
 data1 <- mtcars
