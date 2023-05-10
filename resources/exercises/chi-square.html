@@ -401,10 +401,10 @@ Script</i></a> | <a href="t-test-example.html"><em>Example</em></a>
 <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R
 Script</i></a> | <a href="anova-example.html"><em>Example</em></a>
 ]</li>
-<li><a href="chi-square.html"><strong>Chi Square Test of
+<li><a href="chi-square2.html"><strong>Chi Square Test of
 Independence</strong></a> [
-<a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R
-Script</i></a> | <a href="chi-square-example.html"><em>Example</em></a>
+<a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square2.R" target="_blank"><i>R
+Script</i></a> | <a href="chi-square-example2.html"><em>Example</em></a>
 ]</li>
 <li><a href="correlation.html"><strong>Correlation</strong></a> [
 <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>R
@@ -499,16 +499,16 @@ the assumption of normality (e.g. fewer than 20% of cells in the
 crosstab of expected frequencies falls below <span class="math inline">\(n=5\)</span>), you use the following:</p>
 <pre class="r"><code>tab(data1, vs, am)</code></pre>
 <pre><code>## $`Observed Frequencies`
-##    am
-## vs   0  1
-##   0 12  6
-##   1  7  7
+##       am: 0  1 Total
+## vs: 0    12  6    18
+## 1         7  7    14
+## Total    19 13    32
 ## 
-## $`Expected Frquencies`
-##    am
-## vs        0      1
-##   0 10.6875 7.3125
-##   1  8.3125 5.6875</code></pre>
+## $`Expected Frequencies`
+##         am: 0       1 Total
+## vs: 0 10.6875  7.3125    18
+## 1      8.3125  5.6875    14
+## Total 19.0000 13.0000    32</code></pre>
 <ul>
 <li><span style="color:red">We see here that
 <code>we have met the assumption of normality</code>: less than 20% of
@@ -555,12 +555,13 @@ crosstabulation<br></li>
 <p>For Chi Square, within the <span style="color:blue"><code>chisq.test</code></span> function, the
 dependent variable is listed first and the independent variable is
 listed second.</p>
-<pre class="r"><code>chisq.test(data1$vs, data1$am, correct=FALSE)</code></pre>
+<pre class="r"><code>#chisq.test(data1$vs, data1$am, correct=FALSE)
+chi.sq(data1, vs, am)</code></pre>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
-## data:  data1$vs and data1$am
-## X-squared = 0.90688, df = 1, p-value = 0.3409</code></pre>
+## data:  vs and am
+## χ² = 0.90688, Critical χ² = 3.84100, df = 1, p-value = 0.3409</code></pre>
 <p>In the output above, we see the <span class="math inline">\(X^2\)</span>-obtained value (0.90688), the degrees
 of freedom (1), and the p-value (0.3409, which is greater than our set
 alpha level of .05).</p>
@@ -597,7 +598,46 @@ f_{e_i}| - 0.5)^2}{f_{e_i}}\)</span></p>
 assumption of normality, simply change the <code>chisq.test</code>
 option to <code>correct = TRUE</code>, as below</p>
 <p><br></p>
-<pre class="r"><code>chisq.test(data1$vs, data1$am, correct=TRUE)</code></pre>
+<pre class="r"><code>chisq.test(data1$vs, data1$am, correct=TRUE)
+chi.sq(data1, vs, am, post = T)</code></pre>
+<p><br><br></p>
+</div>
+</div>
+<div id="post-hoc-checks-which-cells-differ" class="section level3">
+<h3>Post-Hoc Checks: Which cells differ?</h3>
+<p>After finding a significant result in your omnibus/overall chi square
+test, to identify <em>where</em> the differences lie, you can do one
+thing:</p>
+<ul>
+<li>Run a Post-hoc significance test, using</li>
+</ul>
+<pre class="r"><code>chi.sq(data1, vs, am, post = T)</code></pre>
+<pre><code>## $model
+## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  vs and am
+## χ² = 0.90688, Critical χ² = 3.84100, df = 1, p-value = 0.3409
+## 
+## 
+## $`Post-Hoc Test w/ Bonferroni Adjustment`
+##   am vs Adj. Standardized Residual (Z) Adj. p-value
+## 1  0  0                      0.9523038            1
+## 2  0  1                     -0.9523038            1
+## 3  1  0                     -0.9523038            1
+## 4  1  1                      0.9523038            1</code></pre>
+<p><br></p>
+<div id="post-hoc-significance-test" class="section level4">
+<h4>Post-Hoc Significance Test</h4>
+<p>And finally, we can see where the <em>significantly different</em>
+different comparisons (between observed and expected) are, Bonferroni’s
+adjusted p-values which can also be called from the <span style="color:blue"><code>chi.sq</code></span> function. As seen
+above:</p>
+<ul>
+<li><span style="color:red">Here, we see that none of the comparisons –
+between observed and expected cells – significantly differ.</span></li>
+</ul>
+<p><br><br><br></p>
 <p><br><br><br></p>
 </div>
 </div>
