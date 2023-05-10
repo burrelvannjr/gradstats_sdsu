@@ -19,7 +19,7 @@ data1 <- mtcars
 tab(data1, vs, am)
 
 #----------------------------------------
-# run the chi square test, examining the relationship between 'vs' and 'am', including a post-hoc test
+# run the chi square test, examining the relationship between 'vs' and 'am'
 #----------------------------------------
-chi.sq(data1, vs, am, post=TRUE)
+chisq.test(data1$vs, data1$am, correct=FALSE)
 

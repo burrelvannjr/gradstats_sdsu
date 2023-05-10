@@ -18,7 +18,7 @@ output:
 ###### Bivariate and Multivariate Statistics
 * [**Independent Samples t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
 * [**One-Way Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
-* [**Chi Square Test of Independence**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
+* [**Chi Square Test of Independence**](chi-square2.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square2.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example2.html) ]
 * [**Correlation**](correlation.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>R Script</i></a> | [*Example*](correlation-example.html) ]
 * [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
@@ -132,7 +132,8 @@ For Chi Square, within the <span style="color:blue">`chisq.test`</span> function
 
 
 ```{r}
-chisq.test(data1$vs, data1$am, correct=FALSE)
+#chisq.test(data1$vs, data1$am, correct=FALSE)
+chi.sq(data1, vs, am)
 ```
 
 In the output above, we see the $X^2$-obtained value (0.90688), the degrees of freedom (1), and the p-value (0.3409, which is greater than our set alpha level of .05).
@@ -165,6 +166,34 @@ To employ Yates' Continuity Correction, when we have violated the assumption of 
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 chisq.test(data1$vs, data1$am, correct=TRUE)
+chi.sq(data1, vs, am, post = T)
+
 ```
+
+<br><br>
+
+### Post-Hoc Checks: Which cells differ?
+
+After finding a significant result in your omnibus/overall chi square test, to identify *where* the differences lie, you can do one thing:
+
+* Run a Post-hoc significance test, using 
+
+
+```{r}
+chi.sq(data1, vs, am, post = T)
+
+```
+
+<br>
+
+#### Post-Hoc Significance Test
+
+And finally, we can see where the *significantly different* different comparisons (between observed and expected) are, Bonferroni's adjusted p-values  which can also be called from the <span style="color:blue">`chi.sq`</span> function. As seen above:
+
+  + <span style="color:red">Here, we see that none of the comparisons -- between observed and expected cells -- significantly differ.</span>
+
+
+<br><br><br>
+
 
 <br><br><br>

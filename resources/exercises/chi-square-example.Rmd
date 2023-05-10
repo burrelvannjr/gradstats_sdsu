@@ -18,7 +18,7 @@ output:
 ###### Bivariate and Multivariate Statistics
 * [**Independent Samples t-Test**](t-test.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/t-test.R" target="_blank"><i>R Script</i></a> | [*Example*](t-test-example.html) ]
 * [**One-Way Analysis of Variance (ANOVA)**](anova.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/anova.R" target="_blank"><i>R Script</i></a> | [*Example*](anova-example.html) ]
-* [**Chi Square Test of Independence**](chi-square.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example.html) ]
+* [**Chi Square Test of Independence**](chi-square2.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/chi-square2.R" target="_blank"><i>R Script</i></a> | [*Example*](chi-square-example2.html) ]
 * [**Correlation**](correlation.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/correlation.R" target="_blank"><i>R Script</i></a> | [*Example*](correlation-example.html) ]
 * [**Regression**](regression.html) [ <a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R Script</i></a> | [*Example*](regression-example.html) ]
 <br><br>
@@ -179,7 +179,8 @@ For Chi Square, within the <span style="color:blue">`chi.sq`</span> function, th
 
 
 ```{r}
-chisq.test(data$views, data$pol, correct=FALSE)
+#chisq.test(data$views, data$pol, correct=FALSE)
+chi.sq(data, views, pol, post = T)
 ```
 
 In the output above, we see the $X^2$-obtained value (60.506), the degrees of freedom (1), and the p-value (7.334e-15 = 7.334 x $10^{-15}$ = .000000000000007334, which is much less than our set alpha level of .05).
