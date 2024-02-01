@@ -47,7 +47,33 @@ We will be using [R](https://cran.r-project.org/), an open-source statistical pr
 
 ### Downloading & Installing RStudio
 
-1. Next, we will download [**RStudio**](https://rstudio.com/products/rstudio/download/) which is a easily understandable user interface for using R. If you're using a machine (e.g. a non-tablet pc/mac), under "RStudio Desktop" click "Download". Next, it should take you to a page with a "Download" button. Additionaly, under "All Installers" you can select the RStudio download that matches your operating system.
+1. Next, we will download [**RStudio**](https://rstudio.com/products/rstudio/download/) which is a easily understandable user interface for using R. If you're using a laptop/desktop computer (e.g. not a tablet), under "RStudio Desktop" click "Download". Next, it should take you to a page with a "Download" button. 
 
+
+    + If you have an older machine, under "All Installers" you can select the RStudio download that matches your operating system. You can look through the installers for [**older versions**](https://docs.posit.co/previous-versions/rstudio) that match your machine. For users running macOS 10 or macOS 11, use the links below:
+
+
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+library(kableExtra)
+```
+
+
+```{r, echo=FALSE}
+oss <- c("macOS 10+","macOS 11+")
+downloads <- c("download","download")
+urls <- c("https://s3.amazonaws.com/rstudio-ide-build/desktop/macos/RStudio-2022.07.2-576.dmg","https://s3.amazonaws.com/rstudio-ide-build/electron/macos/RStudio-2022.12.0-353.dmg")
+
+table_data <- data.frame(oss,downloads)
+# use paste0 to compose markdown-formatted hyperlinks
+table_data$downloads <- paste0("[**", table_data$downloads, "**](", urls, ")")
+names(table_data) <- c("Operating System","Download Link")
+# print the table, with hyperlinked text
+knitr::kable(table_data) %>%
+  kable_paper("hover", full_width = F)
+```
+
+<br>
 2. After the download is complete, install the RStudio program.
 
+<br><br>
