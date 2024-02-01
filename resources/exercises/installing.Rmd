@@ -60,9 +60,9 @@ library(kableExtra)
 
 
 ```{r, echo=FALSE}
-oss <- c("macOS 10+","macOS 11+")
+oss <- c("macOS 11+","macOS 10+")
 downloads <- c("download","download")
-urls <- c("https://s3.amazonaws.com/rstudio-ide-build/desktop/macos/RStudio-2022.07.2-576.dmg","https://s3.amazonaws.com/rstudio-ide-build/electron/macos/RStudio-2022.12.0-353.dmg")
+urls <- c("https://s3.amazonaws.com/rstudio-ide-build/electron/macos/RStudio-2022.12.0-353.dmg","https://s3.amazonaws.com/rstudio-ide-build/desktop/macos/RStudio-2022.07.2-576.dmg")
 
 table_data <- data.frame(oss,downloads)
 # use paste0 to compose markdown-formatted hyperlinks
