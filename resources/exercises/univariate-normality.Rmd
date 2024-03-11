@@ -272,11 +272,12 @@ hst(data1, mpg, cyl)
 
 Boxplots also provide a visual representation of the normality of a distribution. The boxplot has a box, a line through the box, two whiskers on either end of the box, and sometimes dots/points outside the whiskers. Below, we get a sense of what each part of the boxplot represents...
 
-+ Bottom (or left end) of the **whisker** represents the minimum score for that variable's distribution, or, more appropriately, a distance below the mean that is 1.5x the size of the interquartile range (IQR)
++ Bottom (or left end) **whisker** represents a point that is *less than or equal to* the calculation: 1.5x the size of the interquartile range (IQR). If there is an actual data point at that value, then the bottom whisker represents that point. However, if there is not an actual data point there, the bottom whisker is *pulled inward* to fall at the closest but *less extreme* data point.
 + Bottom (or left end) of the **box** represents the first quartile (the 25th percentile case)
 + Middle line (or dot) inside the **box** represents the median, also known as the second quartile (the 50th percentile case)
 + Top (or right end) of the **box** represents the third quartile (the 75th percentile case)
-+ Top (or right end) of the **whisker** represents the maximum score for that variable's distribution, or, more appropriately, a distance above the mean that is 1.5x the size of the interquartile range (IQR).  
++ Top (or right end)  **whisker** represents a point that is *less than or equal to* than the calculation: 1.5x the size of the interquartile range (IQR). If there is an actual data point at that value, then the top whisker represents that point. However, if there is not an actual data point there, the top whisker is *pulled inward* to fall at the closest but *less extreme* data point.
+of the **whisker** represents the maximum score for that variable's distribution, or, more appropriately, a distance above the mean that is 1.5x the size of the interquartile range (IQR).  
 + Outside dots represent outliers - extreme high or extreme low values for that variable. 
 
 #
