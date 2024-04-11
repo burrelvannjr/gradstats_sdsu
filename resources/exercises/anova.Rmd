@@ -85,7 +85,7 @@ For both of the above assumptions, we can examine the univariate data table, bro
 describeBy(data1$mpg, data1$cyl)
 ```
 
-  + <span style="color:red">Given that the group sizes are similar, `we have met the assumption of equal sample sizes`. Further, given that the standard deviations for all three groups do not exceed a 3:1 ratio (or, more specifically, the variances don't exceed a 10:1 ratio -- (4.51^2 ) /(1.45^2 ) = 9.674245), `we have met the assumption of homogeneity of variance`.</span>
+  + <span style="color:red">Given that the group sizes are similar, `we have met the assumption of equal sample sizes`. Further, given that the standard deviations for all three groups do not exceed a 3:1 ratio (or, more specifically, the variances don't exceed a 10:1 ratio -- (4.51^2^)/(1.45^2^) = 9.674245), `we have met the assumption of homogeneity of variance`.</span>
 
 <br>
 
