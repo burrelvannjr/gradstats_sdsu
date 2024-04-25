@@ -50,16 +50,6 @@ qq(data1, mpg)
 qq(data1, wt)
 
 #----------------------------------------
-# univariate stats for 'mpg' variable in 'data1' object
-#----------------------------------------
-describe(data1$mpg)
-
-#----------------------------------------
-# univariate stats for 'wt' variable in 'data1' object
-#----------------------------------------
-describe(data1$wt)
-
-#----------------------------------------
 # run the correlation, examining the relationship between 'mpg' and 'wt'
 #----------------------------------------
 p.corr(data1, mpg, wt)
