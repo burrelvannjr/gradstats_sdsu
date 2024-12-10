@@ -95,6 +95,8 @@ scatter(data1, mpg, wt)
     + Box-and-Whiskers plot
     + Normality (Q-Q) plot 
 
+In the past, you may have been instructed to use the *Shapiro-Wilk* test to assess normality. This is wrong. Unfortunately, tests such as these are overly-sensitive to trivial deviations from normality, and may result in you believing you must correct for normality by transforming your data. Please do not do this. The correlation is robust enough to provide results even in the presence of data that are not fully normally-distributed. 
+
 ##### 2a. Histogram
 
 ```{r, warning=FALSE}

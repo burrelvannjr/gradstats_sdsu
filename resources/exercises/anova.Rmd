@@ -77,7 +77,7 @@ The assumptions for an ANOVA are...
 * The number of cases in each group should be relatively similar. (If not, use pooled variance/unequal variances asssume t-test formula)
 
 ##### 3. Homogeneity of Variance (Examine SD^2^ for each group)
-* All groups have approximately equal variances (SD^2^). The distributions (or spread) for the groups are approximately equal. Keppel & Zedeck (1989) suggest that variance comparison should not exceed 10:1 ratio (*or... alternatively, the SDs, when compared, should not exceed around a 3:1 ratio*). 
+* All groups have approximately equal variances (SD^2^). The distributions (or spread) for the groups are approximately equal. Keppel & Zedeck (1989) suggest that variance comparison should not exceed 10:1 ratio (*or... alternatively, the SDs, when compared, should not exceed around a 3:1 ratio*). In the past, you may have been instructed to use the *Levene's* test to assess the degree of similarity in variances across groups. This is wrong. Unfortunately, tests such as these are overly-sensitive to trivial deviations from homogeneity of variance. It is a better practice to compare group variances/SDs based on the ratios listed above. 
 
 For both of the above assumptions, we can examine the univariate data table, broken out by group:
 
@@ -90,7 +90,7 @@ describeBy(data1$mpg, data1$cyl)
 <br>
 
 ##### 4. Normality (Examine Plots: Histogram, Q-Q Normality Plots, Box-and-Whiskers Plots)
-* Distribution must be relatively normal. (If violated, use “unequal variances assumed” formula, otherwise, use “equal variances assumed”)
+* Distribution must be relatively normal. (If violated, use “unequal variances assumed” formula, otherwise, use “equal variances assumed”). In the past, you may have been instructed to use the *Shapiro-Wilk* test to assess normality. This is wrong. Unfortunately, tests such as these are overly-sensitive to trivial deviations from normality, and may result in you believing you must correct for normality by transforming your data. Please do not do this. The good thing is ANOVA is super-robust -- robust enough to provide results even in the presence of data that are not fully normally-distributed. 
 
 
 

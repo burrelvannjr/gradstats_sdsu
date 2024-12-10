@@ -501,6 +501,13 @@ same plots <strong>for each variable</strong>.
 </ul></li>
 </ul></li>
 </ul>
+<p>In the past, you may have been instructed to use the
+<em>Shapiro-Wilk</em> test to assess normality. This is wrong.
+Unfortunately, tests such as these are overly-sensitive to trivial
+deviations from normality, and may result in you believing you must
+correct for normality by transforming your data. Please do not do this.
+The correlation is robust enough to provide results even in the presence
+of data that are not fully normally-distributed.</p>
 </div>
 <div id="a.-histogram" class="section level5">
 <h5>2a. Histogram</h5>
@@ -569,7 +576,7 @@ deviate from normality. Therefore,
 * Values on variables cannot be restricted to small range. Examine range for variables
   
 
-```r
+``` r
 describe(data1$mpg)
 ```
 
@@ -579,7 +586,7 @@ describe(data1$mpg)
 ```
 
 
-```r
+``` r
 describe(data1$wt)
 ```
 

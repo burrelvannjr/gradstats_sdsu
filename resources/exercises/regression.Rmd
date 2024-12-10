@@ -140,6 +140,8 @@ cormat(data1, mpg ~ wt + am)
 * Normality: Variables are normally-distributed.
 * Homoskedasticity: Homogeneity of Variance - Variance of variables are similar (10:1, 3:1 for SDs).
   + Visual inspection of **Residuals Plot** to see if relationship is linear, normal, and similar variances. Plot should have **points that extend beyond both sides of the 0 line** (normality), **should not have a U or inverted-U shape in the points** (linearity), and it **should not have a funnel shape**, where points are tightly clustered near the 0 line at one end of the plot, and completely dispersed along y-axis at other end of plot (homoskedasticity).
+  
+In the past, you may have been instructed to use the *Shapiro-Wilk* test to assess normality. This is wrong. Unfortunately, tests such as these are overly-sensitive to trivial deviations from normality, and may result in you believing you must correct for normality by transforming your data. Please do not do this. OLS regression is robust enough to provide results even in the presence of data that are not fully normally-distributed. You may have also been instructed to use the *Levene's* test to assess the degree of similarity in variances across groups. Similarly, this test is overly-sensitive to trivial deviations from homogeneity of variance. It is a better practice to assess all three (linearity, normality, and homoskedasticity) using a **Residuals Plot**.
 
 
 ```{r}
