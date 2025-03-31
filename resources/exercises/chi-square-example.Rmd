@@ -180,7 +180,8 @@ For Chi Square, within the <span style="color:blue">`chi.sq`</span> function, th
 
 ```{r}
 #chisq.test(data$views, data$pol, correct=FALSE)
-chi.sq(data, views, pol, post = T)
+chi <- chi.sq(data, views, pol, post = T)
+summary(chi)
 ```
 
 In the output above, we see the $X^2$-obtained value (60.506), the degrees of freedom (1), and the p-value (7.334e-15 = 7.334 x $10^{-15}$ = .000000000000007334, which is much less than our set alpha level of .05).

@@ -204,7 +204,8 @@ For the ANOVA, within the <span style="color:blue">`aov`</span> function, the de
 
 
 ```{r}
-ow.anova(data, inc, race, plot = T, hsd = T)
+ow <- ow.anova(data, inc, race, plot = T, hsd = T)
+summary(ow)
 ```
 
 In the output above, we see the F-obtained value (4.043), the degrees of freedom between and within (3,16), and the p-value (.0257, which is less than our set alpha level of .05).

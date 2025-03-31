@@ -36,4 +36,5 @@ qq(data1, mpg, cyl)
 #----------------------------------------
 # run the analysis of variance, examining the difference between 'mpg' means for each 'cyl', also, call a means plot and Tukey's HSD Post-Hoc test
 #----------------------------------------
-ow.anova(data1, mpg, cyl, plot = T, hsd = T)
+ow <- ow.anova(data1, mpg, cyl, plot = T, hsd = T)
+summary(ow)

@@ -21,5 +21,5 @@ tab(data1, vs, am)
 #----------------------------------------
 # run the chi square test, examining the relationship between 'vs' and 'am', including a post-hoc test
 #----------------------------------------
-chi.sq(data1, vs, am, post=TRUE)
-
+chi <- chi.sq(data1, vs, am, post=TRUE)
+summary(chi)

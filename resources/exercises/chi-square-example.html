@@ -591,21 +591,29 @@ crosstabulation<br></li>
 variable is listed first and the independent variable is listed
 second.</p>
 <pre class="r"><code>#chisq.test(data$views, data$pol, correct=FALSE)
-chi.sq(data, views, pol, post = T)</code></pre>
-<pre><code>## $model
+chi &lt;- chi.sq(data, views, pol, post = T)
+summary(chi)</code></pre>
+<pre><code>## Call:
+## chi.sq(df = data, var1 = views, var2 = pol, post = T)
 ## 
-##  Pearson&#39;s Chi-squared test
+## Pearson&#39;s Chi-squared test: 
 ## 
-## data:  views and pol
-## χ² = 60.506, Critical χ² = 3.841, df = 1, p-value = 7.334e-15
+##      χ² Critical χ² df   p-value    
+##  60.506       3.841  1 7.334e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## 
-## $`Post-Hoc Test w/ Bonferroni Adjustment`
-##            pol    views Adj. Standardized Residual (Z) Adj. p-value
-## 1 conservative negative                       7.778581 2.933696e-14
-## 2 conservative positive                      -7.778581 2.933696e-14
-## 3      liberal negative                      -7.778581 2.933696e-14
-## 4      liberal positive                       7.778581 2.933696e-14</code></pre>
+## Post-Hoc Test w/ Bonferroni Adjustment:
+## Comparing: pol-views 
+## 
+##                       Standardized Residual (Z)   p-value    
+## conservative-negative                    7.7786 2.934e-14 ***
+## conservative-positive                   -7.7786 2.934e-14 ***
+## liberal-negative                        -7.7786 2.934e-14 ***
+## liberal-positive                         7.7786 2.934e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>In the output above, we see the <span class="math inline">\(X^2\)</span>-obtained value (60.506), the degrees
 of freedom (1), and the p-value (7.334e-15 = 7.334 x <span class="math inline">\(10^{-15}\)</span> = .000000000000007334, which is
 much less than our set alpha level of .05).</p>

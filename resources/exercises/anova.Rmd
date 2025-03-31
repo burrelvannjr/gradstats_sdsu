@@ -183,7 +183,8 @@ Additionally, within the <span style="color:blue">`ow.anova`</span> function, yo
 
 
 ```{r}
-ow.anova(data1, mpg, cyl, plot = T, hsd = T)
+ow <- ow.anova(data1, mpg, cyl, plot = T, hsd = T)
+summary(ow)
 ```
 
 In the output above, we see the F-obtained value (39.7), the degrees of freedom between and within (2,29), and the p-value (4.98e-09, or .00000000498, which is much less than our set alpha level of .05).

@@ -552,16 +552,19 @@ crosstabulation<br></li>
 </div>
 <div id="running-the-chi-square-test" class="section level3">
 <h3>Running the Chi Square Test</h3>
-<p>For Chi Square, within the <span style="color:blue"><code>chisq.test</code></span> function, the
-dependent variable is listed first and the independent variable is
-listed second.</p>
+<p>For Chi Square, within the <span style="color:blue"><code>chi.sq</code></span> function, the dependent
+variable is listed first and the independent variable is listed
+second.</p>
 <pre class="r"><code>#chisq.test(data1$vs, data1$am, correct=FALSE)
-chi.sq(data1, vs, am)</code></pre>
-<pre><code>## 
-##  Pearson&#39;s Chi-squared test
+chi &lt;- chi.sq(data1, vs, am)
+summary(chi)</code></pre>
+<pre><code>## Call:
+## chi.sq(df = data1, var1 = vs, var2 = am)
 ## 
-## data:  vs and am
-## χ² = 0.90688, Critical χ² = 3.84100, df = 1, p-value = 0.3409</code></pre>
+## Pearson&#39;s Chi-squared test: 
+## 
+##       χ² Critical χ² df p-value
+##  0.90688     3.84100  1  0.3409</code></pre>
 <p>In the output above, we see the <span class="math inline">\(X^2\)</span>-obtained value (0.90688), the degrees
 of freedom (1), and the p-value (0.3409, which is greater than our set
 alpha level of .05).</p>
@@ -595,11 +598,12 @@ f_e| - 0.5)^2}{f_e}\)</span> or<br />
 <span class="math inline">\(X^{2}_{Yates&#39;} = \sum \frac{(|f_{o_i} -
 f_{e_i}| - 0.5)^2}{f_{e_i}}\)</span></p>
 <p>To employ Yates’ Continuity Correction, when we have violated the
-assumption of normality, simply change the <code>chisq.test</code>
-option to <code>correct = TRUE</code>, as below</p>
+assumption of normality, simply update the <code>chi.sq</code> option to
+<code>correct = TRUE</code>, as below</p>
 <p><br></p>
-<pre class="r"><code>chisq.test(data1$vs, data1$am, correct=TRUE)
-chi.sq(data1, vs, am, post = T)</code></pre>
+<pre class="r"><code>#chisq.test(data1$vs, data1$am, correct=TRUE)
+chi &lt;- chi.sq(data1, vs, am, post = T)
+summary(chi)</code></pre>
 <p><br><br></p>
 </div>
 </div>
@@ -611,21 +615,25 @@ thing:</p>
 <ul>
 <li>Run a Post-hoc significance test, using</li>
 </ul>
-<pre class="r"><code>chi.sq(data1, vs, am, post = T)</code></pre>
-<pre><code>## $model
+<pre class="r"><code>chi &lt;- chi.sq(data1, vs, am, post = T)
+summary(chi)</code></pre>
+<pre><code>## Call:
+## chi.sq(df = data1, var1 = vs, var2 = am, post = T)
 ## 
-##  Pearson&#39;s Chi-squared test
+## Pearson&#39;s Chi-squared test: 
 ## 
-## data:  vs and am
-## χ² = 0.90688, Critical χ² = 3.84100, df = 1, p-value = 0.3409
+##       χ² Critical χ² df p-value
+##  0.90688     3.84100  1  0.3409
 ## 
 ## 
-## $`Post-Hoc Test w/ Bonferroni Adjustment`
-##   am vs Adj. Standardized Residual (Z) Adj. p-value
-## 1  0  0                      0.9523038            1
-## 2  0  1                     -0.9523038            1
-## 3  1  0                     -0.9523038            1
-## 4  1  1                      0.9523038            1</code></pre>
+## Post-Hoc Test w/ Bonferroni Adjustment:
+## Comparing: am-vs 
+## 
+##     Standardized Residual (Z) p-value
+## 0-0                    0.9523       1
+## 0-1                   -0.9523       1
+## 1-0                   -0.9523       1
+## 1-1                    0.9523       1</code></pre>
 <p><br></p>
 <div id="post-hoc-significance-test" class="section level4">
 <h4>Post-Hoc Significance Test</h4>
