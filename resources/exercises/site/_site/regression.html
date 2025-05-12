@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>OLS Regression</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="markdown3.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RStudio Walkthroughs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    Getting Started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installing.html">Downloading/Installing</a>
+    </li>
+    <li>
+      <a href="getting-started.html">Getting Started with RStudio</a>
+    </li>
+    <li>
+      <a href="reading-in-data.html">Reading in Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chart-line"></span>
+     
+    In-Class
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Univariate Statistics</li>
+    <li>
+      <a href="univariate-normality.html">Descriptive Statistics and Assessing Normality</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="t-test.html">Independent Samples t-Test</a>
+    </li>
+    <li>
+      <a href="anova.html">One-Way Analysis of Variance (ANOVA)</a>
+    </li>
+    <li>
+      <a href="chi-square.html">Chi Square Test of Independence</a>
+    </li>
+    <li>
+      <a href="correlation.html">Correlation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Multivariate Statistics</li>
+    <li>
+      <a href="regression.html">OLS Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Additional Materials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="chi-square-gof.html">Chi Square Goodness of Fit</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">OLS Regression</h1>
+
+</div>
+
+
+<hr />
+<p>[
+<a href="https://raw.githubusercontent.com/burrelvannjr/gradstats_sdsu/main/resources/exercises/regression.R" target="_blank"><i>R
+Script</i></a> | <a href="regression-example.html"><em>Example</em></a>
+]</p>
+<div
+id="can-we-predictexplain-variation-in-car-fuel-economy-mpg-from-the-combination-of-its-weight-wt-and-whether-it-has-a-manual-or-automatic-transmission-am"
+class="section level4">
+<h4>Can we predict/explain variation in car fuel economy
+(<span><code>mpg</code></span>) from the combination of its weight
+(<span><code>wt</code></span>) and whether it has a manual or automatic
+transmission (<span><code>am</code></span>)?</h4>
+<p>Here, we’ll be working from the <span
+style="color:blue"><code>mtcars</code></span> data set, to examine the
+relationship between a car’s weight (<span><code>wt</code></span>:
+measured in thousands of pounds) and its fuel economy
+(<span><code>mpg</code></span>: measured in miles per gallon).</p>
+<p><br></p>
+</div>
+<div id="what-is-the-regression" class="section level3">
+<h3>What is the Regression?</h3>
+<p>The OLS regression examines the predictive relationship between some
+independent variable(s), and an interval-ratio dependent variable. The
+test tells us about the effect (slope) of any independent (X) variable
+on an interval-ratio dependent (Y) variable. In particular, the
+regression equation looks at how values of an x variable “predict” a
+specific Y value.</p>
+<p>Here, we’ll look at a multiple (multivariate OLS) regression for the
+mtcars data, with miles per gallon (mpg) as the DV, car weigh (wt) as
+IV1 and whether or not the car has an automatic transmission (at) as
+IV2.</p>
+<p><br></p>
+<div id="load-the-necessary-stuff" class="section level4">
+<h4>Load the Necessary Stuff</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(vannstats)</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="reading-in-the-data" class="section level4">
+<h4>Reading in the Data</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> mtcars</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="assumptions-and-diagnostics-for-regression"
+class="section level4">
+<h4>Assumptions and Diagnostics for Regression</h4>
+<p>The assumptions for the regression are…</p>
+<ul>
+<li>Adequate Sample Size</li>
+<li>Absence of Outliers</li>
+<li>Absence of Multicollinearity and Singluarity</li>
+<li>Linearity, Normality, and Homoscedasticity (Homogeneity of
+Variance)</li>
+</ul>
+<p>In addition, the previously-discussed assumptions for other tests
+(independence of observations) is implied, since all of these bivariate
+tests require random samples. Beyond this, the OLS regression requires
+an interval-ratio outcome variable.</p>
+<div id="adequate-sample-size" class="section level5">
+<h5>1. Adequate Sample Size</h5>
+<ul>
+<li>According to Green (1991), as cited in Tabachnick and Fidel (2006),
+adequate sample size is determined by the modified equation <span
+class="math inline">\(N \geq 50 + 8(k)\)</span></li>
+</ul>
+<p>Where <span class="math inline">\(k\)</span> is the number of
+independent variables included in the regression model.</p>
+<ul>
+<li><span style="color:red">Given that we have two IVs/predictor
+variables, the minimum number of cases to be adequate is 66 (<span
+class="math inline">\(66 = 50 + 8(2)\)</span>). Therefore, with only 32
+observations in the <code>mtcars</code> data set, we do not have enough
+cases to adequately run the regression model. That is,
+<code>we have violated (not met) the assumption of adequate sample size</code>.
+I would advise not proceeding with the regression model, however, given
+that this is an example, I will proceed.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="absence-of-outliers" class="section level5">
+<h5>2. Absence of Outliers</h5>
+<p>To identify outliers, simply look at the <em>boxplots</em> for each
+variable in the model (Y and all Xs) to see “how outlying, these
+outliers are.” In most cases, outliers should remain in the data. Need
+strong justification for removing outlying cases.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">box</span>(data1, mpg)</span></code></pre></div>
+<p><img src="regression_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">box</span>(data1, wt)</span></code></pre></div>
+<p><img src="regression_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">box</span>(data1, am)</span></code></pre></div>
+<p><img src="regression_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">We can see from the boxplots that the
+distributions of the variables are relatively normal. Interestingly, the
+boxplot for the weight variable has some issues: the median is closer to
+the 75th percentile, and the upper whisker (right tail) of the
+distribution for weight variable has some outliers, implying a longer
+right tail. While we might consider removing these outlying cases, we
+would need to do so statistically (considering <em>how</em> outlying an
+outlier is)… which is beyond the scope of this class. Moreover, because
+there are so few cases in the data set (<span class="math inline">\(N =
+32\)</span>), I would not consider removing cases, as doing so would
+drastically alter estimation (e.g. <span
+class="math inline">\(\bar{X}\)</span>, etc.). The boxplot for the ‘am’
+variable (whether or not a car has a manual transmission) has some
+issues. This is to be expected: because the variable is measured as 0
+(automatic) and 1 (manual), cases can only be the values 0 or 1 –
+nothing in between. This is why we see the median line at the bottom of
+the box, and why there are no whiskers. Keep this in mind for when you
+have dichotomous/categorical variables in a regression model. Taken
+together,
+<code>these data represent a relative absence of outliers</code>.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="multicollinearity-and-singularity" class="section level5">
+<h5>3. Multicollinearity and Singularity</h5>
+<ul>
+<li><p>Multicollinearity: Independent variables (more) highly correlated
+with one another (compared to their correlation with the DV).</p>
+<ul>
+<li>Check the correlation matrix for variables.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">cormat</span>(data1, mpg <span class="sc">~</span> wt <span class="sc">+</span> am)</span></code></pre></div>
+<pre><code>##       mpg    wt am
+## mpg     1         
+## wt  -0.87     1   
+## am    0.6 -0.69  1</code></pre>
+<ul>
+<li><span style="color:red">We can see from the correlation matrix that
+none of the bivariate relationships between the independent variables
+(<code>wt</code> and <code>am</code>) are <em>above</em> a correlation
+coefficient of <span class="math inline">\(r \approx .90\)</span>.
+Therefore,
+<code>we have met the assumption of absence of multicollinearity</code>.</span></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>Singularity: If independent variables included are (together) all
+possible subsets of measure also included in model. For example, if you
+have a xenophobia scale… based on 4 different questions (the sum of the
+scale is a “total xenophobia” scale)… and you include all 4 questions in
+the regression model, AND you include the total scale (the sum of the 4
+questions) in the model. There will be so much overlap in the total
+scale, and the 4 items, that all of them would appear in the regression
+model with no coefficients… no <span class="math inline">\(b\)</span>
+values…</p>
+<ul>
+<li>Look at the items and determine if they are subsets of other items
+also included.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><span style="color:red">Based on the data, <code>wt</code> and
+<code>am</code> are not subsets of one another. Therefore,
+<code>we have met the assumption of absence of singularity</code>.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="linearity-normality-and-homoskedasticity"
+class="section level5">
+<h5>1. Linearity, Normality, and Homoskedasticity</h5>
+<ul>
+<li>Linearity: Variables move together in a linear fashion.</li>
+<li>Normality: Variables are normally-distributed.</li>
+<li>Homoskedasticity: Homogeneity of Variance - Variance of variables
+are similar (10:1, 3:1 for SDs).
+<ul>
+<li>Visual inspection of <strong>Residuals Plot</strong> to see if
+relationship is linear, normal, and similar variances. Plot should have
+<strong>points that extend beyond both sides of the 0 line</strong>
+(normality), <strong>should not have a U or inverted-U shape in the
+points</strong> (linearity), and it <strong>should not have a funnel
+shape</strong>, where points are tightly clustered near the 0 line at
+one end of the plot, and completely dispersed along y-axis at other end
+of plot (homoskedasticity).</li>
+</ul></li>
+</ul>
+<p>In the past, you may have been instructed to use the
+<em>Shapiro-Wilk</em> test to assess normality. This is wrong.
+Unfortunately, tests such as these are overly-sensitive to trivial
+deviations from normality, and may result in you believing you must
+correct for normality by transforming your data. Please do not do this.
+OLS regression is robust enough to provide results even in the presence
+of data that are not fully normally-distributed. You may have also been
+instructed to use the <em>Levene’s</em> test to assess the degree of
+similarity in variances across groups. Similarly, this test is
+overly-sensitive to trivial deviations from homogeneity of variance. It
+is a better practice to assess all three (linearity, normality, and
+homoskedasticity) using a <strong>Residuals Plot</strong>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">residplot</span>(data1, mpg <span class="sc">~</span> wt <span class="sc">+</span> am)</span></code></pre></div>
+<p><img src="regression_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">Based on the residuals plot (the difference
+between the actual <span class="math inline">\(Y\)</span> and the <span
+class="math inline">\(\hat{Y}\)</span>), we see that
+<code>we have met the assumptions of linearity, normality, and homoskedasticity</code>.
+Linearity is met given that the residuals do not exhibit a non-linear
+(e.g. curvilinear) relationship about the 0 distance (from <span
+class="math inline">\(\hat{Y}\)</span>) line. Normality is met given
+that the residuals do not have a hard stop on either side of the line –
+that is, they are evenly distributed about the 0 distance (from <span
+class="math inline">\(\hat{Y}\)</span>) line. Finally, homoskedasticity
+is met given that the residuals are evenly distanced from the 0 distance
+(from <span class="math inline">\(\hat{Y}\)</span>) line at all values
+of <span class="math inline">\(\hat{Y}\)</span> – as exemplified the
+lack of “fanning out” on one end.</span></li>
+</ul>
+<p><br> ### The Regression Calculation</p>
+<p>The calculation for the Regression is:</p>
+<p><span class="math inline">\(\hat{Y} = b_0 + b_1X_1 +
+b_2X_2\)</span></p>
+<p>Where…</p>
+<ul>
+<li><span class="math inline">\(\hat{Y}\)</span> is the predicted Y
+value for the combination of slopes for X values</li>
+<li><span class="math inline">\(b_0\)</span> is the intercept</li>
+<li><span class="math inline">\(b_1\)</span> is the slope associated
+with <span class="math inline">\(X_1\)</span></li>
+<li><span class="math inline">\(b_2\)</span> is the slope associated
+with <span class="math inline">\(X_2\)</span></li>
+<li><span class="math inline">\(X_1\)</span> is a specific value for the
+first <span class="math inline">\(X\)</span> variable that you can plug
+in for a specific case</li>
+<li><span class="math inline">\(X_2\)</span> is a specific value for the
+second <span class="math inline">\(X\)</span> variable that you can plug
+in for a specific case</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="running-the-regression" class="section level3">
+<h3>Running the Regression</h3>
+<p>For Regression, within the <span
+style="color:blue"><code>lm</code></span> function, which stands for
+<em>linear model</em>, the dependent variable is listed first and the
+independent variable is listed second.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> am, <span class="at">data=</span>data1)</span></code></pre></div>
+<p>This may seem confusing, so it’s best to wrap our <span
+style="color:blue"><code>lm</code></span> function in a <span
+style="color:blue"><code>summary</code></span> call…</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> am, <span class="at">data=</span>data1))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + am, data = data1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5295 -2.3619 -0.1317  1.4025  6.8782 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.32155    3.05464  12.218 5.84e-13 ***
+## wt          -5.35281    0.78824  -6.791 1.87e-07 ***
+## am          -0.02362    1.54565  -0.015    0.988    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.098 on 29 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7358 
+## F-statistic: 44.17 on 2 and 29 DF,  p-value: 1.579e-09</code></pre>
+<p>To interpret the findings, we report the following information:</p>
+<ul>
+<li><p>The test used</p></li>
+<li><p>The variables used in the full model</p></li>
+<li><p>For significant variables, how a variable’s slope affects the
+outcome</p></li>
+<li><p>The amount of variance in the outcome explained by the
+combination of IVs.</p>
+<ul>
+<li><span style="color:red">In the output above, using an OLS
+regression, we see the Y-intercept (or mean MPG) is an MPG value of
+37.32. In addition, we see that the b for the wt variable is significant
+and negatively related to MPG, such that, for every 1-unit (however it
+is measured) increase in weight of a car, there is a <strong>5.353-unit
+decrease</strong> in miles per gallon of a car. In addition, whether or
+not a car has an automatic transmission is unrelated to MPG. <br><br> We
+also see that this model is significantly better than the null model
+(with no predictors), as indicated by the omnibus F test: <span
+class="math inline">\(F(2,29) = 44.17, p\lt.05\)</span>. <br><br>
+Finally, for this full model, which predicts miles per gallon from the
+weight of a car whether or not it is automatic transmission, the model
+fit statistic, the <span class="math inline">\(R^2\)</span>, is .7528.
+This indicates that 75.28 percent of the variation in a car’s fuel
+economy (<code>mpg</code>) is explained by the combination of it’s
+weight (<code>wt</code>) and whether or not it runs on a manual
+transmission (<code>am</code>). </span></li>
+</ul></li>
+</ul>
+<p><br><br><br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

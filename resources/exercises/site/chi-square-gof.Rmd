@@ -1,0 +1,176 @@
+---
+title: "Chi-Square Goodness-of-Fit Test"
+---
+---
+
+#### Is there a difference between our observed frequencies of four, six, and eight cylinder engines (<span>`cyl`</span>), and their expected proportions (distribution) in the population?
+
+Here, we'll be working from the <span style="color:blue">`mtcars`</span> data set, to examine our difference from the population expectation of the percentage of four-, six-, and eight-cylinder (<span>`cyl`</span>) cars on the road. We know from [Kelley Blue Book (2024)](https://www.kbb.com/car-news/4-cylinder-engines-today-are-as-powerful-as-v8s-were-in-2001/#:~:text=Today%2C%2043.4%25%20of%20cars%20on,road%20have%204%2Dcylinder%20engines) that around 43.4 percent of cars have 4-cylinder engines, 32.8 percent of cars have 6-cylinder engines, and 20.4 percent of cars have 8-cylinder engines (with the remaining 3.4 percent as "other"). Removing the "others", these percentages are adjusted to: 44.93 percent as 4-cylinder, 33.95 percent as 6-cylinder, and 21.12 percent as 8-cylinder engines.
+
+
+<br>
+
+
+### What is the Chi Square Goodness-of-Fit Test?
+
+The Chi Square Goodness of Fit test ($X^2$) examines the difference between the observed frequencies within each category of our variable and the population/expected frequencies for each category of our variable, to determine if our observed frequencies are extremely different from the expectation.
+
+<br>
+
+
+
+#### Load the Necessary Stuff
+
+```{r, echo=F}
+options(repos=c(CRAN="http://cran.wustl.edu/"))
+```
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+library(MASS)
+library(psych)
+library(vannstats)
+```
+<br>
+
+#### Reading in the Data
+```{r}
+data1 <- mtcars
+```
+
+<br>
+
+### Assumptions and Diagnostics for Chi Square
+
+The assumptions for the Chi Square are...
+
+* Independence of Observations
+* Normality
+
+
+
+
+##### 1. Independence of Observations (Examine Data Collection Strategy)
+* Cases (observations) are not related or dependent upon each other. Case can’t have more than one attribute. No ties between observations. Examine data collection strategy to see if there are linkages between observations. 
+
+  + <span style="color:red">Given that the mtcars data have been randomly-sampled, `we have met the assumption of independence of observations`.</span>
+
+<br>
+
+##### 2. Normality (Examine Expected Frequencies Contingency Table)
+
+
+* Distributions must be relatively normal.The normality assumption is met if **no more than 20 percent of the cells in our Expected Frequencies crosstab have fewer than 5 cases.** Therefore, if ($E \lt 5$) for more than 20 percent of the cells in the Expected Frequencies table, the assumption of normality is violated. If the assumption of normality is violated, the researcher can employ Yates' Continuity Correction, which conservatively adjusts the numerator for small sample sizes. To employ this correction in R, simply change the option to `correct = TRUE`.
+
+In the <span style="color:blue">`vannstats`</span> package, I have included the <span style="color:blue">`tab`</span> function which returns the crosstabs of observed and expected frequencies. To check if you've met the assumption of normality (e.g. fewer than 20% of cells in the crosstab of expected frequencies falls below $n=5$), you use the following:
+
+```{r}
+#need to fix function
+#tab(data1, vs, am)
+```
+
+  + <span style="color:red">We see here that `we have met the assumption of normality`: less than 20% of cells in the 2x2 Expected Frequency crosstab have fewer than 5 expected counts. Actually, no cell has fewer than 5.</span>
+
+
+```{r, results="hide", echo=FALSE}
+table(data1$vs, data1$am)
+```
+
+<br>
+
+### The Chi Square Test Calculation
+
+The calculation for the Chi Square is:
+
+ $X^2 = \sum \frac{(O - E)^2}{E}$ or
+ $X^2 = \sum \frac{(f_o - f_e)^2}{f_e}$ or
+ $X^2 = \sum \frac{(O_i - E_i)^2}{E_i}$ or
+ $X^2 = \sum \frac{(f_{o_i} - f_{e_i})^2}{f_{e_i}}$
+ 
+where... <br>
+
+* $f_o$ (or $f_{o_i}$) is the observed frequency for that cell (the $i^{th}$cell)<br>
+* $f_e$ (or $f_{e_i}$) is the expected frequency for that cell (the $i^{th}$cell)<br>
+
+
+In addition, the degrees of freedom ($df$) for the test is...<br> 
+* $df = (k - 1)$
+
+where...
+
+* $k$ is the number categories in the variable<br>
+
+
+<br>
+
+### Running the Chi Square Goodness-of-Fit Test
+
+For Chi Square Goodness of Fit test, within the <span style="color:blue">`chi.sq`</span> function, the dependent variable is listed first and the independent variable is listed second. 
+
+
+```{r}
+counts <- c(11,7,14)
+proportions <- c(.4493,.3395,.2112)
+chisq.test(counts, p = proportions, correct=FALSE)
+```
+
+In the output above, we see the $X^2$-obtained value (9.9271), the degrees of freedom (2), and the p-value (0.006988, which is less than our set alpha level of .05).
+
+To interpret the findings, we report the following information:
+
+* The test used
+* If you **reject** or **fail to reject** the null hypothesis
+* The variables used in the analysis
+* The degrees of freedom, calculated value of the test ($X^2_{obtained}$), and $p-value$
+  + $X^2(df) = X^2_{obtained}$, $p-value$
+
+“Using the Chi Square test of independence ($X^2$), I reject/fail to reject the null hypothesis that there is no difference between the population/expected frequency and our obtained frequencies, $X^2(?) = ?, p ? .05$” 
+
+  + <span style="color:red">“Using the Chi Square test of independence ($X^2$), I reject the null hypothesis that there is no difference between our obtained frequencies within each type of engine and the expected/population frequencies, $X^2(2) = 9.9271, p \lt .05$” </span>
+
+
+<br>
+
+#### Yates' Continuity Correction for the Chi Square Test 
+
+The calculation for Yates' Chi Square is:
+
+ $X^{2}_{Yates'} = \sum \frac{(|f_o - f_e| - 0.5)^2}{f_e}$    or   
+ $X^{2}_{Yates'} = \sum \frac{(|f_{o_i} - f_{e_i}| - 0.5)^2}{f_{e_i}}$
+
+To employ Yates' Continuity Correction, when we have violated the assumption of normality, simply update the `chi.sq` option to `correct = TRUE`, as below
+
+<br>
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+#chisq.test(data1$vs, data1$am, correct=TRUE)
+chi <- chi.sq(data1, vs, am, post = T)
+summary(chi)
+```
+
+<br><br>
+
+### Post-Hoc Checks: Which cells differ?
+
+After finding a significant result in your omnibus/overall chi square test, to identify *where* the differences lie, you can do one thing:
+
+* Run a Post-hoc significance test, using 
+
+
+```{r}
+chi <- chi.sq(data1, vs, am, post = T)
+summary(chi)
+```
+
+<br>
+
+#### Post-Hoc Significance Test
+
+And finally, we can see where the *significantly different* different comparisons (between observed and expected) are, Bonferroni's adjusted p-values  which can also be called from the <span style="color:blue">`chi.sq`</span> function. As seen above:
+
+  + <span style="color:red">Here, we see that none of the comparisons -- between observed and expected cells -- significantly differ.</span>
+
+
+<br><br><br>
+
+
+<br><br><br>

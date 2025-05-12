@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Independent Samples T-test Example</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="markdown3.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RStudio Walkthroughs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    Getting Started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installing.html">Downloading/Installing</a>
+    </li>
+    <li>
+      <a href="getting-started.html">Getting Started with RStudio</a>
+    </li>
+    <li>
+      <a href="reading-in-data.html">Reading in Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chart-line"></span>
+     
+    In-Class
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Univariate Statistics</li>
+    <li>
+      <a href="univariate-normality.html">Descriptive Statistics and Assessing Normality</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="t-test.html">Independent Samples t-Test</a>
+    </li>
+    <li>
+      <a href="anova.html">One-Way Analysis of Variance (ANOVA)</a>
+    </li>
+    <li>
+      <a href="chi-square.html">Chi Square Test of Independence</a>
+    </li>
+    <li>
+      <a href="correlation.html">Correlation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Multivariate Statistics</li>
+    <li>
+      <a href="regression.html">OLS Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Additional Materials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="chi-square-gof.html">Chi Square Goodness of Fit</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Independent Samples T-test Example</h1>
+
+</div>
+
+
+<hr />
+<div
+id="is-there-a-mean-difference-in-the-number-of-beers-undergraduate-students-versus-graduate-students-have-in-their-home-refrigerator"
+class="section level4">
+<h4>Is there a mean difference in the number of beers undergraduate
+students versus graduate students have in their home refrigerator?</h4>
+<p><br></p>
+</div>
+<div id="the-independent-samples-t-test" class="section level3">
+<h3>The Independent Samples t-Test</h3>
+<p>The independent samples t-test is a bivariate (two variable) test
+that examines the differences in means between <strong>two</strong>
+groups (no more, no less), in effort to see if the differences reflect
+true differences that we could expect to find in the population.</p>
+<p>For this example, the t-test works perfectly because we have only two
+groups (undergraduate students and graduate students), and we’re
+examining each group’s mean number of beers in their home fridge to see
+if there is a true difference between “beers in fridge” amongst the
+population of undergraduate and graduate students.</p>
+<p><br></p>
+<div id="load-the-necessary-stuff" class="section level4">
+<h4>Load the Necessary Stuff</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(vannstats)</span></code></pre></div>
+</div>
+</div>
+<div id="section" class="section level1">
+<h1></h1>
+<div id="reading-in-the-data" class="section level4">
+<h4>Reading in the Data</h4>
+<p>In total, we have 10 undergraduate students and 10 graduate students
+in our sample. The data are as follows:</p>
+<p><strong>Undergrads</strong>: <span
+style="color:blue"><code>3, 0, 2, 1, 5, 9, 2, 0, 5, 2</code></span></p>
+<p><strong>Grads</strong>: <span
+style="color:blue"><code>1, 6, 17, 9, 2, 0, 8, 4, 7, 3</code></span>.</p>
+<p><br></p>
+<p>As in the <a href="Intro-and-Univariate-Statistics.html">Intro to
+R</a> vignette, we can create an object out of a list of numbers using
+the concatenate <span style="color:blue"><code>c</code></span>
+function.</p>
+<p>Knowing that we have two variables: student level (ordinal
+independent/grouping variable – undergraduate versus graduate student)
+and number of beers (interval-ratio dependent variable), we have to read
+in the variables separately (listing the values for each observation).
+To do so, we can use the following code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>level <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;undergraduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>, <span class="st">&quot;graduate&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>beers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">17</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p>Where the first observation in level (student type) corresponds with
+the number in the first observation of beers. For example, the first
+observation in the list for <span
+style="color:blue"><code>level</code></span> is an <span
+style="color:blue"><code>undergraduate</code></span>, which corresponds
+with the first observation in the <span
+style="color:blue"><code>beers</code></span> list, of <span
+style="color:blue"><code>3</code></span>: This means the first
+observation is an undergraduate who has 3 beers in their fridge at
+home.</p>
+<p>Next, to appropriately prepare the data for analysis using the
+t-test, we have to merge the two lists, so that the t-test can compare
+group membership (level or student type) to number of beers. To merge
+the data, as in the <a href="Intro-and-Univariate-Statistics.html">Intro
+to R</a> vignette, we can use the <span
+style="color:blue"><code>data.frame</code></span> function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(level,beers)</span></code></pre></div>
+<p>Now we can call the data…</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>data</span></code></pre></div>
+<pre><code>##            level beers
+## 1  undergraduate     3
+## 2  undergraduate     0
+## 3  undergraduate     2
+## 4  undergraduate     1
+## 5  undergraduate     5
+## 6  undergraduate     9
+## 7  undergraduate     2
+## 8  undergraduate     0
+## 9  undergraduate     5
+## 10 undergraduate     2
+## 11      graduate     1
+## 12      graduate     6
+## 13      graduate    17
+## 14      graduate     9
+## 15      graduate     2
+## 16      graduate     0
+## 17      graduate     8
+## 18      graduate     4
+## 19      graduate     7
+## 20      graduate     3</code></pre>
+<p>… which should look like this in your Environment window…</p>
+<p><img src="beers.png" width="200px" /></p>
+<p><br></p>
+</div>
+<div id="assumptions-and-diagnostics-for-the-independent-samples-t-test"
+class="section level3">
+<h3>Assumptions and Diagnostics for the Independent Samples t-Test</h3>
+<p>The assumptions for a t-test are…</p>
+<ul>
+<li>Independence of Observations</li>
+<li>Equal Sample Sizes</li>
+<li>Homogeneity of Variance</li>
+<li>Normality</li>
+</ul>
+<div id="independence-of-observations-examine-data-collection-strategy"
+class="section level5">
+<h5>1. Independence of Observations (Examine Data Collection
+Strategy)</h5>
+<ul>
+<li><p>Groups are not related or dependent upon each other. Cases can’t
+be in more than one group. No ties between observations. Examine data
+collection strategy to see if there are linkages between
+observations.</p>
+<ul>
+<li><span style="color:red">These data were randomly sampled.
+<code>Therefore, we meet the assumption of independence of observations</code>.</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="equal-sample-sizes-examine-n-for-each-group"
+class="section level5">
+<h5>2. Equal Sample Sizes (Examine N for each group)</h5>
+<ul>
+<li>The number of cases in each group should be relatively similar. (If
+not, use pooled variance/unequal variances asssume t-test formula).</li>
+</ul>
+</div>
+<div id="homogeneity-of-variance-examine-sd2-for-each-group"
+class="section level5">
+<h5>3. Homogeneity of Variance (Examine SD<sup>2</sup> for each
+group)</h5>
+<ul>
+<li>Both groups have approximately equal variances (SD<sup>2</sup>). The
+distributions (or spread) for the groups are approximately equal. Keppel
+&amp; Zedeck (1989) suggest that variance comparison should not exceed
+10:1 ratio (<em>or… alternatively, the SDs, when compared, should not
+exceed around a 3:1 ratio</em>). For both of the above assumptions, we
+can examine the univariate data table, broken out by group:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">describeBy</span>(data<span class="sc">$</span>beers, data<span class="sc">$</span>level)</span></code></pre></div>
+<pre><code>## 
+##  Descriptive statistics by group 
+## group: graduate
+##    vars  n mean   sd median trimmed  mad min max range skew kurtosis   se
+## X1    1 10  5.7 4.99      5       5 4.45   0  17    17 0.91    -0.06 1.58
+## ------------------------------------------------------------------ 
+## group: undergraduate
+##    vars  n mean   sd median trimmed  mad min max range skew kurtosis   se
+## X1    1 10  2.9 2.77      2     2.5 2.22   0   9     9 0.89     -0.3 0.87</code></pre>
+<ul>
+<li><span style="color:red">We can see from the output that, the sample
+size for each group is not just <em>nearly</em> the same, but it is
+exactly the same for both groups. Therefore,
+<code>we have met the assumption for equal sample sizes</code>.
+Moreover, when comparing the SD for both groups, there is not a ratio
+larger than 3:1. For these data, the SDs for each group are 4.99 for
+graduate students and 2.77 for undergraduate students (its only nearly a
+2:1 ratio). Therefore,
+<code>we have met the assumption for homogeneity of variance</code>.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div
+id="normality-examine-plots-histogram-q-q-normality-plots-box-and-whiskers-plots"
+class="section level5">
+<h5>4. Normality (Examine Plots: Histogram, Q-Q Normality Plots,
+Box-and-Whiskers Plots)</h5>
+<ul>
+<li>Distribution must be relatively normal. (If violated, use “unequal
+variances assumed” formula, otherwise, use “equal variances
+assumed”)</li>
+</ul>
+</div>
+<div id="a.-histogram" class="section level5">
+<h5>4a. Histogram</h5>
+<p>Plot the histogram for <em>beers</em> (Y variable) broken out by
+<em>student type</em> (levels of the X variable), overlaying a normal
+curve…</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">hst</span>(data, beers, level)</span></code></pre></div>
+<p><img src="t-test-example_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#main = &quot;Histogram of &#39;Beers&#39; by &#39;Student Type&#39;&quot;</span></span></code></pre></div>
+<ul>
+<li><span style="color:red">We can see from the histogram that for both
+group distributions of the outcome variable (beers), the data are
+moderately positively skewed (since .89 for undergrads and .91 for grad
+students is between <span class="math inline">\(|.5|\)</span> and <span
+class="math inline">\(|1|\)</span>. Although this is moderately
+positively skewed, it is safe to assume that these data are close enough
+to normal to proceed with the statistical test.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="b.-boxplots-box-and-whisker-plots" class="section level5">
+<h5>4b. Boxplots (Box-and-Whisker Plots)</h5>
+<p>Boxplots also provide a visual representation of the normality of a
+distribution. The boxplot has a box, a line through the box, two
+whiskers on either end of the box, and sometimes dots/points outside the
+whiskers. Below, we get a sense of what each part of the boxplot
+represents…</p>
+<ul>
+<li>Bottom (or left end) of the <strong>whisker</strong> represents the
+minimum score for that variable’s distribution</li>
+<li>Bottom (or left end) of the <strong>box</strong> represents the
+first quartile (the 25th percentile case)</li>
+<li>Middle line (or dot) inside the <strong>box</strong> represents the
+median, also known as the second quartile (the 50th percentile
+case)</li>
+<li>Top (or right end) of the <strong>box</strong> represents the third
+quartile (the 75th percentile case)</li>
+<li>Top (or right end) of the <strong>whisker</strong> represents the
+maximum score for that variable’s distribution</li>
+<li>Outside dots represent outliers - extreme high or extreme low values
+for that variable.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="section-1" class="section level1">
+<h1></h1>
+</div>
+<div id="section-2" class="section level1">
+<h1></h1>
+<p>To tell if a variable is normally-distrubted using the
+box-and-whisker plot, generally, we want to see that there is
+<em>some</em> distance between the box and the end of the whiskers, that
+the box isn’t pushed too close to either whisker, that the median line
+(dot) is near the center of the box, and that there aren’t many outliers
+(dots) on the outside of the whiskers.</p>
+</div>
+<div id="section-3" class="section level1">
+<h1></h1>
+<p>To plot a boxplot of <em>Beers</em>, broken out by <em>Student
+Type</em>, we can do the following…</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">box</span>(data, beers, level)</span></code></pre></div>
+<p><img src="t-test-example_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co">#main = &quot;Bar-and-Whisker Plot of &#39;Beers&#39; by &#39;Student Type&#39;&quot;</span></span></code></pre></div>
+<ul>
+<li><span style="color:red">We can see from the boxplot that for both
+group distributions of the outcome variable (beers), the data are
+somewhat normally distributed. For both grads and undergrads, the
+interquartile range is closer to the lower end of the distribution
+rather than the middle. Importantly, while the median is in the center
+of the IQR for graduates, it is off-center and closer to the 25<span
+class="math inline">\(^{th}\)</span> percentile for undergraduates.
+Despite these trends, it is safe to assume that these data are close
+enough to normal, since they aren’t <em>drastically</em> different from
+normal, and therefore safe to proceed with the statistical test.</span>
+<br></li>
+</ul>
+<div id="c.-normal-q-q-quantile-quantile-plots" class="section level5">
+<h5>4c. Normal Q-Q (Quantile-Quantile) Plots</h5>
+<p>The quantile-quantile plot is a visual tool to help us figure out if
+the empirical distribution of our variable fits (or rather, comes from)
+a theoretical normal distribution.</p>
+<p>We assess normality an break this plot out by a grouping
+variable.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">qq</span>(data, beers, level)</span></code></pre></div>
+<p><img src="t-test-example_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">We can see from the Q-Q plot that for both
+group distributions of the outcome variable (beers), the data are
+somewhat normal, since there is no discernible pattern across the line
+(e.g. no strong curvilinear trend around normality line) for the
+<em>number of beers</em> variable for either group/level (<em>student
+type</em>). It is therefore safe to proceed with the statistical
+test.</span></li>
+</ul>
+<p><br></p>
+<ul>
+<li><span style="color:red">Based on the the three visual depictions
+above, the data seem normally-distributed.
+<code>Therefore, we meet the assumption of normality</code>.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="the-independent-samples-t-test-calculation"
+class="section level3">
+<h3>The Independent Samples t-Test Calculation</h3>
+<p>The calculation for the t-Test is:</p>
+<p><span
+class="math inline">\(\frac{\bar{x}_1-\bar{x}_2}{\sqrt{\frac{SD_1^2}{n_1}+\frac{SD_2^2}{n_2}}}\)</span></p>
+<p>where… <br></p>
+<ul>
+<li><span class="math inline">\(\bar{x}_1\)</span> is the mean for group
+1 <br></li>
+<li><span class="math inline">\(\bar{x}_2\)</span> is the mean for group
+2 <br></li>
+<li><span class="math inline">\(SD_1^2\)</span> is the variance (<span
+class="math inline">\(SD^2\)</span>) for group 1 <br></li>
+<li><span class="math inline">\(SD_2^2\)</span> is the variance (<span
+class="math inline">\(SD^2\)</span>) for group 2 <br></li>
+<li><span class="math inline">\(n_1\)</span> is the number of
+observations (<span class="math inline">\(N\)</span>) for group 1
+<br></li>
+<li><span class="math inline">\(n_2\)</span> is the number of
+observations (<span class="math inline">\(N\)</span>) for group 2
+<br></li>
+</ul>
+<p>In addition, the degrees of freedom (<span
+class="math inline">\(df\)</span>) for the test is…<br> <span
+class="math inline">\(df = n_1 + n_2 -2\)</span> (aka <span
+class="math inline">\(df = N-2\)</span>)</p>
+<p><br></p>
+</div>
+<div id="running-the-independent-samples-t-test-in-r"
+class="section level3">
+<h3>Running the Independent Samples t-Test in R</h3>
+<p>To run the independent samples t-test in R, we use the <span
+style="color:blue"><code>t.test</code></span> function.</p>
+<p>For t-test, within the <span
+style="color:blue"><code>t.test</code></span> function, the dependent
+(interval-ratio level) variable is listed first and the independent
+(discrete/categorical) variable is listed second.</p>
+<p>If you meet the assumptions of the t-test, you can <strong>assume
+equal variances</strong>, and therefore use the call <span
+style="color:blue"><code>var.equal=TRUE</code></span>. If you violate
+the assumptions, use the call <span
+style="color:blue"><code>var.equal=FALSE</code></span>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">t.test</span>(data<span class="sc">$</span>beers <span class="sc">~</span> data<span class="sc">$</span>level, <span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  data$beers by data$level
+## t = 1.5518, df = 18, p-value = 0.1381
+## alternative hypothesis: true difference in means between group graduate and group undergraduate is not equal to 0
+## 95 percent confidence interval:
+##  -0.9907269  6.5907269
+## sample estimates:
+##      mean in group graduate mean in group undergraduate 
+##                         5.7                         2.9</code></pre>
+<p>In the output above, we see the t-obtained value (1.5518, or rather,
+<span class="math inline">\(\pm\)</span> 1.5518), the degrees of freedom
+(18), and the p-value (0.1381, which is less than our set alpha level of
+.05).</p>
+<p>To interpret the findings, we report the following information:</p>
+<ul>
+<li>The test used</li>
+<li>If you <strong>reject</strong> or <strong>fail to reject</strong>
+the null hypothesis</li>
+<li>The variables used in the analysis</li>
+<li>The degrees of freedom, calculated value of the test (<span
+class="math inline">\(t_{obtained}\)</span>), and <span
+class="math inline">\(p\)</span>-<span
+class="math inline">\(value\)</span>
+<ul>
+<li><span class="math inline">\(t(df) = t_{obtained}\)</span>, <span
+class="math inline">\(p\)</span>-<span
+class="math inline">\(value\)</span></li>
+</ul></li>
+</ul>
+<p>“Using an independent samples t-test, I reject/fail to reject the
+null hypothesis that there is no mean difference between group 1 and
+group 2, in the population, <span class="math inline">\(t(?) = ?, p ?
+.05\)</span>”</p>
+<ul>
+<li><span style="color:red">“Using an independent samples t-test, I fail
+to reject the null hypothesis that there is no difference between the
+mean number of beers for undergraduate students and graduate students,
+in the population, <span class="math inline">\(t(18) = \pm 1.5518, p
+&gt; .05\)</span>.”</span></li>
+</ul>
+<p><br><br><br></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

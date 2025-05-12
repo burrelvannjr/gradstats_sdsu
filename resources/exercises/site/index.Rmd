@@ -1,0 +1,6 @@
+---
+title: "RStudio Walkthroughs"
+author: "Burrel Vann Jr"
+---
+  
+We'll be using this website to walk through using RStudio to run statistical analyses.

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>OLS Regression Example</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="markdown3.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RStudio Walkthroughs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    Getting Started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installing.html">Downloading/Installing</a>
+    </li>
+    <li>
+      <a href="getting-started.html">Getting Started with RStudio</a>
+    </li>
+    <li>
+      <a href="reading-in-data.html">Reading in Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chart-line"></span>
+     
+    In-Class
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Univariate Statistics</li>
+    <li>
+      <a href="univariate-normality.html">Descriptive Statistics and Assessing Normality</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="t-test.html">Independent Samples t-Test</a>
+    </li>
+    <li>
+      <a href="anova.html">One-Way Analysis of Variance (ANOVA)</a>
+    </li>
+    <li>
+      <a href="chi-square.html">Chi Square Test of Independence</a>
+    </li>
+    <li>
+      <a href="correlation.html">Correlation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Multivariate Statistics</li>
+    <li>
+      <a href="regression.html">OLS Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Additional Materials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="chi-square-gof.html">Chi Square Goodness of Fit</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">OLS Regression Example</h1>
+
+</div>
+
+
+<hr />
+<div
+id="can-we-predictexplain-variation-in-a-persons-graduate-school-gpa-from-a-variety-of-pre-graduate-school-factors"
+class="section level4">
+<h4>Can we predict/explain variation in a person’s graduate school GPA
+from a variety of pre-graduate school factors?</h4>
+<p><br></p>
+</div>
+<div id="what-is-the-regression" class="section level3">
+<h3>What is the Regression?</h3>
+<p>The OLS regression examines the predictive relationship between some
+independent variable(s), and an interval-ratio dependent variable. The
+test tells us about the effect (slope) of any independent (X) variable
+on an interval-ratio dependent (Y) variable. In particular, the
+regression equation looks at how values of an x variable “predict” a
+specific Y value.</p>
+<p>For this example, the OLS regression works well because we’re looking
+at how variation in a person’s graduate school GPA (<code>gpa</code>, an
+interval-ratio variable ranging from 2.5 to 4.3) can be
+predicted/explained by variation in four other pre-graduate school
+variables on which students were assessed:</p>
+<ul>
+<li>the average rating from their recommenders (<code>ar</code>, an
+interval-ratio variable ranging from 2.5 to 5.0)</li>
+<li>their GRE-Verbal score (<code>grev</code>, an interval-ratio
+variable ranging from 480 to 720)</li>
+<li>their GRE-Quantitative score (<code>grev</code>, an interval-ratio
+variable ranging from 480 to 720)</li>
+<li>their score on the
+<a href="https://www.pearsonassessments.com/graduate-admissions/mat/about.html" target="_blank">Miller
+Analogies Test</a>, which measures their analytical thinking
+(<code>mat</code>, an interval-ratio variable ranging from 55 to
+85)</li>
+</ul>
+<p>summary(lm(gpa ~ ar + grev + mat + greq, data=data))</p>
+<p><br></p>
+<div id="load-the-necessary-stuff" class="section level4">
+<h4>Load the Necessary Stuff</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(vannstats)</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="reading-in-the-data" class="section level4">
+<h4>Reading in the Data</h4>
+<p>In total, we have 60 individuals. Below, show an image of their data
+in a spreadsheet and list their respective scores. The data are as
+follows:</p>
+<p><img src="gpa_reg.png" width="200px" /></p>
+<p><strong>GPA</strong>: <span
+style="color:blue"><code>3.2, 4.1, 3.0, 2.6, 3.7, 4.0, 4.3, 2.7, 3.6, 4.1, 2.7, 2.9, 2.5, 3.0, 3.3, 3.2, 4.1, 3.0, 2.6, 3.7, 4.0, 4.3, 2.7, 3.6, 4.1, 2.7, 2.9, 2.5, 3.0, 3.3, 3.2, 4.1, 3.0, 2.6, 3.7, 4.0, 4.3, 2.7, 3.6, 4.1, 2.7, 2.9, 2.5, 3.0, 3.3, 3.2, 4.1, 3.0, 2.6, 3.7, 4.0, 4.3, 2.7, 3.6, 4.1, 2.7, 2.9, 2.5, 3.0, 3.3</code></span></p>
+<p><strong>Average Recommender Rating</strong>: <span
+style="color:blue"><code>2.7, 4.5, 2.5, 3.1, 3.6, 4.3, 4.6, 3.0, 4.7, 3.4, 3.7, 2.6, 3.1, 2.7, 5.0, 2.7, 4.5, 2.5, 3.1, 3.6, 4.3, 4.6, 3.0, 4.7, 3.4, 3.7, 2.6, 3.1, 2.7, 5.0, 2.7, 4.5, 2.5, 3.1, 3.6, 4.3, 4.6, 3.0, 4.7, 3.4, 3.7, 2.6, 3.1, 2.7, 5.0, 2.7, 4.5, 2.5, 3.1, 3.6, 4.3, 4.6, 3.0, 4.7, 3.4, 3.7, 2.6, 3.1, 2.7, 5.0</code></span>.</p>
+<p><strong>GRE Verbal Score</strong>: <span
+style="color:blue"><code>540, 680, 480, 520, 490, 535, 720, 500, 575, 690, 545, 515, 520, 710, 610, 540, 680, 480, 520, 490, 535, 720, 500, 575, 690, 545, 515, 520, 710, 610, 540, 680, 480, 520, 490, 535, 720, 500, 575, 690, 545, 515, 520, 710, 610, 540, 680, 480, 520, 490, 535, 720, 500, 575, 690, 545, 515, 520, 710, 610</code></span>.</p>
+<p><strong>GRE Quantitative Score</strong>: <span
+style="color:blue"><code>625, 575, 520, 545, 520, 655, 630, 500, 605, 555, 505, 540, 520, 585, 600, 625, 575, 520, 545, 520, 655, 630, 500, 605, 555, 505, 540, 520, 585, 600, 625, 575, 520, 545, 520, 655, 630, 500, 605, 555, 505, 540, 520, 585, 600, 625, 575, 520, 545, 520, 655, 630, 500, 605, 555, 505, 540, 520, 585, 600</code></span>.</p>
+<p><strong>Miller Analogies Test Score</strong>: <span
+style="color:blue"><code>65, 75, 65, 55, 75, 65, 75, 75, 65, 75, 55, 55, 55, 65, 85, 65, 75, 65, 55, 75, 65, 75, 75, 65, 75, 55, 55, 55, 65, 85, 65, 75, 65, 55, 75, 65, 75, 75, 65, 75, 55, 55, 55, 65, 85, 65, 75, 65, 55, 75, 65, 75, 75, 65, 75, 55, 55, 55, 65, 85</code></span>.</p>
+<p><br></p>
+<p>As in the <a href="Intro-and-Univariate-Statistics.html">Intro to
+R</a> vignette, we can create an object out of a list of numbers using
+the concatenate <span style="color:blue"><code>c</code></span>
+function.</p>
+<p>Knowing that we have five variables, we have to read in the variables
+separately (listing the values for each observation). To do so, we can
+use the following code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>gpa <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.2</span>, <span class="fl">4.1</span>, <span class="fl">3.0</span>, <span class="fl">2.6</span>, <span class="fl">3.7</span>, <span class="fl">4.0</span>, <span class="fl">4.3</span>, <span class="fl">2.7</span>, <span class="fl">3.6</span>, <span class="fl">4.1</span>, <span class="fl">2.7</span>, <span class="fl">2.9</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.3</span>, <span class="fl">3.2</span>, <span class="fl">4.1</span>, <span class="fl">3.0</span>, <span class="fl">2.6</span>, <span class="fl">3.7</span>, <span class="fl">4.0</span>, <span class="fl">4.3</span>, <span class="fl">2.7</span>, <span class="fl">3.6</span>, <span class="fl">4.1</span>, <span class="fl">2.7</span>, <span class="fl">2.9</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.3</span>, <span class="fl">3.2</span>, <span class="fl">4.1</span>, <span class="fl">3.0</span>, <span class="fl">2.6</span>, <span class="fl">3.7</span>, <span class="fl">4.0</span>, <span class="fl">4.3</span>, <span class="fl">2.7</span>, <span class="fl">3.6</span>, <span class="fl">4.1</span>, <span class="fl">2.7</span>, <span class="fl">2.9</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.3</span>, <span class="fl">3.2</span>, <span class="fl">4.1</span>, <span class="fl">3.0</span>, <span class="fl">2.6</span>, <span class="fl">3.7</span>, <span class="fl">4.0</span>, <span class="fl">4.3</span>, <span class="fl">2.7</span>, <span class="fl">3.6</span>, <span class="fl">4.1</span>, <span class="fl">2.7</span>, <span class="fl">2.9</span>, <span class="fl">2.5</span>, <span class="fl">3.0</span>, <span class="fl">3.3</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>ar <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.7</span>, <span class="fl">4.5</span>, <span class="fl">2.5</span>, <span class="fl">3.1</span>, <span class="fl">3.6</span>, <span class="fl">4.3</span>, <span class="fl">4.6</span>, <span class="fl">3.0</span>, <span class="fl">4.7</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.6</span>, <span class="fl">3.1</span>, <span class="fl">2.7</span>, <span class="fl">5.0</span>, <span class="fl">2.7</span>, <span class="fl">4.5</span>, <span class="fl">2.5</span>, <span class="fl">3.1</span>, <span class="fl">3.6</span>, <span class="fl">4.3</span>, <span class="fl">4.6</span>, <span class="fl">3.0</span>, <span class="fl">4.7</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.6</span>, <span class="fl">3.1</span>, <span class="fl">2.7</span>, <span class="fl">5.0</span>, <span class="fl">2.7</span>, <span class="fl">4.5</span>, <span class="fl">2.5</span>, <span class="fl">3.1</span>, <span class="fl">3.6</span>, <span class="fl">4.3</span>, <span class="fl">4.6</span>, <span class="fl">3.0</span>, <span class="fl">4.7</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.6</span>, <span class="fl">3.1</span>, <span class="fl">2.7</span>, <span class="fl">5.0</span>, <span class="fl">2.7</span>, <span class="fl">4.5</span>, <span class="fl">2.5</span>, <span class="fl">3.1</span>, <span class="fl">3.6</span>, <span class="fl">4.3</span>, <span class="fl">4.6</span>, <span class="fl">3.0</span>, <span class="fl">4.7</span>, <span class="fl">3.4</span>, <span class="fl">3.7</span>, <span class="fl">2.6</span>, <span class="fl">3.1</span>, <span class="fl">2.7</span>, <span class="fl">5.0</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>grev <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">540</span>, <span class="dv">680</span>, <span class="dv">480</span>, <span class="dv">520</span>, <span class="dv">490</span>, <span class="dv">535</span>, <span class="dv">720</span>, <span class="dv">500</span>, <span class="dv">575</span>, <span class="dv">690</span>, <span class="dv">545</span>, <span class="dv">515</span>, <span class="dv">520</span>, <span class="dv">710</span>, <span class="dv">610</span>, <span class="dv">540</span>, <span class="dv">680</span>, <span class="dv">480</span>, <span class="dv">520</span>, <span class="dv">490</span>, <span class="dv">535</span>, <span class="dv">720</span>, <span class="dv">500</span>, <span class="dv">575</span>, <span class="dv">690</span>, <span class="dv">545</span>, <span class="dv">515</span>, <span class="dv">520</span>, <span class="dv">710</span>, <span class="dv">610</span>, <span class="dv">540</span>, <span class="dv">680</span>, <span class="dv">480</span>, <span class="dv">520</span>, <span class="dv">490</span>, <span class="dv">535</span>, <span class="dv">720</span>, <span class="dv">500</span>, <span class="dv">575</span>, <span class="dv">690</span>, <span class="dv">545</span>, <span class="dv">515</span>, <span class="dv">520</span>, <span class="dv">710</span>, <span class="dv">610</span>, <span class="dv">540</span>, <span class="dv">680</span>, <span class="dv">480</span>, <span class="dv">520</span>, <span class="dv">490</span>, <span class="dv">535</span>, <span class="dv">720</span>, <span class="dv">500</span>, <span class="dv">575</span>, <span class="dv">690</span>, <span class="dv">545</span>, <span class="dv">515</span>, <span class="dv">520</span>, <span class="dv">710</span>, <span class="dv">610</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>greq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">625</span>, <span class="dv">575</span>, <span class="dv">520</span>, <span class="dv">545</span>, <span class="dv">520</span>, <span class="dv">655</span>, <span class="dv">630</span>, <span class="dv">500</span>, <span class="dv">605</span>, <span class="dv">555</span>, <span class="dv">505</span>, <span class="dv">540</span>, <span class="dv">520</span>, <span class="dv">585</span>, <span class="dv">600</span>, <span class="dv">625</span>, <span class="dv">575</span>, <span class="dv">520</span>, <span class="dv">545</span>, <span class="dv">520</span>, <span class="dv">655</span>, <span class="dv">630</span>, <span class="dv">500</span>, <span class="dv">605</span>, <span class="dv">555</span>, <span class="dv">505</span>, <span class="dv">540</span>, <span class="dv">520</span>, <span class="dv">585</span>, <span class="dv">600</span>, <span class="dv">625</span>, <span class="dv">575</span>, <span class="dv">520</span>, <span class="dv">545</span>, <span class="dv">520</span>, <span class="dv">655</span>, <span class="dv">630</span>, <span class="dv">500</span>, <span class="dv">605</span>, <span class="dv">555</span>, <span class="dv">505</span>, <span class="dv">540</span>, <span class="dv">520</span>, <span class="dv">585</span>, <span class="dv">600</span>, <span class="dv">625</span>, <span class="dv">575</span>, <span class="dv">520</span>, <span class="dv">545</span>, <span class="dv">520</span>, <span class="dv">655</span>, <span class="dv">630</span>, <span class="dv">500</span>, <span class="dv">605</span>, <span class="dv">555</span>, <span class="dv">505</span>, <span class="dv">540</span>, <span class="dv">520</span>, <span class="dv">585</span>, <span class="dv">600</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">55</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">65</span>, <span class="dv">85</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">55</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">65</span>, <span class="dv">85</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">55</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">65</span>, <span class="dv">85</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">55</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">55</span>, <span class="dv">65</span>, <span class="dv">85</span>)</span></code></pre></div>
+<p>Where the first number in each list corresponds with the number in
+the first observation . For example, the first observation in the list
+for <span style="color:blue"><code>gpa</code></span> is <span
+style="color:blue"><code>3.2</code></span>, which corresponds with the
+first observation in the <span
+style="color:blue"><code>mat</code></span> list, of <span
+style="color:blue"><code>65</code></span>.</p>
+<p>Next, to appropriately prepare the data for analysis, we have to
+merge these five lists. To merge, as in the <a
+href="Intro-and-Univariate-Statistics.html">Intro to R</a> vignette, we
+can use the <span style="color:blue"><code>data.frame</code></span>
+function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(gpa, ar, grev, greq, mat)</span></code></pre></div>
+<p>Now we can call the data…</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>data</span></code></pre></div>
+<pre><code>##    gpa  ar grev greq mat
+## 1  3.2 2.7  540  625  65
+## 2  4.1 4.5  680  575  75
+## 3  3.0 2.5  480  520  65
+## 4  2.6 3.1  520  545  55
+## 5  3.7 3.6  490  520  75
+## 6  4.0 4.3  535  655  65
+## 7  4.3 4.6  720  630  75
+## 8  2.7 3.0  500  500  75
+## 9  3.6 4.7  575  605  65
+## 10 4.1 3.4  690  555  75
+## 11 2.7 3.7  545  505  55
+## 12 2.9 2.6  515  540  55
+## 13 2.5 3.1  520  520  55
+## 14 3.0 2.7  710  585  65
+## 15 3.3 5.0  610  600  85
+## 16 3.2 2.7  540  625  65
+## 17 4.1 4.5  680  575  75
+## 18 3.0 2.5  480  520  65
+## 19 2.6 3.1  520  545  55
+## 20 3.7 3.6  490  520  75
+## 21 4.0 4.3  535  655  65
+## 22 4.3 4.6  720  630  75
+## 23 2.7 3.0  500  500  75
+## 24 3.6 4.7  575  605  65
+## 25 4.1 3.4  690  555  75
+## 26 2.7 3.7  545  505  55
+## 27 2.9 2.6  515  540  55
+## 28 2.5 3.1  520  520  55
+## 29 3.0 2.7  710  585  65
+## 30 3.3 5.0  610  600  85
+## 31 3.2 2.7  540  625  65
+## 32 4.1 4.5  680  575  75
+## 33 3.0 2.5  480  520  65
+## 34 2.6 3.1  520  545  55
+## 35 3.7 3.6  490  520  75
+## 36 4.0 4.3  535  655  65
+## 37 4.3 4.6  720  630  75
+## 38 2.7 3.0  500  500  75
+## 39 3.6 4.7  575  605  65
+## 40 4.1 3.4  690  555  75
+## 41 2.7 3.7  545  505  55
+## 42 2.9 2.6  515  540  55
+## 43 2.5 3.1  520  520  55
+## 44 3.0 2.7  710  585  65
+## 45 3.3 5.0  610  600  85
+## 46 3.2 2.7  540  625  65
+## 47 4.1 4.5  680  575  75
+## 48 3.0 2.5  480  520  65
+## 49 2.6 3.1  520  545  55
+## 50 3.7 3.6  490  520  75
+## 51 4.0 4.3  535  655  65
+## 52 4.3 4.6  720  630  75
+## 53 2.7 3.0  500  500  75
+## 54 3.6 4.7  575  605  65
+## 55 4.1 3.4  690  555  75
+## 56 2.7 3.7  545  505  55
+## 57 2.9 2.6  515  540  55
+## 58 2.5 3.1  520  520  55
+## 59 3.0 2.7  710  585  65
+## 60 3.3 5.0  610  600  85</code></pre>
+<p><br></p>
+</div>
+<div id="assumptions-and-diagnostics-for-regression"
+class="section level4">
+<h4>Assumptions and Diagnostics for Regression</h4>
+<p>The assumptions for the regression are…</p>
+<ul>
+<li>Adequate Sample Size</li>
+<li>Absence of Outliers</li>
+<li>Absence of Multicollinearity and Singluarity</li>
+<li>Linearity, Normality, and Homoscedasticity (Homogeneity of
+Variance)</li>
+</ul>
+<p>In addition, the previously-discussed assumptions for other tests
+(independence of observations) is implied, since all of these bivariate
+tests require random samples. Beyond this, the OLS regression requires
+an interval-ratio outcome variable.</p>
+<div id="adequate-sample-size" class="section level5">
+<h5>1. Adequate Sample Size</h5>
+<ul>
+<li>According to Green (1991), as cited in Tabachnick and Fidel (2006),
+adequate sample size is determined by the modified equation <span
+class="math inline">\(N \geq 50 + 8(k)\)</span></li>
+</ul>
+<p>Where <span class="math inline">\(k\)</span> is the number of
+independent variables included in the regression model.</p>
+<ul>
+<li><span style="color:red">Given that we have four IVs/predictor
+variables, the minimum number of cases to be adequate is 82 (<span
+class="math inline">\(82 = 50 + 8(4)\)</span>). Therefore, with only 60
+observations in the data set, we do not have enough cases to adequately
+run the regression model. That is,
+<code>we have violated (not met) the assumption of adequate sample size</code>.
+In almost all cases, I would advise not proceeding with the regression
+model, however, given that this is an example, I will
+proceed.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="absence-of-outliers" class="section level5">
+<h5>2. Absence of Outliers</h5>
+<p>To identify outliers, simply look at the <em>boxplots</em> for each
+variable in the model (Y and all Xs) to see “how outlying, these
+outliers are.” In most cases, outliers should remain in the data. Need
+strong justification for removing outlying cases.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">box</span>(data, gpa)</span></code></pre></div>
+<p><img src="regression-example_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">box</span>(data, ar)</span></code></pre></div>
+<p><img src="regression-example_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">box</span>(data, grev)</span></code></pre></div>
+<p><img src="regression-example_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">box</span>(data, greq)</span></code></pre></div>
+<p><img src="regression-example_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">box</span>(data, mat)</span></code></pre></div>
+<p><img src="regression-example_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">We can see from the boxplots that the
+distributions of the variables are relatively normal, with no outliers.
+Therefore,
+<code>we have met the assumption of absence of outliers</code>.
+Interestingly, the boxplot for the GRE Verbal variable has the median is
+closer to the 25th percentile. Equally as interesting, the boxplot for
+the Miller Analogies Test variable is missing a lower whisker,
+indicating that the lowest extreme case is similar to/the same as the
+25th percentile case.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="multicollinearity-and-singularity" class="section level5">
+<h5>3. Multicollinearity and Singularity</h5>
+<ul>
+<li><p>Multicollinearity: Independent variables (more) highly correlated
+with one another (compared to their correlation with the DV).</p>
+<ul>
+<li>Check the correlation matrix for variables.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">cormat</span>(data, gpa <span class="sc">~</span> ar <span class="sc">+</span> grev <span class="sc">+</span> mat <span class="sc">+</span> greq)</span></code></pre></div>
+<pre><code>##       gpa   ar grev  mat greq
+## gpa     1                    
+## ar   0.62    1               
+## grev 0.58 0.41    1          
+## mat   0.6 0.52 0.43    1     
+## greq 0.61 0.51 0.47 0.27    1</code></pre>
+<ul>
+<li><span style="color:red">We can see from the correlation matrix that
+none of the bivariate relationships between the independent variables
+(<code>ar</code>, <code>grev</code>, <code>mat</code>,
+<code>greq</code>) are <em>above</em> a correlation coefficient of <span
+class="math inline">\(r \approx .90\)</span>. Therefore,
+<code>we have met the assumption of absence of multicollinearity</code>.</span></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p>Singularity: If independent variables included are (together) all
+possible subsets of measure also included in model.</p>
+<ul>
+<li>Look at the items and determine if they are subsets of other items
+also included.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><span style="color:red">Based on the data, none of the independent
+variables are subsets of one another. While the GRE Verbal and the GRE
+Quantitative are subsets of the larger GRE, they would only count as
+singularity if we also included an overall or summative GRE score that
+was made up of the scores for the GRE Verbal and the GRE Quantitative.
+As such,
+<code>we have met the assumption of absence of singularity</code>.</span></li>
+</ul>
+<p><br></p>
+</div>
+<div id="linearity-normality-and-homoskedasticity"
+class="section level5">
+<h5>4. Linearity, Normality, and Homoskedasticity</h5>
+<ul>
+<li>Linearity: Variables move together in a linear fashion.</li>
+<li>Normality: Variables are normally-distributed.</li>
+<li>Homoskedasticity: Homogeneity of Variance - Variance of variables
+are similar (10:1, 3:1 for SDs).
+<ul>
+<li>Visual inspection of <strong>Residuals Plot</strong> to see if
+relationship is linear, normal, and similar variances. Plot should have
+<strong>points that extend beyond both sides of the 0 line</strong>
+(normality), <strong>should not have a U or inverted-U shape in the
+points</strong> (linearity), and it <strong>should not have a funnel
+shape</strong>, where points are tightly clustered near the 0 line at
+one end of the plot, and completely dispersed along y-axis at other end
+of plot (homoskedasticity).</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">residplot</span>(data, gpa <span class="sc">~</span> ar <span class="sc">+</span> grev <span class="sc">+</span> mat <span class="sc">+</span> greq)</span></code></pre></div>
+<p><img src="regression-example_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">Based on the residuals plot (the difference
+between the actual <span class="math inline">\(Y\)</span> and the <span
+class="math inline">\(\hat{Y}\)</span>), we see that
+<code>we have met the assumptions of linearity, normality, and homoskedasticity</code>.
+Linearity is met given that the residuals do not exhibit a non-linear
+(e.g. curvilinear) relationship about the 0 distance (from <span
+class="math inline">\(\hat{Y}\)</span>) line. Normality is met given
+that the residuals do not have a hard stop on either side of the line –
+that is, they are evenly distributed about the 0 distance (from <span
+class="math inline">\(\hat{Y}\)</span>) line. Finally, homoskedasticity
+is met given that the residuals are evenly distanced from the 0 distance
+(from <span class="math inline">\(\hat{Y}\)</span>) line at all values
+of <span class="math inline">\(\hat{Y}\)</span> – as exemplified the
+lack of “fanning out” on one end.</span></li>
+</ul>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="the-regression-calculation" class="section level3">
+<h3>The Regression Calculation</h3>
+<p>The calculation for the Regression is:</p>
+<p><span class="math inline">\(\hat{Y} = b_0 + b_1X_1 +
+b_2X_2\)</span></p>
+<p>Where…</p>
+<ul>
+<li><span class="math inline">\(\hat{Y}\)</span> is the predicted Y
+value for the combination of slopes for X values</li>
+<li><span class="math inline">\(b_0\)</span> is the intercept</li>
+<li><span class="math inline">\(b_1\)</span> is the slope associated
+with <span class="math inline">\(X_1\)</span></li>
+<li><span class="math inline">\(b_2\)</span> is the slope associated
+with <span class="math inline">\(X_2\)</span></li>
+<li><span class="math inline">\(X_1\)</span> is a specific value for the
+first <span class="math inline">\(X\)</span> variable that you can plug
+in for a specific case</li>
+<li><span class="math inline">\(X_2\)</span> is a specific value for the
+second <span class="math inline">\(X\)</span> variable that you can plug
+in for a specific case</li>
+</ul>
+<p><br></p>
+</div>
+<div id="running-the-regression" class="section level3">
+<h3>Running the Regression</h3>
+<p>For Regression, within the <span
+style="color:blue"><code>lm</code></span> function, which stands for
+<em>linear model</em>, the dependent variable is listed first and the
+independent variable is listed second.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">lm</span>(gpa <span class="sc">~</span> ar <span class="sc">+</span> grev <span class="sc">+</span> mat <span class="sc">+</span> greq, <span class="at">data=</span>data)</span></code></pre></div>
+<p>This may seem confusing, so it’s best to wrap our <span
+style="color:blue"><code>lm</code></span> function in a <span
+style="color:blue"><code>summary</code></span> call…</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(gpa <span class="sc">~</span> ar <span class="sc">+</span> grev <span class="sc">+</span> mat <span class="sc">+</span> greq, <span class="at">data=</span>data))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = gpa ~ ar + grev + mat + greq, data = data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7876 -0.2297  0.0069  0.2868  0.5260 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -1.738107   0.640989  -2.712  0.00892 **
+## ar           0.144233   0.076185   1.893  0.06360 . 
+## grev         0.001524   0.000708   2.152  0.03580 * 
+## mat          0.020896   0.006438   3.246  0.00200 **
+## greq         0.003998   0.001234   3.240  0.00203 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3693 on 55 degrees of freedom
+## Multiple R-squared:  0.6405, Adjusted R-squared:  0.6143 
+## F-statistic: 24.49 on 4 and 55 DF,  p-value: 1.128e-11</code></pre>
+<p>To interpret the findings, we report the following information:</p>
+<ul>
+<li><p>The test used</p></li>
+<li><p>The variables used in the full model</p></li>
+<li><p>For significant variables, how a variable’s slope affects the
+outcome</p></li>
+<li><p>The amount of variance in the outcome explained by the
+combination of IVs.</p>
+<ul>
+<li><span style="color:red">In the output above, using an OLS
+regression, we see the Y-intercept is a GPA value of -1.738. This is the
+predicted value of Y (<span class="math inline">\(\hat{Y}\)</span>) when
+all of the <span class="math inline">\(X\)</span> values equal zero. We
+see that the regression coefficient - <span
+class="math inline">\(b\)</span> - (AKA slope) for the variables
+<code>grev</code>, <code>mat</code>, and <code>greq</code> are all
+positively and significantly related to the outcome variable. First, GRE
+Verbal score, net of all other variables, is significant and positively
+related to GPA, such that for every 1-unit increase in a person’s GRE
+Verbal score, there is an associated (predicted) <strong>001524-unit
+increase</strong> in their GPA. Considering the Miller Analogies Test,
+which is significant and positively related to GPA, net of all other
+variables in the model, for every 1-unit increase in a person’s Miller
+Analogies Test score, there is an associated <strong>.020896-unit
+increase</strong> in their GPA. Finally, GRE Quantitative score is
+significant and positively related to GPA, when controlling for all
+other variables, such that for every 1-unit increase in a person’s GRE
+Quantitative score, there is an associated <strong>003998-unit
+increase</strong> in their GPA. Beyond this, we see that the
+Recommender’s Average Rating for a student is non-significant in the
+model, and is therefore unrelated to the outcome, net of all other
+variables. <br><br> We also see that this model is significantly better
+than the null model (with no predictors), as indicated by the omnibus F
+test: <span class="math inline">\(F(4,55) = 24.49, p\lt.05\)</span>.
+<br><br> Finally, for this full model, which predicts GPA from four
+pre-graduate school factors (<code>ar</code>, <code>grev</code>,
+<code>mat</code>, and <code>greq</code>), the model fit statistic, the
+<span class="math inline">\(R^2\)</span>, is .6405. This indicates that
+64.06 percent of the variation in a person’s GPA is explained by the
+combination of their average ratings, their GRE Verbal Score, their GRE
+Quantitative Score, and their score on the Miller Analogies Test.
+</span></li>
+</ul></li>
+</ul>
+<p><br><br><br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+---
+title: "Installing R/RStudio"
+---
+---
+
+### What is R?
+
+We will be using [R](https://cran.r-project.org/), an open-source statistical program. Open-source, of course, means that it is free to use. R is a programming language, and the basic R program runs through command-line. To make it easy on first-time users, we will also be  using R's graphical user interface, [RStudio](https://rstudio.com/products/rstudio/download/), that runs R in one of its windows -- without you having to open R. 
+
+### Downloading & Installing R
+
+1. Go to the [**R website**](https://cran.r-project.org/) to download the program. Under the "Download and Install R" section, select the distribution that matches your computer's operating system (macOS/OSX, Windows, Linux). 
+
+    + For Windows Users: On the next page, select the link/word "base". On the following page, select the large link (which should be something like "Download R 3.x.x for Windows")
+
+    + For Linux Users: On the next page, select your specific distribution, and follow the instructions.
+    
+    
+    + For Mac Users: using the table below, select the R download that corresponds to your operating system
+    
+```{r, echo=FALSE, message=FALSE}
+library(dplyr)
+library(kableExtra)
+```
+    
+```{r, echo=FALSE}
+oss <- c("macOS 13 (Ventura) or newer",
+         "macOS 11 (Big Sur) - macOS 12 (Monterey)",
+         "macOS 10.13 (High Sierra) - macOS 10.15 (Catalina)",
+         "macOS 10.11 (El Capitan) - macOS 10.12 (Sierra)",
+         "macOS 10.9 (Mavericks) - macOS 10.10 (Yosemite)"
+         #,"macOS 10.6 (Snow Leopard) - macOS 10.8 (Mountain Lion)"
+         )
+downloads <- c("download","download","download","download","download"#,"download"
+               )
+r_urls <- c("https://cran.rstudio.com/bin/macosx/big-sur-x86_64/base/R-4.3.2-x86_64.pkg",
+            "https://cran.rstudio.com/bin/macosx/big-sur-x86_64/",
+            "https://cran.rstudio.com/bin/macosx/base/R-4.2.3.pkg",
+            "https://cran-archive.r-project.org/bin/macosx/base/R-3.6.3.nn.pkg",
+            "https://cran-archive.r-project.org/bin/macosx/base/R-3.3.3.pkg")
+
+table_data <- data.frame(oss,downloads)
+# use paste0 to compose markdown-formatted hyperlinks
+table_data$downloads <- paste0("[**", table_data$downloads, "**](", r_urls, ")")
+names(table_data) <- c("Operating System","R Link")
+# print the table, with hyperlinked text
+knitr::kable(table_data) %>%
+  kable_paper("hover", full_width = F)
+```
+    
+<br>
+
+2. For all users, install the downloaded R program.
+
+### Downloading & Installing RStudio
+
+1. Next, we will download [**RStudio**](https://rstudio.com/products/rstudio/download/) which is a easily understandable user interface for using R. If you're using a laptop/desktop computer (e.g. not a tablet), under "RStudio Desktop" click "Download". Next, it should take you to a page with a "Download" button. 
+
+    + For mac machines, use the links below:
+
+
+```{r, echo=FALSE}
+
+oss <- c("macOS 13 (Ventura) or newer",
+         "macOS 11 (Big Sur) - macOS 12 (Monterey)",
+         "macOS 10.13 (High Sierra) - macOS 10.15 (Catalina)",
+         "macOS 10.11 (El Capitan) - macOS 10.12 (Sierra)",
+         "macOS 10.9 (Mavericks) - macOS 10.10 (Yosemite)"
+         #,"macOS 10.6 (Snow Leopard) - macOS 10.8 (Mountain Lion)"
+         )
+downloads2 <- c("download","download","download","download","download"#,"download"
+               )
+rstudio_urls <- c("https://s3.amazonaws.com/rstudio-ide-build/electron/macos/RStudio-2023.12.1-402.dmg",
+                  "https://s3.amazonaws.com/rstudio-ide-build/electron/macos/RStudio-2023.09.1-494.dmg",
+                  "https://s3.amazonaws.com/rstudio-ide-build/desktop/macos/RStudio-2022.07.2-576.dmg",
+                  "https://s3.amazonaws.com/rstudio-ide-build/desktop/macos/RStudio-2022.07.2-576.dmg",
+                  "https://s3.amazonaws.com/rstudio-ide-build/desktop/macos/RStudio-2022.07.2-576.dmg")
+
+table_data2 <- data.frame(oss,downloads2)
+# use paste0 to compose markdown-formatted hyperlinks
+table_data2$downloads2 <- paste0("[**", table_data2$downloads2, "**](", rstudio_urls, ")")
+names(table_data2) <- c("Operating System","RStudio Link")
+# print the table, with hyperlinked text
+knitr::kable(table_data2) %>%
+  kable_paper("hover", full_width = F)
+```
+
+<br>
+2. After the download is complete, install the RStudio program.
+
+<br><br>

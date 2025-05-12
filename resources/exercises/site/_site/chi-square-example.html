@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Chi-Square Example</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="markdown3.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RStudio Walkthroughs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    Getting Started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installing.html">Downloading/Installing</a>
+    </li>
+    <li>
+      <a href="getting-started.html">Getting Started with RStudio</a>
+    </li>
+    <li>
+      <a href="reading-in-data.html">Reading in Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chart-line"></span>
+     
+    In-Class
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Univariate Statistics</li>
+    <li>
+      <a href="univariate-normality.html">Descriptive Statistics and Assessing Normality</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="t-test.html">Independent Samples t-Test</a>
+    </li>
+    <li>
+      <a href="anova.html">One-Way Analysis of Variance (ANOVA)</a>
+    </li>
+    <li>
+      <a href="chi-square.html">Chi Square Test of Independence</a>
+    </li>
+    <li>
+      <a href="correlation.html">Correlation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Multivariate Statistics</li>
+    <li>
+      <a href="regression.html">OLS Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Additional Materials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="chi-square-gof.html">Chi Square Goodness of Fit</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Chi-Square Example</h1>
+
+</div>
+
+
+<hr />
+<div
+id="is-there-an-association-between-political-orientation-and-views-of-the-black-lives-matter-movement"
+class="section level4">
+<h4>Is there an association between political orientation and views of
+the Black Lives Matter movement?</h4>
+<p><br></p>
+</div>
+<div id="the-chi-square-test-of-independence" class="section level3">
+<h3>The Chi Square Test of Independence</h3>
+<p>The Chi Square test (<span class="math inline">\(X^2\)</span>)
+examines the association or relationship between two nominal/ordinal
+variables to see if the relationship reflects a true relationship that
+we could expect to find in the population. The test also tells us
+whether or not a category (attribute) of one variable varies by
+categories of another variable.</p>
+<p>For this example, the Chi Square test works perfectly because we’re
+looking at <em>categories</em> of the political orientation variable
+(liberal and conservative) across <em>categories</em> of another
+(positive and negative views of the Black Lives Matter movement) to see
+if there is a true association between political orientation and views
+of BLM in the population.</p>
+<p><br></p>
+<div id="load-the-necessary-stuff" class="section level4">
+<h4>Load the Necessary Stuff</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(vannstats)</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="reading-in-the-data" class="section level4">
+<h4>Reading in the Data</h4>
+<p><img src="blm.png" width="500px" /></p>
+<p>In the table (above), we have a total of 90 people, randomly-sampled.
+We see (by looking at the column marginals) that we have a total of 50
+liberal individuals and 40 conservatives in the sample. By looking
+closer at the cells, we see that, of the 50 liberals, 47 have positive
+views of BLM while the other 3 have negative views of BLM. Moreover, of
+the 40 conservatives, 5 have positive views of BLM while the other 35
+have negative views of BLM. We can use this breakdown to create a data
+set, using a combination of the concatenate, <span
+style="color:blue"><code>c()</code></span>, data frame <span
+style="color:blue"><code>data.frame</code></span>, and the repeat <span
+style="color:blue"><code>rep()</code></span> functions.</p>
+<p>The repeat function comes in handy when you have to type out the same
+values over and over again. This function has two arguments: 1) the
+thing you want to repeat, and 2) the number of times you want to repeat
+it. For example, let’s say I wanted to create an object called <span
+style="color:blue"><code>x</code></span>, that repeats the number <span
+style="color:blue"><code>7</code></span>, 10 times. I would do the
+following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">7</span>,<span class="dv">10</span>)</span></code></pre></div>
+<p>and the data would look like this…</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##  [1] 7 7 7 7 7 7 7 7 7 7</code></pre>
+<p>Next, let’s say I wanted to create an object called <span
+style="color:blue"><code>y</code></span>, that repeats the string, word,
+or, in more appropriate terms, group/category <span
+style="color:blue"><code>student</code></span>, 25 times. I would do the
+following:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;student&quot;</span>,<span class="dv">25</span>)</span></code></pre></div>
+<p>and the data would look like this…</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##  [1] &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot;
+##  [9] &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot;
+## [17] &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot; &quot;student&quot;
+## [25] &quot;student&quot;</code></pre>
+<p>Using this logic, we can apply the repeat function to create each
+variable, concatenating across the various categories of each variable,
+and combine these variables into a data frame… as such…</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>pol <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">&quot;liberal&quot;</span>,<span class="dv">50</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">&quot;conservative&quot;</span>,<span class="dv">40</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  )</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>views <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">&quot;positive&quot;</span>,<span class="dv">47</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">&quot;negative&quot;</span>,<span class="dv">3</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">&quot;positive&quot;</span>,<span class="dv">5</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="st">&quot;negative&quot;</span>,<span class="dv">35</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>)</span></code></pre></div>
+<p>For brevity, I don’t call the variables here, but instead, I’ll merge
+the variables into one data frame, using the following:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(pol,views)</span></code></pre></div>
+<p>and the data should look like this, in your Environment window…</p>
+<p><img src="blm_data.png" width="200px" /></p>
+<p><br></p>
+</div>
+</div>
+<div id="assumptions-and-diagnostics-for-chi-square"
+class="section level3">
+<h3>Assumptions and Diagnostics for Chi Square</h3>
+<p>The assumptions for the Chi Square are…</p>
+<ul>
+<li>Independence of Observations</li>
+<li>Normality</li>
+</ul>
+<div id="independence-of-observations-examine-data-collection-strategy"
+class="section level5">
+<h5>1. Independence of Observations (Examine Data Collection
+Strategy)</h5>
+<ul>
+<li>Cases (observations) are not related or dependent upon each other.
+Case can’t have more than one attribute. No ties between observations.
+Examine data collection strategy to see if there are linkages between
+observations.
+<ul>
+<li><span style="color:red">These data were randomly sampled.
+<code>Therefore, we meet the assumption of independence of observations</code>.</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="normality-examine-crosstabs-for-expected-frequencies"
+class="section level5">
+<h5>2. Normality (Examine Crosstabs for Expected Frequencies)</h5>
+<ul>
+<li>Distributions must be relatively normal.The normality assumption is
+met if <strong>no more than 20 percent of the cells in our Expected
+Frequencies Crosstab have fewer than 5 cases.</strong> Therefore, if
+(<span class="math inline">\(E \lt 5\)</span>) for more than 20 percent
+of the cells in the Expected Frequences table, the assumption of
+normality is violated.</li>
+</ul>
+<p>To check if you’ve met the assumption of normality (e.g. fewer than
+20% of cells in the crosstab of expected frequencies falls below <span
+class="math inline">\(n=5\)</span>), you use the following:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">tab</span>(data, views, pol)</span></code></pre></div>
+<pre><code>## $`Observed Frequencies`
+##                 pol: conservative liberal Total
+## views: negative                35       3    38
+## positive                        5      47    52
+## Total                          40      50    90
+## 
+## $`Expected Frequencies`
+##                 pol: conservative  liberal Total
+## views: negative          16.88889 21.11111    38
+## positive                 23.11111 28.88889    52
+## Total                    40.00000 50.00000    90</code></pre>
+<ul>
+<li><span style="color:red">We see here that less than 20% of cells in
+the 2x2 table have fewer than 5 expected counts (actually, no cell has
+fewer than 5).
+<code>Therefore, we meet the assumption of normality</code>.</span></li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="the-chi-square-test-calculation" class="section level3">
+<h3>The Chi Square Test Calculation</h3>
+<p>The calculation for the Chi Square is:</p>
+<p><span class="math inline">\(X^2 = \sum \frac{(f_o -
+f_e)^2}{f_e}\)</span> or <span class="math inline">\(X^2 = \sum
+\frac{(f_{o_i} - f_{e_i})^2}{f_{e_i}}\)</span></p>
+<p>where… <br></p>
+<ul>
+<li><span class="math inline">\(f_o\)</span> (or <span
+class="math inline">\(f_{o_i}\)</span>) is the observed frequency for
+that cell (the <span class="math inline">\(i^{th}\)</span>cell)<br></li>
+<li><span class="math inline">\(f_e\)</span> (or <span
+class="math inline">\(f_{e_i}\)</span>) is the expected frequency for
+that cell (the <span class="math inline">\(i^{th}\)</span>cell)<br>
+<ul>
+<li><span class="math inline">\(f_e\)</span> (or <span
+class="math inline">\(f_{e_i}\)</span>) for each cell is calculated by
+the following:
+<ul>
+<li><span class="math inline">\(f_e\)</span> (or <span
+class="math inline">\(f_{e_i}\)</span>) <span class="math inline">\(=
+\frac{(r_{total_i})(c_{total_i})}{total}\)</span> <span
+class="math inline">\(=
+\frac{(n_{row_i})(n_{column_i})}{N}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>In addition, the degrees of freedom (<span
+class="math inline">\(df\)</span>) for the test is…<br> * <span
+class="math inline">\(df = (r-1)(c-1)\)</span></p>
+<p>where…</p>
+<ul>
+<li><span class="math inline">\(r\)</span> is the number of rows in a
+crosstabulation<br></li>
+<li><span class="math inline">\(c\)</span> is the number of columns in a
+crosstabulation<br></li>
+</ul>
+<p><br></p>
+</div>
+<div id="running-the-chi-square-test" class="section level3">
+<h3>Running the Chi Square Test</h3>
+<p>For Chi Square, within the <span
+style="color:blue"><code>chi.sq</code></span> function, the dependent
+variable is listed first and the independent variable is listed
+second.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#chisq.test(data$views, data$pol, correct=FALSE)</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>chi <span class="ot">&lt;-</span> <span class="fu">chi.sq</span>(data, views, pol, <span class="at">post =</span> T)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">summary</span>(chi)</span></code></pre></div>
+<pre><code>## Call:
+## chi.sq(df = data, var1 = views, var2 = pol, post = T)
+## 
+## Pearson&#39;s Chi-squared test: 
+## 
+##      χ² Critical χ² df   p-value    
+##  60.506       3.841  1 7.334e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## 
+## Post-Hoc Test w/ Bonferroni Adjustment:
+## Comparing: pol-views 
+## 
+##                       Standardized Residual (Z)   p-value    
+## conservative-negative                    7.7786 2.934e-14 ***
+## conservative-positive                   -7.7786 2.934e-14 ***
+## liberal-negative                        -7.7786 2.934e-14 ***
+## liberal-positive                         7.7786 2.934e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>In the output above, we see the <span
+class="math inline">\(X^2\)</span>-obtained value (60.506), the degrees
+of freedom (1), and the p-value (7.334e-15 = 7.334 x <span
+class="math inline">\(10^{-15}\)</span> = .000000000000007334, which is
+much less than our set alpha level of .05).</p>
+<p>To interpret the findings, we report the following information:</p>
+<ul>
+<li>The test used</li>
+<li>If you <strong>reject</strong> or <strong>fail to reject</strong>
+the null hypothesis</li>
+<li>The variables used in the analysis</li>
+<li>The degrees of freedom, calculated value of the test (<span
+class="math inline">\(X^2_{obtained}\)</span>), and <span
+class="math inline">\(p-value\)</span>
+<ul>
+<li><span class="math inline">\(X^2(df) = X^2_{obtained}\)</span>, <span
+class="math inline">\(p-value\)</span></li>
+</ul></li>
+</ul>
+<p>“Using the Chi Square test of independence (<span
+class="math inline">\(X^2\)</span>), I reject/fail to reject the null
+hypothesis that there is no association between variable one and
+variable 2, in the population, <span class="math inline">\(X^2(?) = ?, p
+? .05\)</span>”</p>
+<ul>
+<li><span style="color:red">“Using the Chi Square test of independence
+(<span class="math inline">\(X^2\)</span>), I reject the null hypothesis
+that there is no association between the political orientation and views
+of the Black Lives Matter movement, in the population, <span
+class="math inline">\(X^2(1) = 60.506, p \lt .05\)</span>.”</span></li>
+</ul>
+<p><br><br><br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

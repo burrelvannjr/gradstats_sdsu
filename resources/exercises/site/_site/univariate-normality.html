@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Univariate/Descriptive Statistics &amp; Normality</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="markdown3.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RStudio Walkthroughs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    Getting Started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installing.html">Downloading/Installing</a>
+    </li>
+    <li>
+      <a href="getting-started.html">Getting Started with RStudio</a>
+    </li>
+    <li>
+      <a href="reading-in-data.html">Reading in Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chart-line"></span>
+     
+    In-Class
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Univariate Statistics</li>
+    <li>
+      <a href="univariate-normality.html">Descriptive Statistics and Assessing Normality</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="t-test.html">Independent Samples t-Test</a>
+    </li>
+    <li>
+      <a href="anova.html">One-Way Analysis of Variance (ANOVA)</a>
+    </li>
+    <li>
+      <a href="chi-square.html">Chi Square Test of Independence</a>
+    </li>
+    <li>
+      <a href="correlation.html">Correlation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Multivariate Statistics</li>
+    <li>
+      <a href="regression.html">OLS Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Additional Materials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="chi-square-gof.html">Chi Square Goodness of Fit</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Univariate/Descriptive Statistics &amp;
+Normality</h1>
+
+</div>
+
+
+<hr />
+<div id="univariatedescriptive-statistics" class="section level3">
+<h3>Univariate/Descriptive Statistics</h3>
+<p>There are various ways to call a number of univariate statistics in
+R. As social scientists, the main univariate statistics we are concerned
+with are the mean, median, standard deviation, minimum, maximum, and
+range. The stock R program comes with the <span
+style="color:blue"><code>summary</code></span> function, which,
+unfortunately, does not provide the <em>some</em> measures. Therefore,
+we use the <span style="color:blue"><code>describe</code></span>
+function from the <span style="color:blue"><code>psych</code></span>
+package. We can call univariate statistics for both the full data set
+and a specific variable.</p>
+<p>First, let’s load the packages as libraries</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(vannstats)</span></code></pre></div>
+<p>And create the <code>data1</code> object out of the
+<code>mtcars</code> data.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> mtcars</span></code></pre></div>
+</div>
+<div id="section" class="section level1">
+<h1></h1>
+<p>For the full data set, we can call univariate statistics as such…</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">describe</span>(data1)</span></code></pre></div>
+<pre><code>##      vars  n   mean     sd median trimmed    mad   min    max  range  skew kurtosis
+## mpg     1 32  20.09   6.03  19.20   19.70   5.41 10.40  33.90  23.50  0.61    -0.37
+## cyl     2 32   6.19   1.79   6.00    6.23   2.97  4.00   8.00   4.00 -0.17    -1.76
+## disp    3 32 230.72 123.94 196.30  222.52 140.48 71.10 472.00 400.90  0.38    -1.21
+## hp      4 32 146.69  68.56 123.00  141.19  77.10 52.00 335.00 283.00  0.73    -0.14
+## drat    5 32   3.60   0.53   3.70    3.58   0.70  2.76   4.93   2.17  0.27    -0.71
+## wt      6 32   3.22   0.98   3.33    3.15   0.77  1.51   5.42   3.91  0.42    -0.02
+## qsec    7 32  17.85   1.79  17.71   17.83   1.42 14.50  22.90   8.40  0.37     0.34
+## vs      8 32   0.44   0.50   0.00    0.42   0.00  0.00   1.00   1.00  0.24    -2.00
+## am      9 32   0.41   0.50   0.00    0.38   0.00  0.00   1.00   1.00  0.36    -1.92
+## gear   10 32   3.69   0.74   4.00    3.62   1.48  3.00   5.00   2.00  0.53    -1.07
+## carb   11 32   2.81   1.62   2.00    2.65   1.48  1.00   8.00   7.00  1.05     1.26
+##         se
+## mpg   1.07
+## cyl   0.32
+## disp 21.91
+## hp   12.12
+## drat  0.09
+## wt    0.17
+## qsec  0.32
+## vs    0.09
+## am    0.09
+## gear  0.13
+## carb  0.29</code></pre>
+</div>
+<div id="section-1" class="section level1">
+<h1></h1>
+<p>Whereas, for a specific variable, we can call univariate statistics
+as such…</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">describe</span>(data1<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>##    vars  n  mean   sd median trimmed  mad  min  max range skew kurtosis   se
+## X1    1 32 20.09 6.03   19.2    19.7 5.41 10.4 33.9  23.5 0.61    -0.37 1.07</code></pre>
+</div>
+<div id="section-2" class="section level1">
+<h1></h1>
+<p>In addition, we can call univariate statistics for a variable but
+broken out by groups/categories of another variable. Note, this is the
+first step towards bivarate statistics (looking at the relationship
+between two variables). We do this by using the <span
+style="color:blue"><code>describeBy</code></span> function, where we
+list the main variable first, and the grouping/category variable second…
+as such…</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">describeBy</span>(data1<span class="sc">$</span>mpg, data1<span class="sc">$</span>cyl)</span></code></pre></div>
+<pre><code>## 
+##  Descriptive statistics by group 
+## group: 4
+##    vars  n  mean   sd median trimmed  mad  min  max range skew kurtosis   se
+## X1    1 11 26.66 4.51     26   26.44 6.52 21.4 33.9  12.5 0.26    -1.65 1.36
+## ------------------------------------------------------------------ 
+## group: 6
+##    vars n  mean   sd median trimmed  mad  min  max range  skew kurtosis   se
+## X1    1 7 19.74 1.45   19.7   19.74 1.93 17.8 21.4   3.6 -0.16    -1.91 0.55
+## ------------------------------------------------------------------ 
+## group: 8
+##    vars  n mean   sd median trimmed  mad  min  max range  skew kurtosis   se
+## X1    1 14 15.1 2.56   15.2   15.15 1.56 10.4 19.2   8.8 -0.36    -0.57 0.68</code></pre>
+</div>
+<div id="section-3" class="section level1">
+<h1></h1>
+<p>Above, we can see that the mean miles per gallon differs by the
+number of cylinders in a car (e.g. cars with lower cylinders have, on
+average, higher miles per gallon).</p>
+</div>
+<div id="section-4" class="section level1">
+<h1></h1>
+</div>
+<div id="section-5" class="section level1">
+<h1></h1>
+<div id="a-note-on-skewness-and-kurtosis" class="section level4">
+<h4>A Note on Skewness and Kurtosis</h4>
+<p><strong>Skewness</strong> is the measure of how close or far a
+distribution is from symmetry (the normal curve). While it summarizes
+clustering of scores along the X-axis, with regard to the position of
+the mode, median, and mean, skewness is also concerned with
+<em>length/width</em> of the tails of the distribution, relative to one
+another.</p>
+<p><strong>Kurtosis</strong> is sometimes referred to as a measure of
+the <em>peakedness</em> of the distribution, and how different the
+distribution is from mesokurtic (e.g. middle kurtosis, or the normal
+curve). Statisticians have argued that <a
+href="http://www.r-tutor.com/elementary-statistics/numerical-measures/kurtosis"><strong>kurtosis</strong></a>
+is, more appropriately, a measure of the <em>height/thickness</em> of
+the tails of the distribution.</p>
+</div>
+</div>
+<div id="section-6" class="section level1">
+<h1></h1>
+<p>Skewness ranges from <span class="math inline">\(-\infty\)</span> to
+<span class="math inline">\(\infty\)</span>. The sign indicates the type
+of skew, with <span class="math inline">\(-\)</span> indicating negative
+skewness, <span class="math inline">\(+\)</span> indicating positive
+skewness, and 0 indicating <em>no</em> skew… (AKA symmetry, AKA the
+normal curve). The cutoffs for skewness are as follows:</p>
+<p>High: <span class="math inline">\(\geq |1|\)</span></p>
+<p>Moderate: <span class="math inline">\(|1| \geq x \geq
+|.5|\)</span></p>
+<p>Low: <span class="math inline">\(|.5| \geq x \geq |0|\)</span></p>
+</div>
+<div id="section-7" class="section level1">
+<h1></h1>
+</div>
+<div id="section-8" class="section level1">
+<h1></h1>
+<p>Statisticians have developed a kurtosis measure that represents
+<em>excess</em> kurtosis beyond the normal curve (<em>although typical
+kurtosis ranges from 1 to <span class="math inline">\(+
+\infty\)</span></em>). This excess kurtosis measure <a
+href="https://stats.stackexchange.com/a/245953"><strong>ranges
+from</strong></a> <span class="math inline">\(-2\)</span> to <span
+class="math inline">\(+ \infty\)</span>. Using this metric, negative
+values represent platykurtic distributions and positive values indicate
+leptokurtic distributions. Distributions close to a kurtosis value of 0
+are considered mesokurtic. We use cutoffs to indicate types of kurtosis,
+as follows…</p>
+<p>Platykurtic: <span class="math inline">\(-2 \leq x \lt 0\)</span>; or
+<span class="math inline">\(x \lt 0\)</span></p>
+<p>Mesokurtic: <span class="math inline">\(x \approx 0\)</span></p>
+<p>Leptokurtic: <span class="math inline">\(+ \infty \geq x \gt
+0\)</span>; or <span class="math inline">\(x \gt 0\)</span></p>
+</div>
+<div id="section-9" class="section level1">
+<h1></h1>
+</div>
+<div id="section-10" class="section level1">
+<h1></h1>
+<div id="calling-specific-univariate-statistics" class="section level4">
+<h4>Calling Specific Univariate Statistics</h4>
+<p>Beyond using the <span
+style="color:blue"><code>describe</code></span> function, you can call
+singular desired univariate statistics. Here, we’ll ask for a specific
+univariate statistic, one at a time, for the <span
+style="color:blue"><code>mpg</code></span> variable.</p>
+</div>
+</div>
+<div id="section-11" class="section level1">
+<h1></h1>
+<p>Below, we’ve added the option for <span
+style="color:blue"><code>, na.rm=T</code></span> (alternatively, <span
+style="color:blue"><code>, na.rm=TRUE</code></span>), meaning that if
+data or observations are missing/NA for the variables we’re working
+with, we still want R to calculate the statistic for the non-missing
+cases by removing those missing cases (NAs), select TRUE.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">mean</span>(data1<span class="sc">$</span>mpg, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>## [1] 20.09062</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">median</span>(data1<span class="sc">$</span>mpg, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>## [1] 19.2</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">sd</span>(data1<span class="sc">$</span>mpg, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>## [1] 6.026948</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">min</span>(data1<span class="sc">$</span>mpg, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>## [1] 10.4</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">max</span>(data1<span class="sc">$</span>mpg, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>## [1] 33.9</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">range</span>(data1<span class="sc">$</span>mpg, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>## [1] 10.4 33.9</code></pre>
+<div
+id="standardized-scores-z-scores-and-interval-estimates-around-means-ci"
+class="section level3">
+<h3>Standardized Scores (Z-Scores) and Interval Estimates around Means
+(CI)</h3>
+<div id="z-score" class="section level4">
+<h4>Z-Score</h4>
+<p>Recall that Z-scores are standardized scores – how close or far an
+observation’s score is from the mean, in standard deviation units. These
+are relative scores because the standard deviation (as well as the mean)
+incorporates information from all other observations.</p>
+<p>The calculation for Z-scores is:</p>
+<p><span class="math inline">\(Z = \frac{(X - \mu)}{\sigma}\)</span></p>
+<p>But, the above calculation relies on population parameters <span
+class="math inline">\(\mu\)</span>, (the population mean) and <span
+class="math inline">\(\sigma\)</span>, (the population standard
+deviation), which we often do not have information on. Instead, the
+calculation, for each observation’s Z-score, is:</p>
+<p><span class="math inline">\(Z_{i} = \frac{(X_{i} -
+\bar{X})}{SD}\)</span></p>
+<p>where… <br></p>
+<ul>
+<li><span class="math inline">\(X_{i}\)</span> is the raw score for a
+given observation<br></li>
+<li><span class="math inline">\(\bar{X}\)</span> is the mean for all
+observations <br></li>
+<li><span class="math inline">\(SD\)</span> is the standard deviation
+for all observations <br></li>
+</ul>
+<p>For example, if we wanted to calculate a Z-score for the combined MPG
+of a Subaru Outback, which is 29 MPG, relative to all other cars in the
+<strong>mtcars</strong> data set, we would use the formula:</p>
+<p><span class="math inline">\(Z_{Outback} = \frac{(29 -
+\bar{X}_{mtcars\$mpg})}{SD_{mtcars\$mpg}}\)</span></p>
+<p>Luckily, I’ve created a Z-score calculation function, <span
+style="color:blue"><code>z.calc()</code></span>, for calculating a
+z-score for a value, given the mean and standard deviation for a
+variable within a data frame (or a list of values).</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data frame</code> (or a <code>values list</code>)</li>
+<li><code>variable name</code> for the variable of interest</li>
+<li><code>raw score</code></li>
+</ol>
+<p>as such…</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">z.calc</span>(data1, mpg, <span class="dv">29</span>)</span></code></pre></div>
+<pre><code>## Raw Score      Mean   Z Score 
+## 29.000000 20.090625  1.478256</code></pre>
+<p>This indicates that the MPG for the Outback is 1.478 standard
+deviation units above the mean.</p>
+</div>
+</div>
+</div>
+<div id="section-12" class="section level1">
+<h1></h1>
+<div id="confidence-intervals" class="section level4">
+<h4>Confidence Intervals</h4>
+<p>Recall that Z-scores are standardized scores – how close or far an
+observation’s score is from the mean, in standard deviation units. These
+are relative scores because the standard deviation (as well as the mean)
+incorporates information from all other observations.</p>
+<p>The calculation for confidence intervals is:</p>
+<p><span class="math inline">\(CI = \mu \pm Z {\sigma}\)</span></p>
+<p>…or, more appropriately, the calculation for a given confidence
+interval, based on a given confidence level (CL) is:</p>
+<p><span class="math inline">\(CI_{CL} = \mu \pm
+Z_{CL}{\sigma}\)</span></p>
+<p>where… <br></p>
+<ul>
+<li><span class="math inline">\(CL\)</span> represents the Confidence
+Level you’re interested in using (e.g. 95%, 99%, 99.9%, etc.) <br></li>
+<li><span class="math inline">\(Z_{CL}\)</span> represents the Z-score
+associated with that Confidence Level you’re using (e.g. 95%, 99%,
+99.9%, etc.) <br></li>
+</ul>
+<p>For example, for the 99.9% CI, we would have an associated Z-score
+(<span class="math inline">\(Z_{CL}\)</span>) of <span
+class="math inline">\(Z_{99.9} = 3.29\)</span>, such that, the CI
+calculation would be:</p>
+<p><span class="math inline">\(CI_{99.9} = \mu \pm
+3.29{\sigma}\)</span></p>
+</div>
+</div>
+<div id="section-13" class="section level1">
+<h1></h1>
+<p>However, because the above formula relies on <span
+class="math inline">\(\sigma\)</span>, which is an unknown population
+parameter – the standard deviation of a variable from the population.
+Our best guess of that standard deviation population parameter is the
+standard deviation statistic from our sample, or <span
+class="math inline">\(SD\)</span>, but our sample standard deviation is
+based on fewer cases than the the standard deviation from the population
+. As such, we need to adjust the size of <span
+class="math inline">\(SD\)</span> based on our sample size, creating a
+new value we can plug in in place of <span
+class="math inline">\(\sigma\)</span>, which is called Standard Error of
+the Mean: <span class="math inline">\(SE = \frac{SD}{\sqrt N}\)</span>.
+Moreover, because we are relying on data from a sample, we also need to
+rely on sample statistics, rather than population parameters <span
+class="math inline">\(\bar{X}\)</span> Thus, our new confidence interval
+calculation becomes:</p>
+<p><span class="math inline">\(CI_{CL} = \bar{X} \pm
+Z_{CL}{\frac{SD}{\sqrt N}}\)</span></p>
+<p>or….</p>
+<p><span class="math inline">\(CI_{CL} = \bar{X} \pm
+Z_{CL}{SE}\)</span></p>
+<p>Below, we’ve added a CI calculation function, <span
+style="color:blue"><code>ci.calc()</code></span>, for calculating a
+confidence interval, for a given variable within a data frame (or a list
+of values), for a given confidence level.</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data frame</code> (or a <code>values list</code>)</li>
+<li><code>variable name</code> for the variable of interest</li>
+<li><code>confidence level</code></li>
+</ol>
+<p>as such…</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">ci.calc</span>(data1, mpg, <span class="dv">95</span>)</span></code></pre></div>
+<pre><code>##       Mean   CI lower   CI upper Std. Error 
+##  20.090625  18.002394  22.178856   1.065424</code></pre>
+<p>Above, we see the mean for the <code>mpg</code> variable (within the
+<code>data1</code> data frame), the lower and upper bounds for the 95
+percent confidence level, and the standard error.</p>
+</div>
+<div id="section-14" class="section level1">
+<h1></h1>
+<p>Beyond this, we could read in a values list or a variable within a
+data frame using the dollar sign operator. However, when doing this, you
+should specify when you’re reading in the confidence level. For example,
+if we wanted to calculate the 99 percent confidence interval for the
+<code>disp</code> variable from the <code>data1</code> data frame, then
+you could also run it as such:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">ci.calc</span>(data1<span class="sc">$</span>disp, <span class="at">cl=</span><span class="dv">99</span>)</span></code></pre></div>
+<pre><code>##       Mean   CI lower   CI upper Std. Error 
+##  230.72188  174.28307  287.16068   21.90947</code></pre>
+<div id="section-15" class="section level2">
+<h2></h2>
+<div id="assessing-normality-by-using-visualizations"
+class="section level3">
+<h3>Assessing Normality by Using Visualizations</h3>
+<div id="histograms" class="section level4">
+<h4>Histograms</h4>
+<p>In addition, you can create a visual representation (plot) of
+univariate data using a histogram. For quickly plotting the histogram of
+one variable, and to overlay a normal curve on our histogram, we can use
+the <span style="color:blue"><code>hst</code></span> function from the
+<code>vannstats</code> package.</p>
+<p>The <span style="color:blue"><code>hst</code></span> function for
+plotting one variable (e.g. not broken out by categories of another
+variable) takes two arguments:</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data set name</code></li>
+<li><code>variable name</code> for the variable of interest</li>
+</ol>
+<p>as such…</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">hst</span>(data1, mpg) </span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+</div>
+<div id="section-16" class="section level1">
+<h1></h1>
+<p>However, as we begin to move into analyzing bivariate relationships,
+we may find it necessary to visualize histograms by breaking them out by
+levels or categories of different variables.</p>
+<p>To plot the histogram for mpg broken out by cylinders… use the same
+<span style="color:blue"><code>hst</code></span> function, from the
+<code>vannstats</code> package, and simply add a third (and even up to a
+fourth argument):</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data set name</code></li>
+<li><code>variable name</code> for the variable of interest</li>
+<li><code>(first) grouping variable name</code></li>
+<li><code>(second) grouping variable name</code></li>
+</ol>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">hst</span>(data1, mpg, cyl)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="section-17" class="section level1">
+<h1></h1>
+<div id="boxplots-box-and-whisker-plots" class="section level4">
+<h4>Boxplots (Box-and-Whisker Plots)</h4>
+<p>Boxplots also provide a visual representation of the normality of a
+distribution. The boxplot has a box, a line through the box, two
+whiskers on either end of the box, and sometimes dots/points outside the
+whiskers. Below, we get a sense of what each part of the boxplot
+represents…</p>
+<ul>
+<li>Bottom (or left end) <strong>whisker</strong> represents a point
+that is <em>less than or equal to</em> the calculation: 1.5x the size of
+the interquartile range (IQR). If there is an actual data point at that
+value, then the bottom whisker represents that point. However, if there
+is not an actual data point there, the bottom whisker is <em>pulled
+inward</em> to fall at the closest but <em>less extreme</em> data
+point.</li>
+<li>Bottom (or left end) of the <strong>box</strong> represents the
+first quartile (the 25th percentile case)</li>
+<li>Middle line (or dot) inside the <strong>box</strong> represents the
+median, also known as the second quartile (the 50th percentile
+case)</li>
+<li>Top (or right end) of the <strong>box</strong> represents the third
+quartile (the 75th percentile case)</li>
+<li>Top (or right end) <strong>whisker</strong> represents a point that
+is <em>less than or equal to</em> than the calculation: 1.5x the size of
+the interquartile range (IQR). If there is an actual data point at that
+value, then the top whisker represents that point. However, if there is
+not an actual data point there, the top whisker is <em>pulled
+inward</em> to fall at the closest but <em>less extreme</em> data point.
+of the <strong>whisker</strong> represents the maximum score for that
+variable’s distribution, or, more appropriately, a distance above the
+mean that is 1.5x the size of the interquartile range (IQR).<br />
+</li>
+<li>Outside dots represent outliers - extreme high or extreme low values
+for that variable.</li>
+</ul>
+</div>
+</div>
+<div id="section-18" class="section level1">
+<h1></h1>
+</div>
+<div id="section-19" class="section level1">
+<h1></h1>
+<p>To tell if a variable is normally-distributed using the
+box-and-whisker plot, generally, we want to see that there is
+<em>some</em> distance between the box and the end of the whiskers, that
+the box isn’t pushed too close to either whisker, that the median line
+(dot) is near the center of the box, and that there aren’t many outliers
+(dots) on the outside of the whiskers.</p>
+</div>
+<div id="section-20" class="section level1">
+<h1></h1>
+<p>To plot a boxplot, we use the <span
+style="color:blue"><code>box</code></span> function, from the
+<code>vannstats</code> package. The function takes two arguments, if you
+<em>do not</em> want to break it out by values of another variable:</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data set name</code></li>
+<li><code>variable name</code> for the variable of interest</li>
+</ol>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">box</span>(data1, mpg)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="section-21" class="section level1">
+<h1></h1>
+<p>Further, this function takes a maximum of four arguments:</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data set name</code></li>
+<li><code>variable name</code> for the variable of interest</li>
+<li><code>(first) grouping variable name</code></li>
+<li><code>(second) grouping variable name</code></li>
+</ol>
+</div>
+<div id="section-22" class="section level1">
+<h1></h1>
+<p>To break the above boxplot out by levels of
+<strong>Cylinder</strong>, we can do the following…</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">box</span>(data1, mpg, cyl)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="section-23" class="section level1">
+<h1></h1>
+</div>
+<div id="section-24" class="section level1">
+<h1></h1>
+</div>
+<div id="section-25" class="section level1">
+<h1></h1>
+<div id="normal-q-q-quantile-quantile-plots" class="section level4">
+<h4>Normal Q-Q (Quantile-Quantile) Plots</h4>
+<p>Much as in the above, we want to assess whether or not our variable
+follows the normal distribution. As such, the quantile-quantile plot is
+a visual tool to help us figure out if the empirical distribution of our
+variable fits (or rather, comes from) a theoretical normal
+distribution.</p>
+<p>We fit a plot of our data/variable (usually on the Y-axis) against
+``theoretical data’’ that should occur if the data came from a normal
+distribution (e.g. Expected Normal on the X-axis). If our data actually
+fit a normal curve, then the dots on the plot should follow a straight
+line, or be reasonably close to the line plotted.</p>
+<p>Below, we can assess normality to determine whether our variable
+follows a normal distribution, using the <span
+style="color:blue"><code>qq</code></span> function, from the
+<code>vannstats</code> package. The function takes two arguments, if you
+<em>do not</em> want to break it out by values of another variable:</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data set name</code></li>
+<li><code>variable name</code> for the variable of interest</li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">qq</span>(data1, mpg)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+</div>
+<div id="section-26" class="section level1">
+<h1></h1>
+<p>This function also takes a maximum of four arguments:</p>
+<ol style="list-style-type: decimal">
+<li>the <code>data set name</code></li>
+<li><code>variable name</code> for the variable of interest</li>
+<li><code>(first) grouping variable name</code></li>
+<li><code>(second) grouping variable name</code></li>
+</ol>
+<p>As such, we can break this plot out by another grouping variable:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">qq</span>(data1, mpg, cyl)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+<div id="section-27" class="section level1">
+<h1></h1>
+<div id="working-with-random-normally-distributed-data"
+class="section level3">
+<h3>Working with Random, Normally-Distributed Data</h3>
+<p>R also has a number of functions that work to create random data. To
+create random, normally-distributed data, use the <span
+style="color:blue"><code>rnorm</code></span> function, which takes a
+maximum of three arguments. It should look something like this <span
+style="color:blue"><code>rnorm(100,0,1)</code></span>, where the first
+number (here, <span style="color:blue"><code>100</code></span>)
+represents the number of cases or data points you want in your random
+normally-distributed data. The second argument/number (here <span
+style="color:blue"><code>0</code></span>) is the mean that you want your
+data to have. The third number/argument (here <span
+style="color:blue"><code>1</code></span>) is the standard deviation that
+you want your data to have.</p>
+<p>Note that the <span style="color:blue"><code>rnorm</code></span>
+function takes a maximum of three arguments – and it takes a minimum of
+one argument (the number of cases/data points). The default settings for
+the <span style="color:blue"><code>rnorm</code></span> function is mean
+of 0 and a standard deviation of 1. This means that <span
+style="color:blue"><code>rnorm(100)</code></span> and <span
+style="color:blue"><code>rnorm(100,0,1)</code></span> will output
+similar means and standard deviations. Similar, not the exact same,
+because these data are <em>randomly</em> generated, so the values of the
+data points will vary a bunch but still have a mean of 0 and standard
+deviation of 1.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">100</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="section-28" class="section level1">
+<h1></h1>
+<p>Obviously, you can alter the number of cases involved.</p>
+</div>
+<div id="section-29" class="section level1">
+<h1></h1>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1] -2.02452663  1.82458652 -1.30666712 -0.20894404 -0.01630827 -0.08479549  1.30624071
+##  [8] -0.51764612 -0.20937459 -0.60647385</code></pre>
+</div>
+<div id="section-30" class="section level1">
+<h1></h1>
+<p>or…</p>
+</div>
+<div id="section-31" class="section level1">
+<h1></h1>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">100</span>)</span></code></pre></div>
+<pre><code>##   [1] -0.88882500 -0.70646416 -0.03858254  0.88911221  1.62268554 -1.25552800  0.45041774
+##   [8] -1.74861474  1.23311548 -0.68272461 -0.66755067  1.73238738 -0.40212640  0.67729190
+##  [15] -0.32924637  0.73394709 -0.35401016  0.24582943  0.49912873  0.68349434 -0.74170956
+##  [22]  0.13761568 -0.26739548  0.10316936  1.11629959 -0.34968204 -1.42107102  1.02628311
+##  [29] -1.67043516  1.26394759  1.28719207 -0.47818676 -0.05394055  0.48469438 -1.03551625
+##  [36] -1.58607750  0.06652060 -1.24242884  0.30367046 -0.14832943 -0.66938970 -0.93290860
+##  [43] -1.10217358 -0.11740305  0.33854081 -0.15168670  2.22543660  0.46744193  0.24334159
+##  [50]  0.32875646 -0.99456208  1.06544567 -0.64822294  0.28183713 -0.30418148  1.51573237
+##  [57]  0.37773978 -0.74876547  0.90761143  0.48331262  0.37919424  0.48390167  1.23851253
+##  [64]  0.57613885 -0.50670398  0.89047004 -0.89644904  0.02797364 -0.40234116  0.25140453
+##  [71]  0.28105946  0.63995592  1.02523247  1.08177194  1.05772911 -0.20610738  0.22499896
+##  [78] -1.01559788  2.14048392  1.59580983 -1.53296506  0.45381239 -0.02681106 -0.47101693
+##  [85]  0.69534045 -0.84408487 -0.64273850 -0.13408823 -1.36665744 -1.87077347 -1.22268276
+##  [92]  0.36734049  2.47896736  0.21301194  0.39343368 -1.03957088  0.67143251 -0.36937426
+##  [99] -1.08008900 -0.87988121</code></pre>
+</div>
+<div id="section-32" class="section level1">
+<h1></h1>
+<p>or even…</p>
+</div>
+<div id="section-33" class="section level1">
+<h1></h1>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1000</span>)</span></code></pre></div>
+<p>(output supressed)</p>
+</div>
+<div id="section-34" class="section level1">
+<h1></h1>
+<p>You can also use the assignment operator <span
+style="color:blue"><code>&lt;-</code></span> to assign the values of the
+<span style="color:blue"><code>rnorm</code></span> function to an
+object:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>ten<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>hundred<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>thousand<span class="ot">&lt;-</span><span class="fu">rnorm</span>(<span class="dv">1000</span>)</span></code></pre></div>
+</div>
+<div id="section-35" class="section level1">
+<h1></h1>
+<p>Then you can run univariate statistics on those data, and even create
+a histogram for the data:</p>
+</div>
+<div id="section-36" class="section level1">
+<h1></h1>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">mean</span>(thousand)</span></code></pre></div>
+<pre><code>## [1] 0.01855052</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">median</span>(thousand)</span></code></pre></div>
+<pre><code>## [1] 0.05406527</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">sd</span>(thousand)</span></code></pre></div>
+<pre><code>## [1] 1.011277</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="fu">min</span>(thousand)</span></code></pre></div>
+<pre><code>## [1] -3.779253</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">max</span>(thousand)</span></code></pre></div>
+<pre><code>## [1] 3.65536</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>range<span class="ot">&lt;-</span><span class="fu">max</span>(thousand)<span class="sc">-</span><span class="fu">min</span>(thousand)</span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>range</span></code></pre></div>
+<pre><code>## [1] 7.434613</code></pre>
+</div>
+<div id="section-37" class="section level1">
+<h1></h1>
+</div>
+<div id="section-38" class="section level1">
+<h1></h1>
+</div>
+<div id="section-39" class="section level1">
+<h1></h1>
+<p>Finally, you can plot the histograms to see how they differ when
+altering the number of cases:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">hst</span>(ten)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">hst</span>(hundred)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">hst</span>(thousand)</span></code></pre></div>
+<p><img src="univariate-normality_files/figure-html/unnamed-chunk-22-3.png" width="672" /></p>
+<p>So now you know that the more cases/data points you have, the more
+your data will mimic the normal distribution (bell curve).</p>
+<p><br><br><br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

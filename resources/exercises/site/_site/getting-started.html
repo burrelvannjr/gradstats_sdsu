@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Getting Started with RStudio</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="markdown3.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RStudio Walkthroughs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    Getting Started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installing.html">Downloading/Installing</a>
+    </li>
+    <li>
+      <a href="getting-started.html">Getting Started with RStudio</a>
+    </li>
+    <li>
+      <a href="reading-in-data.html">Reading in Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chart-line"></span>
+     
+    In-Class
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Univariate Statistics</li>
+    <li>
+      <a href="univariate-normality.html">Descriptive Statistics and Assessing Normality</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="t-test.html">Independent Samples t-Test</a>
+    </li>
+    <li>
+      <a href="anova.html">One-Way Analysis of Variance (ANOVA)</a>
+    </li>
+    <li>
+      <a href="chi-square.html">Chi Square Test of Independence</a>
+    </li>
+    <li>
+      <a href="correlation.html">Correlation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Multivariate Statistics</li>
+    <li>
+      <a href="regression.html">OLS Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Additional Materials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="chi-square-gof.html">Chi Square Goodness of Fit</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Getting Started with RStudio</h1>
+
+</div>
+
+
+<hr />
+<div id="what-is-rstudio-like" class="section level3">
+<h3>What is RStudio like?</h3>
+<p>Open the RStudio program, which should be linked to R.</p>
+<p><img src="rstudio.png" alt="R Studio Window" /> <br><br><br></p>
+<p>There are various windows within RStudio, including the Script
+window, where all your codes are viewable:</p>
+<p><img src="script.png" alt="Script Window" /> <br><br><br></p>
+<p>The R console window where you paste and run your code:</p>
+<p><img src="R%20console.png" alt="R Console Window" /> <br><br><br></p>
+<p>The Environment window, where your data and background processes are
+viewable:</p>
+<p><img src="environment.png" alt="Environment Window" />
+<br><br><br></p>
+<p>And the Plot/Viewer window, where your output figures/diagrams, help
+information, and file viewer are located:</p>
+<p><img src="plot_package_viewer.png" alt="Viewer Window" />
+<br><br></p>
+</div>
+<div id="getting-familiar-with-r" class="section level3">
+<h3>Getting Familiar with R</h3>
+</div>
+<div id="section" class="section level1">
+<h1></h1>
+<div id="setting-the-working-directory" class="section level4">
+<h4>Setting the Working Directory</h4>
+<p>Before running analyses, you have to set your working directory. This
+is the folder where your data/output is and will be saved. For example,
+I use the following:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#setwd(&quot;/Users/burrelvannjr/Desktop/PA606&quot;)</span></span></code></pre></div>
+</div>
+</div>
+<div id="section-1" class="section level1">
+<h1></h1>
+<p>This will be different for you. To set your working directory, use
+<span style="color:blue"><code>setwd("directory")</code></span>, and
+replace the word “directory” with the <em>pathname</em> of the folder
+you want to be your directory (or under the <strong>Session</strong>
+menu, select <strong>Set Working Directory</strong>, then select
+<strong>Choose Directory</strong> and navigate to your desired
+folder).</p>
+<div id="a-note-on-commenting" class="section level4">
+<h4>A Note on Commenting</h4>
+<p>Througout any script, you’ll also notice a line of text with a pound
+sign (e.g. hashtag) preceding it, like this <span
+style="color:green"><code>#this is a how to calculate a mean</code></span>.
+This is a <strong>comment</strong>, which is just a note to yourself.
+Comments remind the user what the a bit of code is supposed to do.</p>
+</div>
+</div>
+<div id="section-2" class="section level1">
+<h1></h1>
+</div>
+<div id="section-3" class="section level1">
+<h1></h1>
+<div id="installing-packages-and-loading-as-libraries"
+class="section level4">
+<h4>Installing Packages and Loading as Libraries</h4>
+<p>Because R is and open-source statistical program, many of its
+functions are built by programmers in the form of
+<strong>packages</strong> or <strong>libraries</strong>. Most of these
+are published and hosted on the <a
+href="https://cran.r-project.org/">Comprehensive R Archive Network
+(CRAN)</a> website. We will be using 3 main packages in this exercise:
+the <span style="color:blue"><code>MASS</code></span>, the <span
+style="color:blue"><code>psych</code></span>, and the <span
+style="color:blue"><code>car</code></span>.</p>
+</div>
+</div>
+<div id="section-4" class="section level1">
+<h1></h1>
+<p>Install the packages from the repository (copy and paste the lines
+below)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;MASS&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;psych&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;vannstats&quot;</span>)</span></code></pre></div>
+</div>
+<div id="section-5" class="section level1">
+<h1></h1>
+<p>Load the packages as libraries</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">library</span>(vannstats)</span></code></pre></div>
+<div id="working-with-data" class="section level3">
+<h3>Working with Data</h3>
+</div>
+</div>
+<div id="section-6" class="section level1">
+<h1></h1>
+<div id="calculations" class="section level4">
+<h4>Calculations</h4>
+<p>In R/RStudio, we can use the Script (and Console) window to make
+calculations. For example, we can run the following…</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+</div>
+</div>
+<div id="section-7" class="section level1">
+<h1></h1>
+<div id="the-assignment-operator-for-creating-objects"
+class="section level4">
+<h4>The Assignment Operator for Creating Objects</h4>
+</div>
+</div>
+<div id="section-8" class="section level1">
+<h1></h1>
+<p>The great thing about R is that, because it is an object-oriented
+programming language, you can assign <strong>object names</strong> to
+any calculation or data set. This creates a working copy of the
+calculation (or data set) in R’s memory that you can run operations on.
+To do so, you simply must assign an object name using a <em>left
+arrow</em> (the assignment operator) like this: <span
+style="color:blue"><code>new_object &lt;- dataset</code></span>. For
+example, we could run…</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div>
+<p>… and then run…</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>… which gives us the same result, but now we can run manipulations on
+the new object (or variable) <strong>x</strong>.</p>
+</div>
+<div id="section-9" class="section level1">
+<h1></h1>
+<div id="creating-a-list-as-an-object" class="section level4">
+<h4>Creating a List as an Object</h4>
+<p>Sometimes, for quick analyses, you may need to read in a list of
+numbers (in your working Environment). To read in a list, you use the
+concatenate <span style="color:blue"><code>c</code></span> function. You
+can create a list by replacing the word “LIST” from this with the actual
+list: <span style="color:blue"><code>c(LIST)</code></span>.</p>
+<p>To create an object out of a list of numbers, we could do the
+following…</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>)</span></code></pre></div>
+<p>Now that <span style="color:blue"><code>list</code></span> is a
+useable object, we can run manipulations and univariate statistics on it
+(described below).</p>
+<p>In addition, you can use the <span
+style="color:blue"><code>c</code></span> or concatenate function to
+manually input <strong>columns</strong> of data (variables) and merge
+them into one data frame.</p>
+<p>Let’s say someone sent you the following image:</p>
+<p><img src="data_image.png" width="200px" /></p>
+<p>We could insert the data, one variable at a time, each as a new list
+object:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>race <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;white&quot;</span>,<span class="st">&quot;latinx&quot;</span>,<span class="st">&quot;white&quot;</span>,<span class="st">&quot;latinx&quot;</span>,<span class="st">&quot;black&quot;</span>,<span class="st">&quot;other&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>income <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">57000</span>,<span class="dv">85500</span>,<span class="dv">88000</span>,<span class="dv">43000</span>,<span class="dv">45000</span>,<span class="dv">91500</span>,<span class="dv">79000</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>party <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;democrat&quot;</span>,<span class="st">&quot;democrat&quot;</span>,<span class="st">&quot;independent&quot;</span>,<span class="st">&quot;republican&quot;</span>,<span class="st">&quot;democrat&quot;</span>,<span class="st">&quot;democrat&quot;</span>,<span class="st">&quot;independent&quot;</span>)</span></code></pre></div>
+<p>Next, we can view the lists by calling the object names:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>race</span></code></pre></div>
+<pre><code>## [1] &quot;black&quot;  &quot;white&quot;  &quot;latinx&quot; &quot;white&quot;  &quot;latinx&quot; &quot;black&quot;  &quot;other&quot;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>income</span></code></pre></div>
+<pre><code>## [1] 57000 85500 88000 43000 45000 91500 79000</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>party</span></code></pre></div>
+<pre><code>## [1] &quot;democrat&quot;    &quot;democrat&quot;    &quot;independent&quot; &quot;republican&quot;  &quot;democrat&quot;    &quot;democrat&quot;   
+## [7] &quot;independent&quot;</code></pre>
+<p>To merge these objects together, we use the <span
+style="color:blue"><code>cbind</code></span> (or column bind) function –
+which converts the list into a column (variable). However, the best or
+more appropriate way is to merge objects into a data frame, using the
+<span style="color:blue"><code>data.frame</code></span> function.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(race,income,party)</span></code></pre></div>
+<p>And the data should now be presented as a data frame:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>data</span></code></pre></div>
+<pre><code>##     race income       party
+## 1  black  57000    democrat
+## 2  white  85500    democrat
+## 3 latinx  88000 independent
+## 4  white  43000  republican
+## 5 latinx  45000    democrat
+## 6  black  91500    democrat
+## 7  other  79000 independent</code></pre>
+</div>
+</div>
+<div id="section-10" class="section level1">
+<h1></h1>
+<div id="removing-objects-from-your-environment" class="section level4">
+<h4>Removing Objects from your Environment</h4>
+<p>Many times, we’ll be working with several objects, and ultimately
+decide that some of them are no longer needed. In this case, we would
+want to tidy up our environment by removing an object. To do so, we must
+use the <span style="color:blue"><code>rm</code></span> function. You
+can do it like this, changing the word “OBJECT” to the name of the
+object that you’re trying to remove from the R environment: <span
+style="color:blue"><code>rm(OBJECT)</code></span>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">rm</span>(x)</span></code></pre></div>
+</div>
+</div>
+<div id="section-11" class="section level1">
+<h1></h1>
+</div>
+<div id="section-12" class="section level1">
+<h1></h1>
+<div id="reading-in-csv-data-sets" class="section level4">
+<h4>Reading in CSV Data Sets</h4>
+<p>Many data sets that researchers work with come in the form of a
+<strong>CSV</strong> file. A CSV (Comma Separated Values) file is just a
+Microsoft Excel spreadsheet (with rows as observations and columns as
+variables), that is converted into CSV format.</p>
+<p>A CSV file must be “read” into the R environment for you to use it.
+To do so, you’ll have to call in the CSV file (data set) with one of R’s
+functions: the <span style="color:blue"><code>read.csv</code></span>
+function. Additionally, you will have to give the CSV a new object name
+(using the assignment operator <strong>&lt;-</strong>), so we can place
+it in our working environment. You can do it like this, changing the
+word “PATHNAME” to the pathname to the csv file you’re reading into the
+R environment: <span
+style="color:blue"><code>data1 &lt;- read.csv("PATHNAME.csv", header=TRUE, sep=",")</code></span>.</p>
+</div>
+</div>
+<div id="section-13" class="section level1">
+<h1></h1>
+<div id="working-with-stock-data-sets-in-r" class="section level4">
+<h4>Working with Stock Data Sets in R</h4>
+<p>Fortunately, nearly every package in R comes with a data set that R
+users can use. <em>To see which stock data sets are installed in your
+version of R, use the</em> <span
+style="color:blue"><code>data()</code></span> <em>function.</em> The
+<span style="color:blue"><code>MASS</code></span> package, for example,
+comes with a great data set on car manufacturers called <span
+style="color:blue;background:none"><code>mtcars</code></span>. #</p>
+</div>
+<div id="getting-information-aboutcodebook-for-stock-data-sets-in-r"
+class="section level4">
+<h4>Getting Information about/Codebook for Stock Data Sets in R</h4>
+<p>Before loading the data set, you might want to know more about it. In
+order to get information about a data set (including the data set
+description, the size of the data set, and variable names and
+descriptions), you need to ask R. <em>To do so, you need use the</em>
+<span style="color:blue"><code>??</code></span>
+<em>(double-question-mark) function</em> as such…</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>??mtcars</span></code></pre></div>
+</div>
+</div>
+<div id="section-14" class="section level1">
+<h1></h1>
+<div id="working-with-stock-data-sets-in-r-1" class="section level4">
+<h4>Working with Stock Data Sets in R</h4>
+<p>To use the <span style="color:blue"><code>mtcars</code></span> data
+set, you must call it. Calling the data will load it into your console
+window. To call a stock data set, just type in the name of the data set
+(<em>Note: The data set you’re calling must come from a package that is
+already LOADED into your R session</em>). Because the <span
+style="color:blue;background:none"><code>MASS</code></span> package is
+already loaded, we can call our <span
+style="color:blue;background:none"><code>mtcars</code></span> data set
+as such…</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>mtcars</span></code></pre></div>
+<pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+</div>
+</div>
+<div id="section-15" class="section level1">
+<h1></h1>
+<p>While this is great, and the data set is loaded into your console
+window, you will need a local copy to run operations on. To create a
+local copy (an object) so that you can run manipulations on the <span
+style="color:blue"><code>mtcars</code></span> data, you should create a
+new object, like this:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> mtcars</span></code></pre></div>
+</div>
+<div id="section-16" class="section level1">
+<h1></h1>
+</div>
+<div id="section-17" class="section level1">
+<h1></h1>
+<p>Like above, you can now call <span
+style="color:blue"><code>data1</code></span>, and it will load the same
+data set into your console window (not shown here). In addition, in
+RStudio, after you give the data a new name (converting it to a usable
+object), you can view the data in your upper-right
+<strong>Environment</strong> window.</p>
+</div>
+<div id="section-18" class="section level1">
+<h1></h1>
+<div id="calling-information-for-a-variable" class="section level4">
+<h4>Calling information for a Variable</h4>
+<p>To call a specific <em>variable</em> or column within the data set,
+you simply use the dollar sign operator <span
+style="color:blue"><code>$</code></span>, in the form of <span
+style="color:blue"><code>data$variable</code></span>. To call the <span
+style="color:blue"><code>mpg</code></span> variable from the new <span
+style="color:blue"><code>data1</code></span> data set, we use the
+following.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>data1<span class="sc">$</span>mpg</span></code></pre></div>
+<pre><code>##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4 10.4 14.7
+## [18] 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7 15.0 21.4</code></pre>
+</div>
+</div>
+<div id="section-19" class="section level1">
+<h1></h1>
+<div id="recoding-values-within-a-variable" class="section level3">
+<h3>Recoding Values within a Variable</h3>
+<p>If we wanted to recode values of a variable, we could do so using the
+<span style="color:blue"><code>recode</code></span> function within the
+<code>car</code> package. Using the recode function, we need the name of
+the new variable we want to place in the data set, the name of the old
+variable we want to recode, and the recoded values.</p>
+<p>Let’s say we wanted to recode the <code>cyl</code> variable.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">unique</span>(data1<span class="sc">$</span>cyl)</span></code></pre></div>
+<pre><code>## [1] 6 4 8</code></pre>
+<p>As can be seen, it currently has 3 unique values: 4, 6, and 8, which
+represent cars that are 4-cylinder, 6-cylinder, and 8-cylinder vehicles.
+Let’s recode it into a binary variable (0,1) representing <em>whether or
+not</em> the car is a gas guzzler.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>data1<span class="sc">$</span>gas_guzzler <span class="ot">&lt;-</span> <span class="fu">recode</span>(data1<span class="sc">$</span>cyl, <span class="st">&quot;4= 0; 6 = 1; 8 = 1&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Unreplaced values treated as NA as `.x` is not compatible.
+## Please specify replacements exhaustively or supply `.default`.</code></pre>
+<p>As can be seen above, I’ve recoded the <code>cyl</code> variable into
+a new variable called <code>gas_guzzler</code>. As we can see, any
+observation (car) that is a 4-cylinder (has a value of 4 on the
+<code>cyl</code> variable) or a 6-cylinder (has a value of 6 on the
+<code>cyl</code> variable), was recoded as 0 on the new
+<code>gas_guzzler</code> variable. This means it is <em>not</em> a gas
+guzzler. Additionally, any observation (car) that is an 8-cylinder (has
+a value of 8 on the <code>cyl</code> variable) was recoded as 1 on the
+new <code>gas_guzzler</code> variable, meaning that it <em>is</em> a gas
+guzzler.</p>
+<p>Importantly, any additional values that exist in the <code>cyl</code>
+variable, that you did not specify with a recode value, will be given an
+<code>NA</code> (missing) value.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">unique</span>(data1<span class="sc">$</span>gas_guzzler)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>As seen above, we’ve successfully recoded this variable, from 3
+unique values in the <code>cyl</code> variable, to 2 unique values in
+the <code>gas_guzzler</code> variable.</p>
+</div>
+</div>
+<div id="section-20" class="section level1">
+<h1></h1>
+</div>
+<div id="section-21" class="section level1">
+<h1></h1>
+<p>Additionally, you can use several different calls within the recode
+function. Including the: concatenate (<code>c()</code>) function to
+create a list of values to recode, the <code>lo:</code> function (where
+you tell R to recode from the lowest value to whatever value follows the
+colon), the <code>:hi</code> function (where you tell R to recode from
+whatever value precedes the colon to the highest value), and the
+<code>else</code> function to recode everything else you missed as a
+specific value (rather than an <code>NA</code> missing value).</p>
+</div>
+<div id="section-22" class="section level1">
+<h1></h1>
+<pre><code>data1$type &lt;- recode(data1$cyl, &quot;c(4,6) = 0; 8 = 1&quot;)
+data1$type2 &lt;- recode(data1$cyl, &quot;lo:6 = 0; 8:hi = 1&quot;)
+data1$type3 &lt;- recode(data1$cyl, &quot;4 = 0; 6 = 0; 8 = 1; else = 1&quot;)</code></pre>
+</div>
+<div id="section-23" class="section level1">
+<h1></h1>
+</div>
+<div id="section-24" class="section level1">
+<h1></h1>
+<div id="additional-r-resources" class="section level3">
+<h3>Additional R Resources</h3>
+<p><a href="https://r4ds.had.co.nz/index.html">R for Data Science</a>
+<br> <a href="https://gov2002.mattblackwell.org/materials/">Dr. Matt
+Blackwell’s Advanced Quant Methods Course in Political Science</a> <br>
+<a href="https://dssoc.github.io/schedule/">Dr. Chris Bail’s Data &amp;
+Society Course</a> <br> Summer Institute in Computational Social Science
+- [ <a
+href="https://github.com/compsocialscience/summer-institute/tree/master/2020/materials">Github
+Repo of 2020 Materials</a>, <a
+href="https://sicss.io/2019/princeton/schedule">2019 Materials</a>, <a
+href="https://www.youtube.com/watch?v=zGG9wPl1C5E&amp;list=PL9UNgBC7ODr4M1_4RLr4IYcXbHPUWYMrZ">2020
+Videos (with Links)</a> ]<br></p>
+<p><br><br><br></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

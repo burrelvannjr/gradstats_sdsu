@@ -1,0 +1,66 @@
+name: "my-website"
+navbar:
+  title: "RStudio Walkthroughs"
+  type: inverse
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Getting Started"
+      icon: fa-download
+      menu:
+        - text: "Downloading/Installing"
+          href: installing.html
+        - text: "Getting Started with RStudio"
+          href: getting-started.html
+        - text: "Reading in Data"
+          href: reading-in-data.html
+    - text: "In-Class"
+      icon: fa-chart-line
+      menu:
+        - text: "Univariate Statistics"
+        - text: "Descriptive Statistics and Assessing Normality"
+          href: univariate-normality.html
+        - text: "---------"
+        - text: "Bivariate Statistics"
+        - text: "Independent Samples t-Test"
+          href: t-test.html
+        - text: "One-Way Analysis of Variance (ANOVA)"
+          href: anova.html
+        - text: "Chi Square Test of Independence"
+          href: chi-square.html
+        - text: "Correlation"
+          href: correlation.html
+        - text: "---------"
+        - text: "Multivariate Statistics"
+        - text: "OLS Regression"
+          href: regression.html
+    - text: "Additional Materials"
+      icon: fa-folder-open
+      menu:
+        - text: "Bivariate Statistics"
+        - text: "Chi Square Goodness of Fit"
+          href: chi-square-gof.html
+#  right:
+#    - icon: fa-question fa-lg
+#      href: https://example.com
+#missing examples for all, missing reading in data.
+include: ["*.R"]
+exclude: ["installing.Rmd","getting-started.Rmd"]
+output:
+  html_document:
+    #toc: yes
+    #toc_float:
+    #  collapsed: true
+    theme: default
+    #highlight: textmate
+    highlight: tango
+    #include:
+      #after_body: footer.html
+    #css: styles.css
+    css: markdown3.css
+#https://rstudio.github.io/cheatsheets/html/rmarkdown.html
+#https://garrettgman.github.io/rmarkdown/rmarkdown_websites.html#publishing_websites
+#https://rpubs.com/ranydc/rmarkdown_themes
+#https://www.datadreaming.org/posts/2018-04-11-r-markdown-theme-gallery/2018-04-11-r-markdown-theme-gallery.html
+#https://9to5flow.com/using-colors-in-r-markdown/

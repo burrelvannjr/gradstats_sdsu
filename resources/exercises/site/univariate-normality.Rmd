@@ -1,0 +1,419 @@
+---
+title: "Univariate/Descriptive Statistics & Normality"
+---
+---
+
+### Univariate/Descriptive Statistics
+
+There are various ways to call a number of univariate statistics in R. As social scientists, the main univariate statistics we are concerned with are the mean, median, standard deviation, minimum, maximum, and range. The stock R program comes with the <span style="color:blue">`summary`</span> function, which, unfortunately, does not provide the *some* measures. Therefore, we use the <span style="color:blue">`describe`</span> function from the <span style="color:blue">`psych`</span> package. We can call univariate statistics for both the full data set and a specific variable.
+
+First, let's load the packages as libraries
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+library(MASS)
+library(psych)
+library(vannstats)
+```
+
+And create the `data1` object out of the `mtcars` data. 
+
+```{r}
+data1 <- mtcars
+```
+
+
+
+#
+
+For the full data set, we can call univariate statistics as such... 
+
+```{r}
+describe(data1)
+```
+
+#
+
+Whereas, for a specific variable, we can call univariate statistics as such...
+
+```{r}
+describe(data1$mpg)
+```
+
+#
+
+In addition, we can call univariate statistics for a variable but broken out by groups/categories of another variable. Note, this is the first step towards bivarate statistics (looking at the relationship between two variables). We do this by using the <span style="color:blue">`describeBy`</span> function, where we list the main variable first, and the grouping/category variable second... as such... 
+
+```{r}
+describeBy(data1$mpg, data1$cyl)
+```
+
+#
+Above, we can see that the mean miles per gallon differs by the number of cylinders in a car (e.g. cars with lower cylinders have, on average, higher miles per gallon).
+
+#
+
+#
+
+#### A Note on Skewness and Kurtosis
+
+**Skewness** is the measure of how close or far a distribution is from symmetry (the normal curve). While it summarizes clustering of scores along the X-axis, with regard to the position of the mode, median, and mean, skewness is also  concerned with *length/width* of the tails of the distribution, relative to one another. 
+
+**Kurtosis** is sometimes referred to as a measure of the *peakedness* of the distribution, and how different the distribution is from mesokurtic (e.g. middle kurtosis, or the normal curve). Statisticians have argued that [**kurtosis**](http://www.r-tutor.com/elementary-statistics/numerical-measures/kurtosis) is, more appropriately, a measure of the *height/thickness* of the tails of the distribution.
+
+
+#
+
+Skewness ranges from $-\infty$ to $\infty$. The sign indicates the type of skew, with $-$ indicating negative skewness, $+$ indicating positive skewness, and 0 indicating *no* skew... (AKA symmetry, AKA the normal curve). The cutoffs for skewness are as follows:
+
+High: $\geq |1|$
+
+Moderate: $|1| \geq x \geq |.5|$
+
+Low: $|.5| \geq x \geq |0|$
+
+#
+#
+
+Statisticians have developed a kurtosis measure that represents *excess* kurtosis beyond the normal curve (*although typical kurtosis ranges from 1 to $+ \infty$*). This excess kurtosis measure [**ranges from**](https://stats.stackexchange.com/a/245953) $-2$ to $+ \infty$. Using this metric, negative values represent platykurtic distributions and positive values indicate leptokurtic distributions. Distributions close to a kurtosis value of 0 are considered mesokurtic. We use cutoffs to indicate types of kurtosis, as follows...
+
+Platykurtic: $-2 \leq x \lt 0$; or $x \lt 0$
+
+Mesokurtic: $x \approx 0$
+
+Leptokurtic: $+ \infty \geq x \gt 0$; or $x \gt 0$
+
+
+#
+
+# 
+
+#### Calling Specific Univariate Statistics
+
+Beyond using the <span style="color:blue">`describe`</span> function, you can call singular desired univariate statistics. Here, we'll ask for a specific univariate statistic, one at a time, for the <span style="color:blue">`mpg`</span> variable.
+
+#
+
+Below, we've added the option for <span style="color:blue">`, na.rm=T`</span> (alternatively, <span style="color:blue">`, na.rm=TRUE`</span>), meaning that if data or observations are missing/NA for the variables we're working with, we still want R to calculate the statistic for the non-missing cases by removing those missing cases (NAs), select TRUE. 
+
+
+```{r}
+mean(data1$mpg, na.rm=T)
+median(data1$mpg, na.rm=T)
+sd(data1$mpg, na.rm=T)
+min(data1$mpg, na.rm=T)
+max(data1$mpg, na.rm=T)
+range(data1$mpg, na.rm=T)
+```
+
+
+### Standardized Scores (Z-Scores) and Interval Estimates around Means (CI)
+
+#### Z-Score
+
+Recall that Z-scores are standardized scores -- how close or far an observation's score is from the mean, in standard deviation units. These are relative scores because the standard deviation (as well as the mean) incorporates information from all other observations. 
+
+The calculation for Z-scores is: 
+
+$Z = \frac{(X - \mu)}{\sigma}$
+
+But, the above calculation relies on population parameters $\mu$, (the population mean) and $\sigma$, (the population standard deviation), which we often do not have information on. Instead, the calculation, for each observation's Z-score, is:
+ 
+$Z_{i} = \frac{(X_{i} - \bar{X})}{SD}$
+
+where... <br>
+
+* $X_{i}$ is the raw score for a given observation<br>
+* $\bar{X}$ is the mean for all observations <br>
+* $SD$ is the standard deviation for all observations <br>
+
+For example, if we wanted to calculate a Z-score for the combined MPG of a Subaru Outback, which is 29 MPG, relative to all other cars in the **mtcars** data set, we would use the formula: 
+
+$Z_{Outback} = \frac{(29 - \bar{X}_{mtcars\$mpg})}{SD_{mtcars\$mpg}}$
+
+
+
+Luckily, I've created a Z-score calculation function, <span style="color:blue">`z.calc()`</span>, for calculating a z-score for a value, given the mean and standard deviation for a variable within a data frame (or a list of values).
+
+1. the `data frame` (or a `values list`)
+2. `variable name` for the variable of interest
+3. `raw score`
+
+as such...
+
+
+```{r}
+z.calc(data1, mpg, 29)
+```
+
+This indicates that the MPG for the Outback is 1.478 standard deviation units above the mean.
+
+#
+
+
+
+#### Confidence Intervals
+
+Recall that Z-scores are standardized scores -- how close or far an observation's score is from the mean, in standard deviation units. These are relative scores because the standard deviation (as well as the mean) incorporates information from all other observations. 
+
+The calculation for confidence intervals is: 
+
+$CI = \mu \pm Z {\sigma}$
+
+...or, more appropriately, the calculation for a given confidence interval, based on a given confidence level (CL) is: 
+
+$CI_{CL} = \mu \pm Z_{CL}{\sigma}$
+
+where... <br>
+
+* $CL$ represents the Confidence Level you're interested in using (e.g. 95%, 99%, 99.9%, etc.) <br>
+* $Z_{CL}$ represents the Z-score associated with that Confidence Level you're using (e.g. 95%, 99%, 99.9%, etc.) <br>
+
+For example, for the 99.9% CI, we would have an associated Z-score ($Z_{CL}$) of $Z_{99.9} = 3.29$, such that, the CI calculation would be:
+
+$CI_{99.9} = \mu \pm 3.29{\sigma}$
+
+#
+
+However, because the above formula relies on $\sigma$, which is an unknown population parameter -- the standard deviation of a variable from the population. Our best guess of that standard deviation population parameter is the standard deviation statistic from our sample, or $SD$, but our sample standard deviation is based on fewer cases than the the standard deviation from the population . As such, we need to adjust the size of $SD$ based on our sample size, creating a new value we can plug in in place of $\sigma$, which is called Standard Error of the Mean: $SE = \frac{SD}{\sqrt N}$. Moreover, because we are relying on data from a sample, we also need to rely on sample statistics, rather than population parameters $\bar{X}$ Thus, our new confidence interval calculation becomes:
+
+$CI_{CL} = \bar{X} \pm Z_{CL}{\frac{SD}{\sqrt N}}$
+
+or....
+
+$CI_{CL} = \bar{X} \pm Z_{CL}{SE}$
+
+Below, we've added a CI calculation function, <span style="color:blue">`ci.calc()`</span>, for calculating a confidence interval, for a given variable within a data frame (or a list of values), for a given confidence level.
+
+1. the `data frame` (or a `values list`)
+2. `variable name` for the variable of interest
+3. `confidence level`
+
+as such...
+
+
+```{r}
+ci.calc(data1, mpg, 95)
+```
+
+Above, we see the mean for the `mpg` variable (within the `data1` data frame), the lower and upper bounds for the 95 percent confidence level, and the standard error. 
+
+#
+
+Beyond this, we could read in a values list or a variable within a data frame using the dollar sign operator. However, when doing this, you should specify when you're reading in the confidence level. For example, if we wanted to calculate the 99 percent confidence interval for the `disp` variable from the `data1` data frame, then you could also run it as such:
+
+```{r}
+ci.calc(data1$disp, cl=99)
+```
+
+##
+
+### Assessing Normality by Using Visualizations
+
+#### Histograms
+
+In addition, you can create a visual representation (plot) of univariate data using a histogram. For quickly plotting the histogram of one variable, and to overlay a normal curve on our histogram, we can use the <span style="color:blue">`hst`</span> function from the `vannstats` package.
+
+The <span style="color:blue">`hst`</span> function for plotting one variable (e.g. not broken out by categories of another variable) takes two arguments:
+
+1. the `data set name`
+2. `variable name` for the variable of interest
+
+as such...
+
+```{r}
+hst(data1, mpg) 
+```
+
+#
+
+However, as we begin to move into analyzing bivariate relationships, we may find it necessary to visualize histograms by breaking them out by levels or categories of different variables. 
+
+To plot the histogram for mpg broken out by cylinders... use the same <span style="color:blue">`hst`</span> function, from the `vannstats` package, and simply add a third (and even up to a fourth argument): 
+
+1. the `data set name`
+2. `variable name` for the variable of interest
+3. `(first) grouping variable name`
+4. `(second) grouping variable name`
+
+```{r}
+hst(data1, mpg, cyl)
+```
+
+#
+
+
+
+
+#### Boxplots (Box-and-Whisker Plots)
+
+Boxplots also provide a visual representation of the normality of a distribution. The boxplot has a box, a line through the box, two whiskers on either end of the box, and sometimes dots/points outside the whiskers. Below, we get a sense of what each part of the boxplot represents...
+
++ Bottom (or left end) **whisker** represents a point that is *less than or equal to* the calculation: 1.5x the size of the interquartile range (IQR). If there is an actual data point at that value, then the bottom whisker represents that point. However, if there is not an actual data point there, the bottom whisker is *pulled inward* to fall at the closest but *less extreme* data point.
++ Bottom (or left end) of the **box** represents the first quartile (the 25th percentile case)
++ Middle line (or dot) inside the **box** represents the median, also known as the second quartile (the 50th percentile case)
++ Top (or right end) of the **box** represents the third quartile (the 75th percentile case)
++ Top (or right end)  **whisker** represents a point that is *less than or equal to* than the calculation: 1.5x the size of the interquartile range (IQR). If there is an actual data point at that value, then the top whisker represents that point. However, if there is not an actual data point there, the top whisker is *pulled inward* to fall at the closest but *less extreme* data point.
+of the **whisker** represents the maximum score for that variable's distribution, or, more appropriately, a distance above the mean that is 1.5x the size of the interquartile range (IQR).  
++ Outside dots represent outliers - extreme high or extreme low values for that variable. 
+
+#
+#
+
+To tell if a variable is normally-distributed using the box-and-whisker plot, generally, we want to see that there is *some* distance between the box and the end of the whiskers, that the box isn't pushed too close to either whisker, that the median line (dot) is near the center of the box, and that there aren't many outliers (dots) on the outside of the whiskers.
+
+#
+
+
+To plot a boxplot, we use the <span style="color:blue">`box`</span> function, from the `vannstats` package. The function takes two arguments, if you *do not* want to break it out by values of another variable:
+
+1. the `data set name`
+2. `variable name` for the variable of interest
+
+
+```{r}
+box(data1, mpg)
+```
+
+#
+
+Further, this function takes a maximum of four arguments: 
+
+1. the `data set name`
+2. `variable name` for the variable of interest
+3. `(first) grouping variable name`
+4. `(second) grouping variable name`
+
+#
+
+To break the above boxplot out by levels of **Cylinder**, we can do the following...
+
+```{r}
+box(data1, mpg, cyl)
+```
+
+
+
+#
+#
+#
+
+#### Normal Q-Q (Quantile-Quantile) Plots
+
+Much as in the above, we want to assess whether or not our variable follows the normal distribution. As such, the quantile-quantile plot is a visual tool to help us figure out if the empirical distribution of our variable fits (or rather, comes from) a theoretical normal distribution.
+
+We fit a plot of our data/variable (usually on the Y-axis) against ``theoretical data'' that should occur if the data came from a normal distribution (e.g. Expected Normal on the X-axis). If our data actually fit a normal curve, then the dots on the plot should follow a straight line, or be reasonably close to the line plotted. 
+
+Below, we can assess normality to determine whether our variable follows a normal distribution, using the <span style="color:blue">`qq`</span> function, from the `vannstats` package. The function takes two arguments, if you *do not* want to break it out by values of another variable: 
+
+1. the `data set name`
+2. `variable name` for the variable of interest
+
+
+```{r}
+qq(data1, mpg)
+```
+
+#
+
+This function also takes a maximum of four arguments: 
+
+1. the `data set name`
+2. `variable name` for the variable of interest
+3. `(first) grouping variable name`
+4. `(second) grouping variable name`
+
+
+As such, we can break this plot out by another grouping variable:
+
+```{r}
+qq(data1, mpg, cyl)
+```
+
+#
+
+
+### Working with Random, Normally-Distributed Data
+
+R also has a number of functions that work to create random data. To create random, normally-distributed data, use the <span style="color:blue">`rnorm`</span> function, which takes a maximum of three arguments. It should look something like this <span style="color:blue">`rnorm(100,0,1)`</span>, where the first number (here, <span style="color:blue">`100`</span>) represents the number of cases or data points you want in your random normally-distributed data. The second argument/number (here <span style="color:blue">`0`</span>) is the mean that you want your data to have. The third number/argument (here <span style="color:blue">`1`</span>) is the standard deviation that you want your data to have. 
+
+Note that the <span style="color:blue">`rnorm`</span> function takes a maximum of three arguments -- and it takes a minimum of one argument (the number of cases/data points). The default settings for the <span style="color:blue">`rnorm`</span> function is mean of 0 and a standard deviation of 1. This means that <span style="color:blue">`rnorm(100)`</span> and <span style="color:blue">`rnorm(100,0,1)`</span> will output similar means and standard deviations. Similar, not the exact same, because these data are *randomly* generated, so the values of the data points will vary a bunch but still have a mean of 0 and standard deviation of 1. 
+
+```{r, results="hide"}
+rnorm(100,0,1)
+rnorm(100)
+```
+
+# 
+
+Obviously, you can alter the number of cases involved.
+
+# 
+
+
+```{r}
+rnorm(10)
+```
+
+# 
+
+or...
+
+# 
+
+```{r}
+rnorm(100)
+```
+
+# 
+
+or even...
+
+# 
+
+```{r, results="hide"}
+rnorm(1000)
+```
+(output supressed)
+
+# 
+
+You can also use the assignment operator <span style="color:blue">`<-`</span> to assign the values of the <span style="color:blue">`rnorm`</span> function to an object:
+
+```{r}
+ten<-rnorm(10)
+hundred<-rnorm(100)
+thousand<-rnorm(1000)
+```
+
+# 
+
+Then you can run univariate statistics on those data, and even create a histogram for the data:
+
+# 
+
+```{r}
+mean(thousand)
+median(thousand)
+sd(thousand)
+min(thousand)
+max(thousand)
+range<-max(thousand)-min(thousand)
+range
+```
+#
+# 
+# 
+
+Finally, you can plot the histograms to see how they differ when altering the number of cases:
+
+```{r}
+hst(ten)
+hst(hundred)
+hst(thousand)
+```
+
+So now you know that the more cases/data points you have, the more your data will mimic the normal distribution (bell curve).
+
+
+
+<br><br><br>

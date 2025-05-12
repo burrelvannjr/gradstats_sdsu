@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Correlation Example</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="markdown3.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">RStudio Walkthroughs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-download"></span>
+     
+    Getting Started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installing.html">Downloading/Installing</a>
+    </li>
+    <li>
+      <a href="getting-started.html">Getting Started with RStudio</a>
+    </li>
+    <li>
+      <a href="reading-in-data.html">Reading in Data</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-chart-line"></span>
+     
+    In-Class
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Univariate Statistics</li>
+    <li>
+      <a href="univariate-normality.html">Descriptive Statistics and Assessing Normality</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="t-test.html">Independent Samples t-Test</a>
+    </li>
+    <li>
+      <a href="anova.html">One-Way Analysis of Variance (ANOVA)</a>
+    </li>
+    <li>
+      <a href="chi-square.html">Chi Square Test of Independence</a>
+    </li>
+    <li>
+      <a href="correlation.html">Correlation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Multivariate Statistics</li>
+    <li>
+      <a href="regression.html">OLS Regression</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Additional Materials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Bivariate Statistics</li>
+    <li>
+      <a href="chi-square-gof.html">Chi Square Goodness of Fit</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Correlation Example</h1>
+
+</div>
+
+
+<hr />
+<div
+id="is-there-a-relationship-between-a-persons-jealousy-and-their-self-esteem"
+class="section level4">
+<h4>Is there a relationship between a person’s jealousy and their
+self-esteem?</h4>
+<p><br></p>
+</div>
+<div id="the-correlation" class="section level3">
+<h3>The correlation</h3>
+<p>The correlation (<span class="math inline">\(r\)</span>) or Pearson’s
+product-moment correlation coefficient examines the relationship between
+two interval-ratio variables to see if the relationship reflects a true
+relationship that we could expect to find in the population. The test
+also tells us the <strong>strength</strong> (weak, moderate, strong) and
+<strong>direction</strong> (positive, negative) of that relationship.
+Rarely, we will see a non-relationship or a perfect relationship.</p>
+<p>For this example, the correlation works perfectly because we’re
+looking at how a person’s self-esteem (a scale ranging from 1 – low
+self-esteem to 50 – high self-esteem), an interval-ratio level variable,
+is related to that person’s level of jealousy (a scale ranging from 50 –
+low jealousy to 150 – high jealousy), another interval-ratio variable,
+to see if there is a true relationship that would exist in the
+population.</p>
+<p><br></p>
+<div id="load-the-necessary-stuff" class="section level4">
+<h4>Load the Necessary Stuff</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(vannstats)</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="reading-in-the-data" class="section level4">
+<h4>Reading in the Data</h4>
+<p>In total, we have 20 individuals. Below, is an image of their data in
+a spreadsheet and list their respective self-esteem scores and their
+jealousy scores. The data are as follows:</p>
+<p><img src="est_jeal.png" width="200px" /></p>
+<p><strong>Self-Esteem</strong>: <span
+style="color:blue"><code>38, 32, 29, 36, 33, 36, 37, 32, 35, 26, 37, 34, 33, 33, 26, 30, 30, 40, 28, 28</code></span></p>
+<p><strong>Jealousy</strong>: <span
+style="color:blue"><code>79, 104, 113, 94, 143, 88, 81, 48, 105, 115, 81, 87, 58, 113, 119, 111, 109, 108, 119, 133</code></span>.</p>
+<p><br></p>
+<p>As in the <a href="Intro-and-Univariate-Statistics.html">Intro to
+R</a> vignette, we can create an object out of a list of numbers using
+the concatenate <span style="color:blue"><code>c</code></span>
+function.</p>
+<p>Knowing that we have two variables: esteem score (interval-ratio
+independent variable) and jealousy score (interval-ratio dependent
+variable), we have to read in the variables separately (listing the
+values for each observation). To do so, we can use the following
+code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>esteem <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">32</span>, <span class="dv">29</span>, <span class="dv">36</span>, <span class="dv">33</span>, <span class="dv">36</span>, <span class="dv">37</span>, <span class="dv">32</span>, <span class="dv">35</span>, <span class="dv">26</span>, <span class="dv">37</span>, <span class="dv">34</span>, <span class="dv">33</span>, <span class="dv">33</span>, <span class="dv">26</span>, <span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">28</span>, <span class="dv">28</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>jealousy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">79</span>, <span class="dv">104</span>, <span class="dv">113</span>, <span class="dv">94</span>, <span class="dv">143</span>, <span class="dv">88</span>, <span class="dv">81</span>, <span class="dv">48</span>, <span class="dv">105</span>, <span class="dv">115</span>, <span class="dv">81</span>, <span class="dv">87</span>, <span class="dv">58</span>, <span class="dv">113</span>, <span class="dv">119</span>, <span class="dv">111</span>, <span class="dv">109</span>, <span class="dv">108</span>, <span class="dv">119</span>, <span class="dv">133</span>)</span></code></pre></div>
+<p>Where the first observation in esteem corresponds with the number in
+the first observation of jealousy. For example, the first observation in
+the list for <span style="color:blue"><code>esteem</code></span> is
+<span style="color:blue"><code>38</code></span>, which corresponds with
+the first observation in the <span
+style="color:blue"><code>jealousy</code></span> list, of <span
+style="color:blue"><code>79</code></span>: This means the first
+observation is a person with an esteem score of 38 and a jealousy score
+of 79.</p>
+<p>Next, to appropriately prepare the data for analysis using the
+correlation, we have to merge the two lists. To merge the data, as in
+the <a href="Intro-and-Univariate-Statistics.html">Intro to R</a>
+vignette, we can use the <span
+style="color:blue"><code>data.frame</code></span> function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(esteem,jealousy)</span></code></pre></div>
+<p>Now we can call the data…</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>data</span></code></pre></div>
+<pre><code>##    esteem jealousy
+## 1      38       79
+## 2      32      104
+## 3      29      113
+## 4      36       94
+## 5      33      143
+## 6      36       88
+## 7      37       81
+## 8      32       48
+## 9      35      105
+## 10     26      115
+## 11     37       81
+## 12     34       87
+## 13     33       58
+## 14     33      113
+## 15     26      119
+## 16     30      111
+## 17     30      109
+## 18     40      108
+## 19     28      119
+## 20     28      133</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="assumptions-and-diagnostics-for-correlation"
+class="section level3">
+<h3>Assumptions and Diagnostics for Correlation</h3>
+<p>The assumptions for the Correlation are…</p>
+<ul>
+<li>Linearity</li>
+<li>Normality <!-- * Absence of Range Restrictions
+* Absence of Heterogeneous Subsamples --></li>
+</ul>
+<p>In addition, the previously-discussed assumptions for other tests
+(independence of observations) is implied, since all of these bivariate
+tests require random samples.</p>
+<div id="linearity" class="section level5">
+<h5>1. Linearity</h5>
+<ul>
+<li>Variables move together in a linear fashion.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">scatter</span>(data, jealousy, esteem)</span></code></pre></div>
+<p><img src="correlation-example_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">Visual inspection of
+<strong>scatterplot</strong> to see if relationship is linear
+(straight-line).
+<code>Therefore, we meet the assumption of linearity</code>.</span></li>
+</ul>
+</div>
+<div id="normality" class="section level5">
+<h5>2. Normality</h5>
+<ul>
+<li>Distributions must be relatively normal.
+<ul>
+<li>Visual inspection of…
+<ul>
+<li>Histograms for each variable</li>
+<li>Box-and-Whiskers plot for each variable</li>
+<li>Normality (Q-Q) plot for each variable</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="a.-histogram" class="section level5">
+<h5>2a. Histogram</h5>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">hst</span>(data, jealousy)</span></code></pre></div>
+<p><img src="correlation-example_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">hst</span>(data, esteem)</span></code></pre></div>
+<p><img src="correlation-example_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">We can see from the histogram that for both
+variables, the data are moderately negatively skewed. It is safe to
+assume, however, that these data are close enough to normal to proceed
+with the statistical test.</span></li>
+</ul>
+</div>
+<div id="b.-box-and-whisker-plots" class="section level5">
+<h5>2b. Box-and-Whisker Plots</h5>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">box</span>(data, jealousy)</span></code></pre></div>
+<p><img src="correlation-example_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">box</span>(data, esteem)</span></code></pre></div>
+<p><img src="correlation-example_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">We can see from the boxplot that for both
+variables, the data are somewhat normally distributed. Although, for the
+jealousy variable, the median is closer to the upper end (75<span
+class="math inline">\(^{th}\)</span> percentile) of the interquartile
+range than the middle. Despite this trend, it is safe to assume that
+these data are close enough to normal, since they aren’t
+<em>drastically</em> different from normal, and therefore safe to
+proceed with the statistical test.</span></li>
+</ul>
+</div>
+<div id="c.-normality-q-q-plots" class="section level5">
+<h5>2c. Normality (Q-Q) Plots</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">qq</span>(data, jealousy)</span></code></pre></div>
+<p><img src="correlation-example_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">qq</span>(data, esteem)</span></code></pre></div>
+<p><img src="correlation-example_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<ul>
+<li><span style="color:red">We can see from the Q-Q plot that for both
+variable, the data are somewhat normal, since there is no discernible
+pattern across the line (e.g. no strong curvilinear trend around
+normality line). It is therefore safe to proceed with the statistical
+test.</span></li>
+</ul>
+<p><br></p>
+<ul>
+<li><span style="color:red">Based on the the three visual depictions
+above, the data seem normally-distributed.
+<code>Therefore, we meet the assumption of normality</code>.</span></li>
+</ul>
+<p><br></p>
+<!-- ##### 3. Absence of Range Restrictions
+* Values on variables cannot be restricted to small range. Examine range for variables
+  
+
+``` r
+describe(data$jealousy)
+```
+
+```
+##    vars  n  mean    sd median trimmed   mad min max range  skew kurtosis   se
+## X1    1 20 100.4 23.52  106.5  101.62 18.53  48 143    95 -0.44    -0.37 5.26
+```
+
+
+``` r
+describe(data$esteem)
+```
+
+```
+##    vars  n  mean   sd median trimmed  mad min max range  skew kurtosis  se
+## X1    1 20 32.65 4.04     33   32.69 4.45  26  40    14 -0.05    -1.15 0.9
+```
+
+  + <span style="color:red">Here, it doesn't seem as though there are restictions on the possible ranges of self esteem or jealousy. `Therefore, we meet the assumption of absence of range restrictions`.</span> 
+
+<br>
+
+##### 4. Absence of Heterogeneous Subsamples
+* Not having groups that have extremely different values (e.g. for which a t-test/ANOVA might appropriately identify). Examine various groups in the sample
+
+  + <span style="color:red">Here. we don't different samples, since there is no identifying information for the cases. `Therefore, we meet the assumption of absence of heterogeneous subsamples`.</span> -->
+<p><br></p>
+</div>
+</div>
+<div id="the-correlation-test-calculation" class="section level3">
+<h3>The Correlation Test Calculation</h3>
+<p>The calculation for the correlation is:</p>
+<p><span class="math inline">\(r = \frac{\sum (X - \bar{X})(Y -
+\bar{Y})}{\sqrt{\sum (X - \bar{X})^2 \sum(Y - \bar{Y})^2}}\)</span></p>
+<p>In addition, the degrees of freedom (<span
+class="math inline">\(df\)</span>) for the test is…<br> * <span
+class="math inline">\(df = N - 2\)</span></p>
+<p><br></p>
+</div>
+<div id="running-the-correlation" class="section level3">
+<h3>Running the Correlation</h3>
+<p>For Correlation, within the <span
+style="color:blue"><code>p.corr</code></span> function, the dependent
+variable is listed first and the independent variable is listed
+second.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">p.corr</span>(data, jealousy, esteem)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  jealousy and esteem
+## 𝒓 = -0.4524, df = 18, p-value = 0.0452
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.74564805 -0.01235829
+## sample estimates:
+##         𝒕 
+## -2.152237</code></pre>
+<p>In the output above, we see the <span
+class="math inline">\(r\)</span>-obtained value (-.452405), the degrees
+of freedom (18), and the p-value (.0452), which is technically less than
+our set alpha level of .05, but not by much.</p>
+<p>To interpret the findings, we report the following information:</p>
+<ul>
+<li>The test used</li>
+<li>If you <strong>reject</strong> or <strong>fail to reject</strong>
+the null hypothesis</li>
+<li>The variables used in the analysis</li>
+<li>The degrees of freedom, calculated value of the test (<span
+class="math inline">\(r_{obtained}\)</span>), and <span
+class="math inline">\(p-value\)</span>
+<ul>
+<li><span class="math inline">\(r(df) = r_{obtained}\)</span>, <span
+class="math inline">\(p-value\)</span></li>
+</ul></li>
+</ul>
+<p>“Using the Pearson’s correlation test (<span
+class="math inline">\(r\)</span>), I reject/fail to reject the null
+hypothesis that there is no association between variable one and
+variable 2, in the population, <span class="math inline">\(r(?) = ?, p ?
+.05\)</span>”</p>
+<ul>
+<li><span style="color:red">“Using the Pearson’s correlation test (<span
+class="math inline">\(r\)</span>), I reject the null hypothesis that
+there is no association between a person’s self-esteem level and their
+level of jealousy (both measured in scales or degrees of each), in the
+population, <span class="math inline">\(r(18) = -.452405, p \lt
+.05\)</span>. In particular, we have a <em>moderate</em>
+<em>negative</em> relationship between esteem and jealousy, such that,
+as a person’s self-esteem increases, their jealousy
+decreases.”</span></li>
+</ul>
+<p><br><br><br></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
