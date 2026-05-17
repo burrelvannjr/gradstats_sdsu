@@ -5,7 +5,7 @@
 
 
 
-## 📋 Course Information
+## Course Information
 
 | | |
 |---|---|
@@ -18,7 +18,7 @@
 
 
 
-## 📖 Course Description
+## Course Description
 
 This seminar builds quantitative literacy and applied statistical skills for graduate students in public and urban affairs. Students will conduct statistical analyses both by hand and using R/RStudio, learning to interpret and communicate findings through the lens of social science research.
 
@@ -26,7 +26,7 @@ The course moves from foundational descriptive statistics through inferential te
 
 
 
-## 🎯 Course Learning Objectives
+## Course Learning Objectives
 
 By the end of this course, students will be able to:
 
@@ -38,7 +38,7 @@ By the end of this course, students will be able to:
 6. Communicate quantitative findings through written research-style reports
 
 
-## 📚 Materials
+## Materials
 
 **Required:**
 - **Howell, David C.** (2005). *Statistical Methods for Psychology*, 6th Edition. Thomson-Wadsworth Publishing.
@@ -46,7 +46,7 @@ By the end of this course, students will be able to:
 
 
 
-## 💻 Technology
+## Technology
 
 Students must have access to a computer with an internet connection. The following tools are used in this course:
 
@@ -57,7 +57,7 @@ Students must have access to a computer with an internet connection. The followi
 
 
 
-## 📊 Grading
+## Grading
 
 The course is worth **200 points total**. A +/− grading system is **not** used.
 
@@ -78,7 +78,7 @@ The course is worth **200 points total**. A +/− grading system is **not** used
 | F | Below 60% |
 
 
-## 📅 Course Schedule
+## Course Schedule
 
 | Week | Date | Topic | Assignments Due |
 |---|---|---|---|
@@ -101,7 +101,7 @@ The course is worth **200 points total**. A +/− grading system is **not** used
 
 
 
-## 📝 Assignments
+## Assignments
 
 ### Portfolios 1–4 (100 pts — 25 pts each)
 Four short statistical projects spaced throughout the semester. In each portfolio, students are provided a dataset and asked to perform specified statistical techniques (by hand and/or in RStudio) and write up their findings in the style of a research report — complete with a title and all group members' names.
@@ -119,7 +119,7 @@ An optional Portfolio #5 may be offered as extra credit. It must be submitted by
 
 
 
-## 📌 Course Policies
+## Course Policies
 
 ### Late Work
 Late work is generally not accepted. In extreme circumstances, late submissions may be considered with written documentation, but this is not guaranteed.
@@ -135,13 +135,13 @@ Extra credit opportunities (up to 10 points) may be offered. Extra credit is onl
 
 
 
-## 🎓 Enrollment
+## Enrollment
 
 **Prerequisites:** Credit or concurrent enrollment in PA 600. Open only to graduate students in city planning, criminal justice, criminology, or public administration.
 
 
 
-## 🤝 Campus Resources
+## Campus Resources
 
 | Resource | Contact |
 |---|---|
@@ -153,7 +153,7 @@ Extra credit opportunities (up to 10 points) may be offered. Extra credit is onl
 
 
 
-## 🌐 Diversity, Equity & Inclusion
+## Diversity, Equity & Inclusion
 
 This course is committed to honoring the diversity of student experiences across race, ethnicity, culture, language, sex, gender identity and expression, sexual orientation, national origin, religion, age, ability, and non-traditional student status. We strive to highlight how equity can be achieved through inclusive scholarship and practice.
 
