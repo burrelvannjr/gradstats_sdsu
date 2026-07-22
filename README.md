@@ -134,6 +134,57 @@ Cheating and plagiarism are strictly prohibited per SDSU Executive Order 1098. V
 Extra credit opportunities (up to 10 points) may be offered. Extra credit is only accepted by the stated deadline.
 
 
+### Generative AI Use
+
+#### Overview
+
+Given the emergence of publicly-available generative artifical intelligence (GenAI) tools, it is critical for students understand responsible-use and become familiar with best-practices. Knowing the difference between when GenAI is **supporting** (e.g. aiding in organizing thoughts, developing outlines, etc.) versus **replacing** your thinking (thereby limiting your skill-building and professional growth) is crucial to students' long-term success. This is especially important for students planning to enter public-facing careers impacting people's daily lives. 
+
+Below, I outline the **course** and **deliverable** policies, along with a statement of the instructor's reservation of rights. 
+
+
+#### Course Policy
+
+In this course, you **may use** GenAI in the following ways:
+
+- Developing ideas
+- Project planning
+- Brainstorming topics
+- Refining questions
+- Outlining sections of a project
+- Language support (grammar, clarity, translation to English) 
+
+
+In this course, you **may NOT use** GenAI in the following ways:
+
+- Feeding the prompt and having it write the assignment (and submitting it as your own)
+- Completing assignments in a manner that replaces your own reasoning
+    - *You are expected to **not** know things. It takes time to move from novice to expert on a topic. Doing the work on your own will help you make that transition and help you <u>own</u> your learning.*
+- Bypassing the learning objectives of an assignment
+    - *Do the work. Struggle is part of the learning process.*  
+
+
+#### Deliverables Policy
+
+Deliverables (e.g. assignments or assessments) in this course will include a *classification* (as outlined under the SDSU [Senate IIT Committee's Guidelines for Use of Generative Artificial Intelligence](https://aaai.sdsu.edu/_resources/files/guidelines-for-use-of-genai-in-assessments-and-deliverables-at-sdsu.pdf?utm_source=chatgpt.com)) indicating the specific level of GenAI use permitted. In this course, there are two levels of GenAI use: **AI-1: Disallowed** and **AI-2: Restricted**. For each deliverable, students will be informed of which of these two levels is permitted. These levels are described below:
+
+- **AI-1 - Disallowed**: Generative AI tools are strictly prohibited. Any use of GenAI constitutes misuse, which is a violation of course policy on academic honesty/academic integrity and will be reported to the [Center for Student Rights and Responsibilities](https://sacd.sdsu.edu/student-rights).  
+
+- **AI-2 - Restricted**: Students may use Generative AI tools but with restrictions and documentation requirements specified by the instructor. Students will be informed as to when, where, and how these tools are permitted. Any use of GenAI outside of instructor-approved guidelines constitutes misuse, which is a violation of course policy on academic honesty/academic integrity and will be reported to the [Center for Student Rights and Responsibilities](https://sacd.sdsu.edu/student-rights).   
+
+
+For deliverables classified as **AI-2 - Restricted**, students are required to include a brief disclosure statement (describing how GenAI has been used) and an accountability statement (describing that the student takes accountability for the final deliverable). For, example: 
+
+- *"I used ChatGPT to create an outline for this assignment. I then worked on developing the assignment on my own, and used ChatGPT to clarify my writing/prose. I take full responsibility for the work submitted."*
+
+**If you are unsure whether a particular use of GenAI is appropriate for a deliverable, ask before submitting.**
+<br><br>
+
+#### Instructor Reservation of Rights
+
+<u>I reserve the right to audit or further examine a student's work process for **any** deliverable (graded or ungraded). This includes, but is not limited to, questions about how analyses were performed, how conclusions were drawn, or how GenAI tools were used. The results of such an audit may affect the evaluation and grading of a deliverable. Additionally, the appropriateness and mindfulness with which GenAI is used may be considered as part of the overall assessment of a student's work.</u>
+
+
 
 ## Enrollment
 
